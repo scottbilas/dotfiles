@@ -1,0 +1,23 @@
+# include all dotfiles and .config (note: dotfiles should become unnecessary once i bother to get XDG compliant)
+
+/*
+!/.config
+!/.*
+
+# tuning
+
+/.bash_history
+/.cache
+/.config/fish/fishd.*
+/.elinks/bookmarks*
+/.elinks/cookies
+/.elinks/*hist
+/.gitdot
+/.lesshst
+/.local
+/.python*hist*
+/.w3m
+
+# general
+
+*.tmp_*
