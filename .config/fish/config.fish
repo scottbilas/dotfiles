@@ -1,6 +1,9 @@
 set -x MICRO_TRUECOLOR 1
 set -x CONFIG_SHELL $PREFIX/bin/sh 
 
+# the fishy way of updating PATH
+set -U fish_user_paths ~/scripts
+
 function fish_prompt
 	python2 ~/proj/_external/powerline-shell/powerline-shell.py $status --shell bare ^/dev/null
 end
