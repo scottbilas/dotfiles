@@ -1,5 +1,5 @@
 [include]
-    path = ~/.gitconfig_private
+    path = ~/.config_private/git/config
 
 [alias]
 	unstage = reset HEAD --

@@ -1,4 +1,6 @@
-set -x MICRO_TRUECOLOR 1
+# works except for git-commit style on termux
+#set -x MICRO_TRUECOLOR 1
+
 set -x CONFIG_SHELL $PREFIX/bin/sh 
 
 # the fishy way of updating PATH
