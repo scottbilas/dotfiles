@@ -6,10 +6,6 @@ set -x CONFIG_SHELL $PREFIX/bin/sh
 # the fishy way of updating PATH
 set -U fish_user_paths ~/scripts
 
-function fish_prompt
-	python2 ~/proj/_external/powerline-shell/powerline-shell.py $status --shell bare ^/dev/null
-end
-
 function mc
      set SHELL_PID %self
      set MC_PWD_FILE "$TMPDIR/mc-$USER/mc.pwd.$SHELL_PID"

@@ -14,10 +14,11 @@
 /.bash_history
 /.cache
 /.config/fish/fishd.*
+/.config_private
+/.dotfiles/
 /.elinks/bookmarks*
 /.elinks/cookies
 /.elinks/*hist
-/.gitdot
 /.lesshst
 /.local
 /.python*hist*
