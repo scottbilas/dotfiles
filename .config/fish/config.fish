@@ -2,6 +2,7 @@
 #set -x MICRO_TRUECOLOR 1
 
 set -x CONFIG_SHELL $PREFIX/bin/sh 
+set -x EDITOR $PREFIX/bin/micro
 
 # the fishy way of updating PATH
 set -U fish_user_paths ~/scripts
