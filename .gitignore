@@ -22,6 +22,8 @@
 /.lesshst
 /.local
 /.python*hist*
+/.ssh
+!/.ssh/config
 /.w3m
 
 # general

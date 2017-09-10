@@ -18,7 +18,7 @@
 
 	# from https://stackoverflow.com/a/34467298
     # also consider adding --simplify-by-decoration to the log commands..
-        lg = !"git lg1"
+    lg = !"git lg1"
     lg1 = !"git lg1-specific --all"
     lg2 = !"git lg2-specific --all"
     lg3 = !"git lg3-specific --all"
@@ -39,8 +39,8 @@
 [tig]
 	line-graphics = utf-8
 	tab-size = 4
-#	diff-highlight = true
-	mouse = true
+#	diff-highlight = true  -- not currently avail w termux
+#	mouse = true  -- seems to break termux
 
 #[color]
 #	ui = auto
