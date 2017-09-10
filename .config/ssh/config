@@ -1,0 +1,9 @@
+BatchMode yes
+Compression yes
+Protocol 2
+
+host github.com
+ HostName github.com
+ IdentityFile ~/.config_private/ssh/github_rsa
+ User git
+# LogLevel DEBUG3

@@ -5,6 +5,14 @@
 	unstage = reset HEAD --
 	last = log -1 HEAD
 
+	st = status
+	
+    # aliases that match hg in / out commands
+    out      = !git fetch && git log FETCH_HEAD..
+    outgoing = !git fetch && git log FETCH_HEAD..
+    in       = !git fetch && git log ..FETCH_HEAD
+    incoming = !git fetch && git log ..FETCH_HEAD
+
 	#say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
 	#test = !env
 
@@ -22,24 +30,22 @@
 	algorithm = histogram
 
 [core]
+	hideDotFiles = false
 	pager = diff-so-fancy | less --tabs=4 -RFX
-
 
 #	excludesfile = C:\\Users\\scott\\Common\\_Settings\\gitignore_global.txt
 #	editor = 'C:/Program Files/Sublime Text 3/sublime_text.exe' --wait
+
+[tig]
+	line-graphics = utf-8
+	tab-size = 4
+#	diff-highlight = true
+	mouse = true
 
 #[color]
 #	ui = auto
 #	decorate = short
 
-#[alias]
-#	st = status
-
-    # aliases that match hg in / out commands
-#    out      = !git fetch && git log FETCH_HEAD..
-#    outgoing = !git fetch && git log FETCH_HEAD..
-#    in       = !git fetch && git log ..FETCH_HEAD
-#    incoming = !git fetch && git log ..FETCH_HEAD
 
 #[diff]
 #	tool = bc4
