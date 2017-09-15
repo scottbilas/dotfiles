@@ -1,0 +1,8 @@
+BoldAsFont=yes
+Transparency=off
+Font=DejaVuSansMonoForPowerline Nerd
+FontHeight=10
+Columns=140
+Rows=50
+Term=xterm-256color
+ThemeFile=dark
