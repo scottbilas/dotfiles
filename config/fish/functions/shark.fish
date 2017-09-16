@@ -1,0 +1,1 @@
+/home/scott/.config/fisherman/shark/functions/shark.fish
