@@ -1,9 +1,25 @@
 # works except for git-commit style on termux
 #set -x MICRO_TRUECOLOR 1
 
-set -x CONFIG_SHELL $PREFIX/bin/sh 
+set -q PREFIX; or set -x PREFIX ""
+
+set -x CONFIG_SHELL $PREFIX/bin/sh
+if not test -e $CONFIG_SHELL
+    echo "config.fish: CONFIG_SHELL does not exist"
+end
+
 set -x EDITOR $PREFIX/bin/micro
+if not test -e $EDITOR
+    set -x EDITOR ~/bin/micro
+end
+if not test -e $EDITOR
+    echo "config.fish: EDITOR does not exist"
+end
+
 set -x ELINKS_CONFDIR ~/.config/elinks
+
+# the fishy way of updating PATH
+set -U fish_user_paths ~/bin ~/dotfiles/scripts
 
 # bobthefish config
 set -g theme_date_format "+%a %H:%M:%S"
@@ -16,25 +32,3 @@ set -g theme_git_worktree_support yes
 set -g theme_nerd_fonts yes
 set -g theme_title_display_process yes
 set -g theme_color_scheme zenburn
-
-# the fishy way of updating PATH
-set -U fish_user_paths ~/bin ~/dotfiles/scripts
-
-function mc
-     set SHELL_PID %self
-     set MC_PWD_FILE "$TMPDIR/mc-$USER/mc.pwd.$SHELL_PID"
-
-     ~/usr/bin/mc -P $MC_PWD_FILE $argv
-
-     if test -r $MC_PWD_FILE
-
-         set MC_PWD (cat $MC_PWD_FILE)
-         if test -n "$MC_PWD"
-             and test -d "$MC_PWD"
-             cd (cat $MC_PWD_FILE)
-         end
-
-         rm $MC_PWD_FILE
-     end
-end
-
