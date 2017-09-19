@@ -36,6 +36,9 @@
 #	excludesfile = C:\\Users\\scott\\Common\\_Settings\\gitignore_global.txt
 #	editor = 'C:/Program Files/Sublime Text 3/sublime_text.exe' --wait
 
+[push]
+	default = simple
+
 [tig]
 	line-graphics = utf-8
 	tab-size = 4
