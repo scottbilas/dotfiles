@@ -32,3 +32,6 @@ set -g theme_git_worktree_support yes
 set -g theme_nerd_fonts yes
 set -g theme_title_display_process yes
 set -g theme_color_scheme zenburn
+
+# dircolors
+eval (dircolors -c ~/.ghq/github.com/seebi/dircolors-solarized/dircolors.256dark)
