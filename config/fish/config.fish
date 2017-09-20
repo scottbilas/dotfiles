@@ -35,3 +35,5 @@ set -g theme_color_scheme zenburn
 
 # dircolors
 eval (dircolors -c ~/.ghq/github.com/seebi/dircolors-solarized/dircolors.256dark)
+
+# TODO alias mc='. /usr/libexec/mc/mc-wrapper.sh'

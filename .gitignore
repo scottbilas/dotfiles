@@ -3,3 +3,4 @@ config/fish/fishd.*
 config/nvim/.netrwhist
 config/elinks/cookies
 config/elinks/*hist
+private
