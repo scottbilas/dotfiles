@@ -2,7 +2,9 @@ BatchMode yes
 Compression yes
 Protocol 2
 
-host github.com
+IdentityFile ~/dotfiles/private/ssh/id_rsa
+
+Host github.com
  HostName github.com
  IdentityFile ~/dotfiles/private/ssh/github_rsa
  User git
