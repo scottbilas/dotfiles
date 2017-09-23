@@ -1,3 +1,8 @@
+[core]
+	hideDotFiles = false
+#	pager = ??
+	editor = 'C:/Program Files/Sublime Text 3/sublime_text.exe' --wait
+
 [diff]
 	tool = bc4
 [difftool "bc4"]
