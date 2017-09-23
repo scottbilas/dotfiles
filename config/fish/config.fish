@@ -30,7 +30,7 @@ set -g theme_display_docker_machine yes
 set -g theme_display_hg yes
 set -g theme_display_virtualenv yes
 set -g theme_display_ruby no
-set -g theme_display_user no
+set -g theme_display_user yes
 set -g theme_display_vi no
 set -g theme_display_date yes
 set -g theme_display_cmd_duration yes
@@ -43,7 +43,7 @@ set -g theme_avoid_ambiguous_glyphs yes
 set -g theme_powerline_fonts yes
 set -g theme_nerd_fonts yes
 set -g theme_show_exit_status yes
-set -g default_user your_normal_user
+set -g default_user scott
 set -g theme_color_scheme zenburn
 set -g fish_prompt_pwd_dir_length 3
 set -g theme_project_dir_length 3
