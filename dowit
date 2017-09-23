@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/sh
+
+rm config/fish/completions/get.fish
+rm config/fish/completions/ghq.fish
+rm config/fish/completions/shark.fish
+rm config/fish/functions/__*
+rm config/fish/functions/await.fish
+rm config/fish/functions/get.fish
+rm config/fish/functions/getopts.fish
+rm config/fish/functions/last_job_id.fish
+rm config/fish/functions/shark.fish
