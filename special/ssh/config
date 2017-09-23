@@ -1,8 +1,1 @@
-# to install:
-#
-# mkdir ~/.ssh
-# cp ~/dotfiles/special/ssh/config ~/.ssh/config
-# chmod 600 ~/.ssh/config
-# chmod 600 ~/.config/ssh/config
-
 Include ~/.config/ssh/config
