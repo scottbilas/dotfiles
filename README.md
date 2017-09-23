@@ -3,13 +3,21 @@ _move this stuff to an install.sh/ps1_
 # Installing dotfiles
 
 ```
-# prereqs
-apt install fish go openssh git
+# core prereqs
+apt install fish go openssh git micro nvim
 ## special: wsl requires pull and build/install openssh
 
 # clone
 cd ~
 git clone git@github.com:scottbilas/dotfiles.git
+
+# link
+ln -s ~/dotfiles/config ~/.config               # consider using $XDG_CONFIG_HOME
+ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf     # tmux devs refuse to support XDG; TODO: use aliasing and 'tmux -f' instead
+ln -s sync:Common/Private ~/dotfiles/private
+
+# link (windows only)
+mklinkd ~/.config/git/config ~/.gitconfig       # always under HOME unfortunately
 
 # setup ssh
 mkdir .ssh
@@ -29,18 +37,4 @@ exit
 
 # install omf
 curl -L https://get.oh-my.fish | fish
-```
-# Links
-
-### General
-
-```
-~/.config -> ~/dotfiles/config                  # consider using $XDG_CONFIG_HOME
-~/.tmux.conf -> ~/.config/tmux/tmux.conf        # tmux devs refuse to support XDG; use aliasing and 'tmux -f' instead
-```
-
-### Windows-only
-
-```
-~/.gitconfig -> ~/.config/git/config            # always under HOME unfortunately
 ```

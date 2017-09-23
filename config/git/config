@@ -26,15 +26,14 @@
     lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
     lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
 
-[diff]
-	algorithm = histogram
-
 [core]
 	hideDotFiles = false
 	pager = diff-so-fancy | less --tabs=4 -RFX
-
-#	excludesfile = C:\\Users\\scott\\Common\\_Settings\\gitignore_global.txt
+	excludesfile = ~/.config/git/ignore
 #	editor = 'C:/Program Files/Sublime Text 3/sublime_text.exe' --wait
+
+[diff]
+	algorithm = histogram
 
 [push]
 	default = simple
@@ -49,26 +48,8 @@
 #	ui = auto
 #	decorate = short
 
-
-#[diff]
-#	tool = bc4
-
-#[difftool "bc4"]
-#	cmd = 'C:/Users/scott/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\"
-
-#[merge]
-#	tool = bc4
-
-#[mergetool "bc4"]
-#	cmd = 'C:/Users/scott/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-#	trustExitCode = true
-
-#[difftool "sourcetree"]
-#	cmd = 'C:/Program Files (x86)/Beyond Compare 3/BComp.exe' \"$LOCAL\" \"$REMOTE\"
-
-#[mergetool "sourcetree"]
-#	cmd = 'C:/Program Files (x86)/Beyond Compare 3/BComp.exe' \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-#	trustExitCode = true
-
-#[http]
-#	sslcainfo = C:/Users/scott/DevBin/git/mingw64/ssl/certs/ca-bundle.crt
+# detect OS
+[includeIf "gitdir:C:/Users/scott/dotfiles/"]
+    path = ~/.config/git/config-windows
+[includeIf "/home/scott/dotfiles/"]
+    path = ~/.config/git/config-unix
