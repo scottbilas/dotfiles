@@ -1,7 +1,12 @@
+[include]
+    path = ~/.config/git/config
+
+# the rest of this file is overrides for windows
+
 [core]
 	hideDotFiles = false
-#	pager = ??
-	editor = 'C:/Program Files/Sublime Text 3/sublime_text.exe' --wait
+	pager = less
+	editor = code --wait
 
 [diff]
 	tool = bc4

@@ -2,21 +2,21 @@
     path = ~/dotfiles/private/git/config
 
 [alias]
-	unstage = reset HEAD --
-	last = log -1 HEAD
+    unstage = reset HEAD --
+    last = log -1 HEAD
 
-	st = status
-	
+    st = status
+    
     # aliases that match hg in / out commands
     out      = !git fetch && git log FETCH_HEAD..
     outgoing = !git fetch && git log FETCH_HEAD..
     in       = !git fetch && git log ..FETCH_HEAD
     incoming = !git fetch && git log ..FETCH_HEAD
 
-	#say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
-	#test = !env
+    #say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
+    #test = !env
 
-	# from https://stackoverflow.com/a/34467298
+    # from https://stackoverflow.com/a/34467298
     # also consider adding --simplify-by-decoration to the log commands..
     lg = !"git lg1"
     lg1 = !"git lg1-specific --all"
@@ -27,26 +27,18 @@
     lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
 
 [core]
-	excludesfile = ~/.config/git/ignore
+    autocrlf = false
+    excludesfile = ~/.config/git/ignore
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [diff]
-	algorithm = histogram
+    algorithm = histogram
 
 [push]
-	default = simple
+    default = simple
 
 [tig]
-	line-graphics = utf-8
-	tab-size = 4
+    line-graphics = utf-8
+    tab-size = 4
 #	diff-highlight = true  -- not currently avail w termux
 #	mouse = true  -- seems to break termux
-
-#[color]
-#	ui = auto
-#	decorate = short
-
-# detect OS
-[includeIf "gitdir:C:/Users/scott/dotfiles/"]
-    path = ~/.config/git/config-windows
-[includeIf "/home/scott/dotfiles/"]
-    path = ~/.config/git/config-unix
