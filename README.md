@@ -36,6 +36,7 @@ mkdir .ssh
 cp dotfiles/special/ssh/config .ssh/config
 chmod 700 .ssh
 chmod 600 .ssh/config
+chmod 600 .config/ssh/config
 
 # install ghq
 go get github.com/motemen/ghq
