@@ -5,8 +5,7 @@ set -x SHELL (which fish)
 set -q PREFIX; or set -x PREFIX ""
 
 # the fishy way of updating PATH
-set -U fish_user_paths ~/bin ~/dotfiles/scripts
-
+set -U fish_user_paths ~/dotfiles/scripts ~/go/bin
 
 set -x CONFIG_SHELL $PREFIX/bin/sh
 if not test -e $CONFIG_SHELL
