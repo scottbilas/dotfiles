@@ -1,3 +1,5 @@
+# copied at random from https://github.com/cbertoldi/dotfiles/blob/master/tigrc.symlink
+
 # vim: set expandtab sw=4 tabstop=4:
 # *color* 'area' 'fgcolor' 'bgcolor' '[attributes]'
 
