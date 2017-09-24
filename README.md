@@ -25,7 +25,7 @@ sudo add-apt-repository ppa:git-core/ppa
 sudo apt update
 
 # core prereqs
-apt install fish go openssh git micro nvim
+apt install fish go openssh git micro nvim coreutils
 ## special: wsl requires pull and build/install openssh (unless can figure out how to get from xenial-backports)
 
 # clone
