@@ -1,5 +1,15 @@
 _move this stuff to an install.sh/ps1_
 
+# Minimum requirements
+
+* openssh 7.3p1+ ('Include' directive)
+* tmux 2.2+ (24-bit color)
+** xenial instructions:
+** `apt install libevent-dev ncurses-dev`
+** `ghq get tmux; ghq look tmux`
+** `sh autogen.sh; ./configure; sudo make install`
+
+
 # Installing dotfiles
 
 ```
