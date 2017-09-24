@@ -9,7 +9,6 @@ _move this stuff to an install.sh/ps1_
 ** `ghq get tmux; ghq look tmux`
 ** `sh autogen.sh; ./configure; sudo make install`
 
-
 # Installing dotfiles
 
 ```

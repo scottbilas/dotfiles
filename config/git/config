@@ -29,7 +29,7 @@
 [core]
     autocrlf = false
     excludesfile = ~/.config/git/ignore
-	pager = diff-so-fancy | less --tabs=4 -RFX
+    pager = diff-so-fancy | less --tabs=4 -RFX
 
 [diff]
     algorithm = histogram
