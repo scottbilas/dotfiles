@@ -40,5 +40,7 @@
 [tig]
     line-graphics = utf-8
     tab-size = 4
+    ignore-case = smart-case
+    refresh-mode = auto
 #	diff-highlight = true  -- not currently avail w termux
 #	mouse = true  -- seems to break termux
