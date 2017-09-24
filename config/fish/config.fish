@@ -23,6 +23,7 @@ end
 #set -x MICRO_TRUECOLOR 1  # almost works.. except for git-commit style (at least on termux)
 
 set -x ELINKS_CONFDIR ~/.config/elinks
+set -x TIGRC_USER ~/.config/tig/config   # tig 2.2 supports XDG standard, eventually won't need this
 
 # bobthefish config
 set -g theme_display_git_untracked yes
