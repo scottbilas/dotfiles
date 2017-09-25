@@ -54,10 +54,12 @@
         "**/*.obj": true,
         "**/*.orig": true,
         "**/*.pdb": true,
+        "**/*.suo": true,
         "**/*FileListAbsolute.txt": true,
 
         // folders
         "**/.history": true,
+        "**/.vs": true,
         "**/bin": true,
         "**/obj": true
     },
