@@ -6,7 +6,8 @@
     last = log -1 HEAD
 
     st = status
-    
+    co = checkout
+
     # aliases that match hg in / out commands
     out      = !git fetch && git log FETCH_HEAD..
     outgoing = !git fetch && git log FETCH_HEAD..
@@ -32,12 +33,12 @@
     pager = diff-so-fancy | less --tabs=4 -RFX
 
 [diff]
-	algorithm = histogram
-	renames = copies
-	mnemonicprefix = true
+    algorithm = histogram
+    renames = copies
+    mnemonicprefix = true
 
 [merge]
-	stat = true
+    stat = true
 
 [tig]
     line-graphics = utf-8
