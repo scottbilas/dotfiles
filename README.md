@@ -32,24 +32,25 @@ apt install fish go openssh git micro nvim coreutils
 cd ~
 git clone git@github.com:scottbilas/dotfiles.git
 
-# link
-ln -s ~/dotfiles/config ~/.config                   # consider using $XDG_CONFIG_HOME
-ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf         # tmux devs refuse to support XDG; TODO: use aliasing and 'tmux -f' instead
-ln -s sync:Common/Private ~/dotfiles/private
-
-# link (windows only)
-mklinkf ~/.config/git/config-windows ~/.gitconfig   # windows overrides
-mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
-
-# link (cygwin only)
-ln -s ~/dotfiles/special/cygwin/profile ~/.profile
-
 # setup ssh
 mkdir .ssh
 cp dotfiles/special/ssh/config .ssh/config
 chmod 700 .ssh
 chmod 600 .ssh/config
 chmod 600 .config/ssh/config
+
+# link
+ln -s ~/dotfiles/config ~/.config                                     # consider using $XDG_CONFIG_HOME
+ln -s ~/dotfiles/private/ssh/authorized_keys ~/.ssh/authorized_keys
+ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf                           # tmux devs refuse to support XDG; TODO: use aliasing and 'tmux -f' instead
+ln -s sync:Common/Private ~/dotfiles/private
+
+# link (windows only)
+mklinkf ~/.config/git/config-windows ~/.gitconfig                     # windows overrides
+mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
+
+# link (cygwin only)
+ln -s ~/dotfiles/special/cygwin/profile ~/.profile
 
 # install ghq
 go get github.com/motemen/ghq
@@ -73,7 +74,6 @@ curl -L https://get.oh-my.fish | fish
 * C#
 * Code Spell Checker
 * Cram Test Language Support
-* Dark+ Material
 * Debugger for Unity
 * EditorConfig for VS Code
 * Fish shell
@@ -86,6 +86,29 @@ curl -L https://get.oh-my.fish | fish
 * PowerShell
 * Python
 * TODO Highlight
-* Vim
 * vscode-icons
 * XML Tools
+
+## Cygwin
+
+* Save installer to c:\cygwin64 and run
+  * Accept defaults
+  * Add `wget` package
+* Open cyg terminal and do
+  ```
+  cat >> /etc/nsswitch.conf
+  db_home: windows
+  <Ctrl-D>
+  ln -s /cygdrive/c /c # etc
+  ```
+* Install apt-cyg
+  ```
+  wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg
+  install apt-cyg /bin
+  rm apt-cyg
+  ```
+* `apt-cyg install nano vim openssh git`
+* Open cyg terminal as admin and do
+  * `ssh-host-config -y` (use password from LastPass)
+  * `nano /etc/sshd_config` and reset StrictModes to off (hate fighting cygwin-home permissions)
+  * `cygrunsrv -S sshd`
