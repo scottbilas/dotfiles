@@ -4,8 +4,8 @@ Protocol 2
 
 Host *
     IdentityFile ~/dotfiles/private/ssh/id_rsa
+    UserKnownHostsFile ~/dotfiles/private/ssh/known_hosts
 #   StrictHostKeyChecking no
-#   UserKnownHostsFile /dev/null
 
 Host github.com
     HostName github.com
