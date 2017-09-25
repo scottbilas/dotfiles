@@ -1,2 +1,6 @@
-export PATH=/usr/local/bin:/usr/bin:~/dotfiles/scripts
+# standard system path
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# user local paths
+export PATH=$PATH:~/dotfiles/scripts
 
