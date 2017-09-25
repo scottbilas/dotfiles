@@ -51,6 +51,7 @@ mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
 
 # link (cygwin only)
 ln -s ~/dotfiles/special/cygwin/profile ~/.profile
+ln -s ~/dotfiles/special/cygwin/minttyrc ~/.minttyrc
 
 # install ghq
 go get github.com/motemen/ghq
