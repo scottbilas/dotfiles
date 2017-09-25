@@ -13,3 +13,4 @@ insert_final_newline = true
 # trailing whitespace is significant in markdown (bad choice, bad!)
 [*.{md,markdown}]
 trim_trailing_whitespace = false
+indent_size = 2
