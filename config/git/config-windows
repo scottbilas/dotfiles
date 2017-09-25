@@ -2,19 +2,20 @@
     path = ~/.config/git/config
 
 # the rest of this file is overrides for windows
+# TODO: it's also overrides for cygwin, which shares home with windows. figure out how to split..because diff-so-fancy etc. is ok in cyggy (or implement diff-so-fancy in windows)
 
 [core]
-	hideDotFiles = false
-	pager = less
-	editor = code --wait
+    hideDotFiles = false
+    pager = less
+    editor = code --wait
 
 [diff]
-	tool = bc4
+    tool = bc4
 [difftool "bc4"]
-	cmd = '~/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\"
+    cmd = '~/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\"
 
 [merge]
-	tool = bc4
+    tool = bc4
 [mergetool "bc4"]
-	cmd = '~/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-	trustExitCode = true
+    cmd = '~/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+    trustExitCode = true

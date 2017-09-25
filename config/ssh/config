@@ -2,14 +2,13 @@ BatchMode yes
 Compression yes
 Protocol 2
 
-IdentityFile ~/dotfiles/private/ssh/id_rsa
+Host *
+    IdentityFile ~/dotfiles/private/ssh/id_rsa
+#   StrictHostKeyChecking no
+#   UserKnownHostsFile /dev/null
 
 Host github.com
- HostName github.com
- IdentityFile ~/dotfiles/private/ssh/github_rsa
- User git
-# LogLevel DEBUG3
-
-#Host *
-# StrictHostKeyChecking no
-# UserKnownHostsFile /dev/null
+    HostName github.com
+    IdentityFile ~/dotfiles/private/ssh/github_rsa
+    User git
+#   LogLevel DEBUG3

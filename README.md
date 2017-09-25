@@ -41,6 +41,9 @@ ln -s sync:Common/Private ~/dotfiles/private
 mklinkf ~/.config/git/config-windows ~/.gitconfig   # windows overrides
 mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
 
+# link (cygwin only)
+ln -s ~/dotfiles/special/cygwin/profile ~/.profile
+
 # setup ssh
 mkdir .ssh
 cp dotfiles/special/ssh/config .ssh/config
@@ -73,6 +76,7 @@ curl -L https://get.oh-my.fish | fish
 * Dark+ Material
 * Debugger for Unity
 * EditorConfig for VS Code
+* Fish shell
 * Git Lens
 * Guides
 * LLDB Debugger
