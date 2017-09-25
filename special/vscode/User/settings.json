@@ -78,4 +78,5 @@
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.activityBar.visible": true,
+    "vsicons.dontShowNewVersionMessage": true,
 }
