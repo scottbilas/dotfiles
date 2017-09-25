@@ -39,6 +39,7 @@ ln -s sync:Common/Private ~/dotfiles/private
 
 # link (windows only)
 mklinkf ~/.config/git/config-windows ~/.gitconfig   # windows overrides
+mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
 
 # setup ssh
 mkdir .ssh
@@ -60,3 +61,27 @@ exit
 # install omf
 curl -L https://get.oh-my.fish | fish
 ```
+
+# Setting up tools
+
+## VSCode
+
+* C/C++
+* C#
+* Code Spell Checker
+* Cram Test Language Support
+* Dark+ Material
+* Debugger for Unity
+* EditorConfig for VS Code
+* Git Lens
+* Guides
+* LLDB Debugger
+* Local History
+* markdownlint
+* Mono Debug
+* PowerShell
+* Python
+* TODO Highlight
+* Vim
+* vscode-icons
+* XML Tools

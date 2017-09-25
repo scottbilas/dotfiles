@@ -4,3 +4,5 @@ config/nvim/.netrwhist
 config/elinks/cookies
 config/elinks/*hist
 private
+special/vscode/User/workspaceStorage
+special/vscode/User/vsicons\.settings\.json
