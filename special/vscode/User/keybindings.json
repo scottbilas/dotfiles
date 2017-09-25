@@ -1,5 +1,14 @@
-// Place your key bindings in this file to overwrite the defaults
 [
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.terminal.focus",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
     {
         "key": "ctrl+shift+c",
         "command": "workbench.action.files.copyPathOfActiveFile"
@@ -7,5 +16,10 @@
     {
         "key": "ctrl+k p",
         "command": "-workbench.action.files.copyPathOfActiveFile"
+    },
+    {
+        "key": "shift+alt+c",
+        "command": "-copyFilePath",
+        "when": "explorerViewletFocus && explorerViewletVisible"
     }
 ]
