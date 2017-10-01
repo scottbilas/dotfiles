@@ -1,0 +1,57 @@
+[submodule "ghdd/nicksp/dotfiles"]
+	path = ghdd/nicksp/dotfiles
+	url = https://github.com/nicksp/dotfiles
+[submodule "ghdd/holman/dotfiles"]
+	path = ghdd/holman/dotfiles
+	url = https://github.com/holman/dotfiles
+[submodule "ghdd/mathiasbynens/dotfiles"]
+	path = ghdd/mathiasbynens/dotfiles
+	url = https://github.com/mathiasbynens/dotfiles
+[submodule "ghdd/skwp/dotfiles"]
+	path = ghdd/skwp/dotfiles
+	url = https://github.com/skwp/dotfiles
+[submodule "ghdd/cowboy/dotfiles"]
+	path = ghdd/cowboy/dotfiles
+	url = https://github.com/cowboy/dotfiles
+[submodule "ghdd/paulmillr/dotfiles"]
+	path = ghdd/paulmillr/dotfiles
+	url = https://github.com/paulmillr/dotfiles
+[submodule "ghdd/xero/dotfiles"]
+	path = ghdd/xero/dotfiles
+	url = https://github.com/xero/dotfiles
+[submodule "ghdd/andschwa/dotfiles"]
+	path = ghdd/andschwa/dotfiles
+	url = https://github.com/andschwa/dotfiles
+[submodule "ghdd/driesvints/dotfiles"]
+	path = ghdd/driesvints/dotfiles
+	url = https://github.com/driesvints/dotfiles
+[submodule "ghdd/sapegin/dotfiles"]
+	path = ghdd/sapegin/dotfiles
+	url = https://github.com/sapegin/dotfiles
+[submodule "ghdd/bndabbs/dotfiles"]
+	path = ghdd/bndabbs/dotfiles
+	url = https://github.com/bndabbs/dotfiles
+[submodule "ghdd/eduardolundgren/dotfiles"]
+	path = ghdd/eduardolundgren/dotfiles
+	url = https://github.com/eduardolundgren/dotfiles
+[submodule "ghdd/atomantic/dotfiles"]
+	path = ghdd/atomantic/dotfiles
+	url = https://github.com/atomantic/dotfiles
+[submodule "ghdd/jeffaco/dotfiles"]
+	path = ghdd/jeffaco/dotfiles
+	url = https://github.com/jeffaco/dotfiles
+[submodule "ghdd/ashishb/dotfiles"]
+	path = ghdd/ashishb/dotfiles
+	url = https://github.com/ashishb/dotfiles
+[submodule "ghdd/posquit0/dotfiles"]
+	path = ghdd/posquit0/dotfiles
+	url = https://github.com/posquit0/dotfiles
+[submodule "ghdd/rkalis/dotfiles"]
+	path = ghdd/rkalis/dotfiles
+	url = https://github.com/rkalis/dotfiles
+[submodule "ghdd/mihaliak/dotfiles"]
+	path = ghdd/mihaliak/dotfiles
+	url = https://github.com/mihaliak/dotfiles
+[submodule "ghdd/dikiaap/dotfiles"]
+	path = ghdd/dikiaap/dotfiles
+	url = https://github.com/dikiaap/dotfiles
