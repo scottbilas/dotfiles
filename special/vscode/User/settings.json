@@ -1,10 +1,13 @@
 {
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "cSpell.userWords": [
+        "Bilas's",
+        "Bilas",
         "chmod",
         "cygwin",
         "dll's",
         "dotfiles",
+        "executables",
         "Fody",
         "LLDB",
         "minimap",
@@ -12,7 +15,9 @@
         "ncurses",
         "openssh",
         "REPO",
+        "Resilio",
         "sshd",
+        "submodules",
         "termux",
         "tmux",
         "transcode"
@@ -35,7 +40,7 @@
     "files.associations": {
         ".hgrc": "ini"
     },
-     "files.exclude": {
+    "files.exclude": {
         // root folders
         ".hglf": true,
 
@@ -63,6 +68,14 @@
         "**/bin": true,
         "**/obj": true
     },
+    "gitlens.codeLens.perLanguageLocations": [
+        {
+            "language": "markdown",
+            "locations": [ 
+                "document"
+            ]
+        }
+    ],
     "search.useRipgrep": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
@@ -70,8 +83,8 @@
     "todohighlight.keywords": [
         {
             "text": "TODO:",
-            "color": "darkslategray",
-            "backgroundColor": "goldenrod",
+            "color": "salmon",
+            "backgroundColor": "darkslategray",
             "overviewRulerColor": "yellow"
         }
     ],
@@ -80,5 +93,5 @@
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.activityBar.visible": true,
-    "vsicons.dontShowNewVersionMessage": true,
+    "vsicons.dontShowNewVersionMessage": true
 }
