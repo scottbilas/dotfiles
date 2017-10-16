@@ -78,6 +78,9 @@ ln -s ~/dotfiles/private/ssh/authorized_keys ~/.ssh/authorized_keys
 ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf
 touch ~/.hushlogin
 
+# termux only
+ln -s ~/dotfiles/config/termux ~/.termux
+
 # cygwin only
 ln -s ~/dotfiles/special/cygwin/profile ~/.profile
 ln -s ~/dotfiles/special/cygwin/minttyrc ~/.minttyrc
@@ -87,6 +90,11 @@ ln -s ~/dotfiles/special/cygwin/minttyrc ~/.minttyrc
 # windows only (posh)
 mklinkf ~/.config/git/config-windows ~/.gitconfig
 mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
+
+# TODO: disable path inheritance (https://github.com/Microsoft/BashOnWindows/issues/1493)
+# reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss /v AppendNtPath /t REG_DWORD /d 0
+# TOOD: fix default env at Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss\{5a935a5c-5e58-463d-9f50-fb91be9fd0bb}\DefaultEnvironment
+# another option is ignore entirely. just copy out what i want from default env and overwrite completely. simplest.
 ```
 
 TODO: use aliasing of `tmux -f` instead of ln on tmux.conf (tmux devs [refuse to support XDG](https://github.com/tmux/tmux/issues/142))

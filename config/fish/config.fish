@@ -6,6 +6,8 @@ set -q PREFIX; or set -x PREFIX ""
 
 # the fishy way of updating PATH
 set -U fish_user_paths ~/dotfiles/scripts ~/go/bin
+#On OS X or Linux (bash), adding the following expression to PATH will add all $GOPATH/bin directories.
+#${GOPATH//://bin:}/bin
 
 set -x CONFIG_SHELL $PREFIX/bin/sh
 if not test -e $CONFIG_SHELL
