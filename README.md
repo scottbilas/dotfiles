@@ -200,6 +200,9 @@ exit
 
 ### VSCode
 
+* Align
+* Auto Close Tag
+* Auto Rename Tag
 * C/C++
 * C#
 * Code Spell Checker
