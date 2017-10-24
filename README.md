@@ -90,6 +90,7 @@ ln -s ~/dotfiles/special/cygwin/minttyrc ~/.minttyrc
 # windows only (posh)
 mklinkf ~/.config/git/config-windows ~/.gitconfig
 mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
+mklinkd ~/dotfiles/config/omnisharp ~/.omnisharp
 
 # TODO: disable path inheritance (https://github.com/Microsoft/BashOnWindows/issues/1493)
 # reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss /v AppendNtPath /t REG_DWORD /d 0
