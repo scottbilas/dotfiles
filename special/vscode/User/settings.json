@@ -1,5 +1,4 @@
 {
-    "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "cSpell.userWords": [
         "Bilas's",
         "Bilas",
@@ -39,8 +38,10 @@
         120
     ],
     "files.associations": {
-        ".hgrc": "ini"
+        ".hgrc": "ini",
+        "hgrc*.txt": "ini"
     },
+    "files.autoSave": "off",
     "files.exclude": {
         // root folders
         ".hglf": true,
@@ -71,10 +72,20 @@
         "**/bin": true,
         "**/obj": true
     },
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressUpdateNotice": true,
+        "suppressWelcomeNotice": false
+    },
     "gitlens.codeLens.perLanguageLocations": [
         {
             "language": "markdown",
-            "locations": [ 
+            "locations": [
                 "document"
             ]
         }
@@ -93,9 +104,9 @@
     ],
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
     "window.zoomLevel": 0,
+    "workbench.activityBar.visible": true,
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
-    "workbench.activityBar.visible": true,
-    "workbench.startupEditor": "newUntitledFile"
-    "vsicons.dontShowNewVersionMessage": true,
+    "workbench.startupEditor": "newUntitledFile",
+    "vsicons.dontShowNewVersionMessage": true
 }
