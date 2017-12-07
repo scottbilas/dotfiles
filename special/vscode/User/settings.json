@@ -38,7 +38,8 @@
         120
     ],
     "files.associations": {
-        ".hgrc": "ini"
+        ".hgrc": "ini",
+        "hgrc*.txt": "ini"
     },
     "files.autoSave": "off",
     "files.exclude": {
