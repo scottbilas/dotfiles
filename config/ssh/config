@@ -12,3 +12,8 @@ Host github.com
     IdentityFile ~/dotfiles/private/ssh/github_rsa
     User git
 #   LogLevel DEBUG3
+
+Host gitlab.internal.unity3d.com
+    HostName gitlab.internal.unity3d.com
+    IdentityFile ~/dotfiles/private/ssh/gitlab_rsa
+    User git
