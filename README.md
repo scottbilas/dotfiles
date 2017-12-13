@@ -9,13 +9,14 @@ These dotfiles are intended to work across the few environments I care about, cu
 * Windows/PowerShell
 * Termux
 * Ubuntu (usually via WSL, currently 16.04LTS/xenial)
-* Cygwin (minimal, with shared HOME to Windows host)
+* MSYS (via Windows git)
+* Cygwin (minimal, with shared HOME to Windows host) << marked for destruction
 
 TODO: move some of this stuff to an install.sh/ps1 or use something from _General-purpose dotfile utilities_ at [GitHub does dotfiles](https://dotfiles.github.io).
 
 Thanks to [Anish Athalye](www.anishathalye.com) for the inspirational post [Managing Your Dotfiles](http://www.anishathalye.com/2014/08/03/managing-your-dotfiles).
 
-## System Prep
+## System Prep (unix)
 
 ### Xenial
 
@@ -55,6 +56,17 @@ TODO: look up installer url
 
 ```bash
 sudo apt install -y coreutils git
+```
+
+## System Prep (windows)
+
+```# scoop
+iwr https://get.scoop.sh -usebasic | iex
+scoop install sudo git
+
+# chocolatey
+sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
+refreshenv
 ```
 
 ## Bootstrap
@@ -198,7 +210,13 @@ exit
 
 ## Tools
 
+### Misc
+
+See https://github.com/lukesampson/scoop/wiki/Example-Setup-Scripts
+
 ### VSCode
+
+TODO: auto sync this stuff, yo
 
 * Align
 * Auto Close Tag
