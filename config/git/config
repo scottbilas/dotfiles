@@ -7,12 +7,12 @@
 
     st = status
     co = checkout
+    up = pull --ff-only
 
-    # aliases that match hg in / out commands
-    out      = !git fetch && git log FETCH_HEAD..
-    outgoing = !git fetch && git log FETCH_HEAD..
-    in       = !git fetch && git log ..FETCH_HEAD
-    incoming = !git fetch && git log ..FETCH_HEAD
+    out = !git fetch && git log FETCH_HEAD..
+    in  = !git fetch && git log ..FETCH_HEAD
+
+    diffbc = difftool --dir-diff
 
     #say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
     #test = !env
