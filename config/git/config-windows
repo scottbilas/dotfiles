@@ -10,12 +10,15 @@
     editor = code --wait
 
 [diff]
-    tool = bc4
-[difftool "bc4"]
-    cmd = '~/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\"
+    tool = bc
+[difftool]
+    prompt = false
+[difftool "bc"]
+    path = C:/Users/scott/Programs/Beyond Compare 4/BComp.exe
 
 [merge]
-    tool = bc4
-[mergetool "bc4"]
-    cmd = '~/Programs/Beyond Compare 4/BComp.exe' \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-    trustExitCode = true
+    tool = bc
+[mergetool "bc"]
+    path = C:/Users/scott/Programs/Beyond Compare 4/BComp.exe
+[credential]
+	helper = manager
