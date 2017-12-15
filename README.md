@@ -62,6 +62,7 @@ sudo apt install -y coreutils git
 
 ```# scoop
 iwr https://get.scoop.sh -usebasic | iex
+scoop bucket add extras
 scoop install sudo git
 
 # chocolatey
