@@ -26,6 +26,9 @@ end
 set -x ELINKS_CONFDIR ~/.config/elinks
 set -x TIGRC_USER ~/.config/tig/config   # tig 2.2 supports XDG standard, eventually won't need this
 
+#set -x LESS '-R -x4'
+#set -x LESSOPEN '|pygmentize -g %s'   << screws up 'man' etc. - really need proper detection, or use new alias 'cless'
+
 # bobthefish config
 set -g theme_display_git_untracked yes
 set -g theme_display_git_ahead_verbose yes
@@ -55,6 +58,6 @@ set -g theme_project_dir_length 0
 set -g theme_newline_cursor yes
 
 # dircolors
-eval (dircolors -c ~/dotfiles/repos/dircolors-solarized/dircolors.256dark)
+#eval (dircolors -c ~/dotfiles/repos/dircolors-solarized/dircolors.256dark)
 
 # TODO alias mc='. /usr/libexec/mc/mc-wrapper.sh'
