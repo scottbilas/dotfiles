@@ -1,26 +1,32 @@
 {
     "cSpell.userWords": [
-        "Bilas's",
         "Bilas",
+        "Bilas's",
+        "Fody",
+        "LLDB",
+        "REPO",
+        "Resilio",
         "chmod",
         "cygwin",
         "dll's",
         "dotfiles",
         "executables",
-        "Fody",
-        "LLDB",
         "minimap",
         "mkdir",
         "ncurses",
         "openssh",
-        "REPO",
-        "Resilio",
+        "pylint",
         "sshd",
         "submodules",
         "termux",
         "tmux",
-        "transcode"
+        "transcode",
+        "updot"
     ],
+    "cSpell.ignoreRegExpList": [
+        "[./]\\w+" // things that look like filenames/paths/extensions
+    ],
+    "editor.autoClosingBrackets": false,    // close quote behavior driving me nuts
     "editor.codeLens": false,
     "editor.cursorBlinking": "phase",
     "editor.dragAndDrop": true,
@@ -37,9 +43,12 @@
         100,
         120
     ],
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
     "files.associations": {
         ".hgrc": "ini",
         "hgrc*.txt": "ini",
+        ".pylintrc": "ini",
         "config": "ini",
         "config-*": "ini"
     },
@@ -70,6 +79,8 @@
 
         // folders
         "**/.history": true,
+        "**/.venv": true,
+        "**/__pycache__": true,
         "**/.vs": true,
         "**/bin": true,
         "**/obj": true
