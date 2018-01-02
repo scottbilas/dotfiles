@@ -7,18 +7,14 @@
 
     st = status
     co = checkout
-    up = pull --ff-only
 
-    out = !git fetch && git log FETCH_HEAD..
-    in  = !git fetch && git log ..FETCH_HEAD
+    puff = pull --ff-only
+    out  = !git fetch && git log FETCH_HEAD..
+    in   = !git fetch && git log ..FETCH_HEAD
 
     diffbc = difftool --dir-diff
 
-    #say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
-    #test = !env
-
     # from https://stackoverflow.com/a/34467298
-    # also consider adding --simplify-by-decoration to the log commands..
     lg = !"git lg1"
     lg1 = !"git lg1-specific --all"
     lg2 = !"git lg2-specific --all"
@@ -26,6 +22,9 @@
     lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %ae%C(reset)%C(auto)%d%C(reset)'
     lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
     lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+
+    #say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
+    #test = !env
 
 [core]
     autocrlf = false
@@ -41,9 +40,13 @@
     stat = true
 
 [tig]
+    horizontal-scroll = 10
+    ignore-case = smart-case
     line-graphics = utf-8
     tab-size = 4
-    ignore-case = smart-case
     refresh-mode = auto
+    mouse = true
+
+    main-view = id date:relative-compact author:email-user commit-title:graph=v2,refs=yes
+
 #	diff-highlight = true  -- not currently avail w termux
-#	mouse = true  -- seems to break termux
