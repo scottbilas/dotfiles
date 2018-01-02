@@ -1,0 +1,8 @@
+[MESSAGES CONTROL]
+disable = missing-docstring, multiple-imports
+
+[BASIC]
+good-names = fs
+
+[FORMAT]
+max-line-length = 200

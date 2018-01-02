@@ -1,0 +1,10 @@
+{
+    "python.formatting.autopep8Args": [
+        "--max-line-length 200"
+    ],
+    "python.pythonPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+    "python.unitTest.pyTestEnabled": true,
+    "terminal.integrated.shellArgs.windows": [
+        "powershell -noexit -command \"& {cd $env:VSCODE_CWD; . .venv/Scripts/activate.ps1}\""
+    ]
+}
