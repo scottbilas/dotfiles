@@ -62,12 +62,12 @@ sudo apt install -y coreutils git
 
 ```# scoop
 iwr https://get.scoop.sh -usebasic | iex
-scoop bucket add extras
 scoop install sudo git
+scoop bucket add extras
 
 # chocolatey
 sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
-refreshenv
+<restart shell>
 ```
 
 ## Bootstrap
@@ -87,6 +87,7 @@ mkdir ~/bin
 mkdir -p ~/go/bin
 ln -s sync:Common/Private ~/dotfiles/private
 ln -s ~/dotfiles/config ~/.config
+mkdir ~/.ssh
 ln -s ~/dotfiles/private/ssh/authorized_keys ~/.ssh/authorized_keys
 ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf
 touch ~/.hushlogin
@@ -222,6 +223,7 @@ TODO: auto sync this stuff, yo
 * Align
 * Auto Close Tag
 * Auto Rename Tag
+* Better TOML
 * C/C++
 * C#
 * Code Spell Checker
@@ -237,10 +239,12 @@ TODO: auto sync this stuff, yo
 * Mono Debug
 * PowerShell
 * Python
+* Ruby
 * TODO Highlight
 * vscode-devdocs
 * vscode-icons
 * XML Tools
+* YAML
 
 ### sshd
 
