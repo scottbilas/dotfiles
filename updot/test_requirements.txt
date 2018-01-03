@@ -1,3 +1,4 @@
+autopep8==1.3.3
 pyfakefs==3.4   # pypi has 3.3, so fetched with `pip install https://github.com/jmcgeheeiv/pyfakefs/zipball/master`
                 # (see https://www.reddit.com/r/Python/comments/2crput/how_to_install_with_pip_directly_from_github/)
 pylint==1.8.1
