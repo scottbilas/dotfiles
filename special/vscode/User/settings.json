@@ -1,22 +1,23 @@
 {
     "cSpell.userWords": [
-        "Bilas",
         "Bilas's",
-        "Fody",
-        "LLDB",
-        "REPO",
-        "Resilio",
+        "Bilas",
         "chmod",
         "cygwin",
         "dll's",
         "dotfiles",
         "executables",
         "fatals",
+        "Fody",
+        "LLDB",
         "minimap",
         "mkdir",
         "ncurses",
         "openssh",
+        "POSIX",
         "pylint",
+        "REPO",
+        "Resilio",
         "sshd",
         "submodules",
         "termux",
@@ -28,7 +29,7 @@
     "cSpell.ignoreRegExpList": [
         "[./]\\w+" // things that look like filenames/paths/extensions
     ],
-    "editor.autoClosingBrackets": false,    // close quote behavior driving me nuts
+    "editor.autoClosingBrackets": false,    // https://stackoverflow.com/questions/33236399/visual-studio-code-disable-quote-wrapping-text-selection
     "editor.codeLens": false,
     "editor.cursorBlinking": "phase",
     "editor.dragAndDrop": true,
