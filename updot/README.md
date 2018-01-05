@@ -16,3 +16,7 @@ source .venv/bin/activate.fish
 . .venv/scripts/activate.ps1
 pip install -r requirements.txt -r test_requirements.txt
 ```
+
+testing:
+
+`pytest --pylint --pylint-rcfile=setup.cfg`
