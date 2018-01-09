@@ -212,6 +212,8 @@ exit
 
 ## Tools
 
+```pip install tldr ptpython```
+
 ### Misc
 
 See https://github.com/lukesampson/scoop/wiki/Example-Setup-Scripts
