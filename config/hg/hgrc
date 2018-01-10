@@ -1,0 +1,152 @@
+%include ~/dotfiles/private/hg/hgrc
+%include ~/.config/hg/hgrc-$OS
+
+
+# ---------
+# MERCURIAL
+
+[annotate]
+ignoreblanklines = True
+ignorews = True
+ignorewsamount = True
+
+[diff]
+git = true
+
+[phases]
+publish = false
+
+[ui]
+editor = subl --wait --new-window
+ignore = ~/.config/git/ignore
+merge = beyondcompare4
+style = ~/unity-meta/Configs/Mercurial/unity-color.hgstyle
+
+
+# ----------
+# EXTENSIONS
+
+%include ~/unity-meta/Configs/Mercurial/format.inc.ini
+[hgunity]
+update-channel = .
+
+# COLOR
+[extensions]
+color =
+[color]
+mode = ansi
+diff.diffline = black bold blue_background
+diff.extended = cyan bold
+diff.file_a = red bold blue_background
+diff.file_b = green bold blue_background
+diff.hunk = black bold blue_background
+diff.deleted = red bold
+diff.inserted = green bold
+diff.changed = white bold
+diff.trailingwhitespace = yellow_background
+# these get in the way of simple scripting. (hg status doesn't support templates)
+#status.modified = none
+#status.added = none
+#status.removed = none
+#status.ignored = none
+# these have difficult to read default styles
+status.deleted = none
+status.unknown = none
+
+# PAGER
+[extensions]
+pager =
+[pager]
+attend = annotate, cat, diff, export, glog, help, log, status
+hg16mode = yes
+
+# EXTENSIONS
+[extensions]
+blackbox =
+churn =
+convert =
+;debugshell = ~/Work/proj/_external/hgdebugshell/debugshell.py
+;discoverydetails = ~/Work/proj/_external/octobus-misc/hgext3rd/discoverydetails.py
+dynapath = ~/Work/proj/_external/dynapath/dynapath.py
+eol =
+evolve = ~/Work/proj/_external/evolve/hgext3rd/evolve
+extdiff =
+hggit = ~/Work/proj/_external/hg-git/hggit
+;hgsubversion = ~/Work/proj/_external/hgsubversion/hgsubversion
+histedit =
+journal = 
+largefiles =
+progress =
+prompt = ~/Work/proj/_external/hg-prompt/prompt.py
+purge =
+rebase =
+record =
+relink =
+share =
+shelve =
+strip =
+;timelapse = ~/Work/proj/_external/hgtimelapse
+;tpager = ~/DevBin/hg/contrib/tpager/tpager.py
+transplant =
+
+
+# --------
+# COMMANDS
+
+[defaults]
+# this kind of screws up normal logs where i want to just look at the top of the revision stack. don't really want it to be the default i guess..
+#log = -f -G
+incoming = -G
+log = -G
+outgoing = -G
+
+[alias]
+#TODO: move all unity-specific stuff to separate %include to pull into repo-hgrc's only
+flags = debugrevlog -m
+shelved = shelve -l
+btop = log -r 'branch(.) + parents(branch(.))' -G -l15
+top = log -G -l15
+purgejunk = purge --all 're:.*\.(bak|orig|cache|tmp)$' 'glob:**/Temp/**' 'glob:**/__pycache__/**'
+purgebuildszips = purge --all 'glob:**/builds/**' 'glob:**/*.last_extracted_md5'
+purgeintermediates = purge --all artifacts builds 'glob:**/Library/**' 'glob:**/ProjectSettings/**' 'glob:**/obj/**' 'glob:**/bin/**'
+pt = ! hg pull trunk --lfrev trunk
+ptu = ! hg pt && hg up -r trunk
+sl=smartlog --template "{shortest(node)}  {author|user}  {bookmarks % '{ifeq(bookmark, current, label(\"yellow\", \" {bookmark}*\"), label(\"green\", \" {bookmark}\"))}'} {ifeq(branch, 'default', '', label(\"bold\", branch))}\n{desc|firstline}\n\n"
+
+#parentrev = parent --template '{rev}'  # << not sure about this. what if there are multiple parents? 'hg parent' actually resolves to 'hg parents'
+
+[revsetalias]
+wip = sort((author(scobi) - branch('re:hackweek') - ..trunk) & ancestors(head() & !closed()), date)
+wip30 = (wip) & date(-30)
+wip90 = (wip) & date(-90)
+wip180 = (wip) & date(-180)
+
+# path of ancestry up to but not including trunk
+trunkline = ... & !..branch(trunk)
+
+# find the originating branch of this branch. (TODO: probably needs adjusting to avoid merges from other branches)
+borigin = max(ancestors(.) & !branch(.))
+prev = parents(.)
+next = children(.)
+
+
+# ---------
+# EXTERNALS
+
+[tortoisehg]
+defaultpush = branch
+authorcolor = True
+vdiff = diffbc
+fontdiff = Consolas,8,-1,5,50,0,0,0,0,0
+fontcomment = Consolas,8,-1,5,50,0,0,0,0,0
+fontlog = Consolas,8,-1,5,50,0,0,0,0,0
+fontoutputlog = Consolas,8,-1,5,50,0,0,0,0,0
+tabwidth = 4
+workbench.single = True
+fontlist = MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0
+initialrevision = workingdir
+graphopt = True
+
+
+# potential overrides for non-gui
+%include ~/Work/hgrc-Powershell_$POWERSHELL_HOST.txt
