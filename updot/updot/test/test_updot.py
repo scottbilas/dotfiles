@@ -1,7 +1,8 @@
 import os
 import pyfakefs
 from pytest import raises
-from updot import updot
+import updot
+from updot import exceptions
 
 pyfakefs.deprecator.Deprecator.show_warnings = True
 
@@ -9,14 +10,14 @@ pyfakefs.deprecator.Deprecator.show_warnings = True
 def test__link_not_absolute__throws(fs):
     """Only supporting absolute link paths to avoid script bugs from ambiguity"""
 
-    with raises(InvalidOperationException):
+    with raises(exceptions.PathInvalidError):
         updot.ln('link', '/var/data/file.txt')
 
 
 def test__target_not_absolute__throws():
     """Only supporting absolute target paths to avoid script bugs from ambiguity"""
 
-    with raises(InvalidOperationException):
+    with raises(exceptions.PathInvalidError):
         updot.ln('link', '/var/data/file.txt')
 
 
