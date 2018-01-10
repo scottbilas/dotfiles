@@ -29,12 +29,15 @@
 [core]
     autocrlf = false
     excludesfile = ~/.config/git/ignore
-    pager = perl ~/dotfiles/scripts/diff-so-fancy | less --tabs=4 -RFX
+#    pager = perl ~/dotfiles/scripts/diff-so-fancy | less --tabs=4 -RFX
 
 [diff]
     algorithm = histogram
     renames = copies
     mnemonicprefix = true
+
+[icdiff]
+	options = --highlight --line-numbers
 
 [merge]
     stat = true
