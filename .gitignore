@@ -5,6 +5,5 @@ config/elinks/cookies
 config/elinks/*hist
 config/elinks/bookmarks.xbel
 config/micro/buffers/history
-private
-special/vscode/User/workspaceStorage
 special/vscode/User/vsicons\.settings\.json
+private
