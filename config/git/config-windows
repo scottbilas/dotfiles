@@ -7,7 +7,7 @@
 [core]
     hideDotFiles = false
     pager = less
-    editor = code --wait
+    editor = subl --new-window --wait
 
 [diff]
     tool = bc

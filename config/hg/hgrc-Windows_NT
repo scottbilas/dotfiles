@@ -1,0 +1,13 @@
+[extdiff]
+cmd.diffbc = cmd
+opts.diffbc = /c %HOME%/Documents/WindowsPowerShell/hgutils/hg-bcomp.cmd
+
+[largefiles]
+usercache = c:/proj/_hglargefiles
+
+[pager]
+pager = less --quit-if-one-screen --raw-control-chars --tilde --quiet --ignore-case --status-column --line-numbers --tabs=4
+
+[ui]
+# don't use tortoise-plink
+ssh = ssh
