@@ -9,6 +9,7 @@
         "executables",
         "fatals",
         "Fody",
+        "funcs",
         "LLDB",
         "minimap",
         "mkdir",
@@ -36,6 +37,7 @@
     "editor.fontFamily": "FuraCode Nerd Font",
     "editor.fontLigatures": true,
     "editor.fontSize": 12,
+    "editor.lineNumbers": "off",
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 40,
     "editor.mouseWheelZoom": true,
@@ -49,8 +51,8 @@
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "files.associations": {
-        ".hgrc": "ini",
-        "hgrc*.txt": "ini",
+        "hgrc": "ini",
+        "hgrc-*": "ini",
         ".pylintrc": "ini",
         "config": "ini",
         "config-*": "ini"

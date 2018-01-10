@@ -60,10 +60,12 @@ sudo apt install -y coreutils git
 
 ## System Prep (windows)
 
-```# scoop
+```powershell
+# scoop
 iwr https://get.scoop.sh -usebasic | iex
-scoop install sudo git
+scoop install git
 scoop bucket add extras
+scoop install sudo busybox less # note that `less` overrides `busybox` with a better version
 
 # chocolatey
 sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
@@ -103,8 +105,15 @@ ln -s ~/dotfiles/special/cygwin/minttyrc ~/.minttyrc
 ```powershell
 # windows only (posh)
 mklinkf ~/.config/git/config-windows ~/.gitconfig
+mklinkf ~/.config/hg/hgrc ~/.hgrc    # XDG config code only runs on hg's posix code path
 mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
 mklinkd ~/dotfiles/config/omnisharp ~/.omnisharp
+
+powershell # open nested shell
+  . ~/scoop/apps/scoop/current/lib/core.ps1 # get shim func
+  shim ~/DevBin/hg/hg.exe
+  shim ~/DevBin/hg/thg.exe
+exit
 
 # TODO: disable path inheritance (https://github.com/Microsoft/BashOnWindows/issues/1493)
 # reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss /v AppendNtPath /t REG_DWORD /d 0
@@ -212,7 +221,9 @@ exit
 
 ## Tools
 
-```pip install tldr ptpython```
+```sh
+pip install tldr ptpython
+```
 
 ### Misc
 
