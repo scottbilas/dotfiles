@@ -1,1 +1,0 @@
-/home/scott/.config/fisherman/ghq/completions/ghq.fish

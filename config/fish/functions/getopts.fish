@@ -1,1 +1,0 @@
-/home/scott/.config/fisherman/getopts/getopts.fish
