@@ -1,29 +1,34 @@
 import logging, os
-import exceptions
+import updot
 
 
-def normalize_path(path):
-    if not os.path.isabs(path):
-        raise exceptions.PathInvalidError(path, 'Paths must be absolute (avoid potential for errors from unclear cwd)')
+def _normalize_path(path):
+
     if '\\' in path:
-        raise exceptions.PathInvalidError(path, 'Paths must contain forward slashes only (simplify xplat issues)')
+        raise updot.exceptions.PathInvalidError(path, 'Paths must contain forward slashes only (simplify xplat issues)')
+
+    path = os.path.expanduser(path) # expand tilde before we check absolute
+
+    if not os.path.isabs(path):
+        raise updot.exceptions.PathInvalidError(path, 'Paths must be home-based or absolute (avoid potential for errors from unclear cwd)')
 
     # replace macros
     # TODO: expand $() style macros with env vars, throwing on not exist
 
     # ~ replacement and general cleanup
-    path = os.path.expanduser(path)
     path = os.path.normpath(path)
 
     # python path funcs will use backslash, so swap it back
     path = path.replace('\\', '/')
 
+    # TODO: for each level of path that exists, validate that the actual case matches what we have
+
     return path
 
 
 def ln(link, target):
-    link_user, link = link, normalize_path(link)
-    target_user, target = target, normalize_path(target) # TODO: catch env var not exist and silent ignore
+    link_user, link = link, _normalize_path(link)
+    target_user, target = target, _normalize_path(target)  # TODO: catch env var not exist and silent ignore
 
     # a missing target file is ok; common due to plat and install differences
     if not os.path.exists(target):

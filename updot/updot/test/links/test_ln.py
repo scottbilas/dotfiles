@@ -1,24 +1,9 @@
 import os
 import pyfakefs
 from pytest import raises
-import updot
-from updot import exceptions
+from updot import exceptions, links
 
 pyfakefs.deprecator.Deprecator.show_warnings = True
-
-
-def test__link_not_absolute__throws(fs):
-    """Only supporting absolute link paths to avoid script bugs from ambiguity"""
-
-    with raises(exceptions.PathInvalidError):
-        updot.ln('link', '/var/data/file.txt')
-
-
-def test__target_not_absolute__throws():
-    """Only supporting absolute target paths to avoid script bugs from ambiguity"""
-
-    with raises(exceptions.PathInvalidError):
-        updot.ln('link', '/var/data/file.txt')
 
 
 # TODO: def test__tracked_link_exists_with_correct_target__ignores():
@@ -35,12 +20,12 @@ def test__target_not_absolute__throws():
 # TODO: def test__untracked_link_exists_with_different_target__throws():
 #    """Symlink already exists and is pointing somewhere unexpected"""
 
-def test__link_not_exist_and_target_exists__creates_and_tracks(fs):
+def test_ln__link_not_exist_and_target_exists__creates_and_tracks(fs):
     """Basic behavior of creating new symlinks"""
 
     fs.create_file('/var/data/file.txt', contents='abc')
 
-    updot.ln('~/link', '/var/data/file.txt')
+    links.ln('~/link', '/var/data/file.txt')
 
     assert open('~/link', 'r').read() == 'abc'
     # TODO: test addition to state db
@@ -49,10 +34,10 @@ def test__link_not_exist_and_target_exists__creates_and_tracks(fs):
 # TODO: def test__link_parent_not_exist__auto_creates():
 #    """Auto-create any parent folders required to create the link"""
 
-def test__target_not_exist__ignores(fs):
+def test_ln__target_not_exist__ignores(fs): # pylint: disable=unused-argument
     """Ignore symlinks referring to nonexistent target paths (will be very common across OS's)"""
 
-    updot.ln('~/link', '/var/data/no-file.txt')
+    links.ln('~/link', '/var/data/no-file.txt')
     assert not os.path.exists('~/link')
 
 
