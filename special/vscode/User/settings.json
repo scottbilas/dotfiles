@@ -1,4 +1,8 @@
 {
+    "cSpell.allowCompoundWords": true,
+    "cSpell.ignoreRegExpList": [
+        "[./]\\w+" // things that look like filenames/paths/extensions
+    ],
     "cSpell.userWords": [
         "Bilas's",
         "Bilas",
@@ -16,7 +20,9 @@
         "ncurses",
         "openssh",
         "POSIX",
+        "pyfakefs",
         "pylint",
+        "pytest",
         "REPO",
         "Resilio",
         "sshd",
@@ -25,10 +31,8 @@
         "tmux",
         "transcode",
         "untracked",
-        "updot"
-    ],
-    "cSpell.ignoreRegExpList": [
-        "[./]\\w+" // things that look like filenames/paths/extensions
+        "updot",
+        "xplat"
     ],
     "editor.autoClosingBrackets": false,    // https://stackoverflow.com/questions/33236399/visual-studio-code-disable-quote-wrapping-text-selection
     "editor.codeLens": false,
