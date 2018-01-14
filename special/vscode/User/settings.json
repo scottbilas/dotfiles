@@ -28,6 +28,7 @@
         "sshd",
         "submodules",
         "termux",
+        "tinydb",
         "tmux",
         "transcode",
         "untracked",
