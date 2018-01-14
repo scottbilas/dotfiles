@@ -1,7 +1,8 @@
 import os
+
 import pyfakefs
-from pytest import raises
-from updot import exceptions, links
+
+from updot import links
 
 pyfakefs.deprecator.Deprecator.show_warnings = True
 
@@ -11,16 +12,16 @@ pyfakefs.deprecator.Deprecator.show_warnings = True
 
 # TODO: def test__untracked_link_exists_with_correct_target__tracks_and_ignores():
 #    """Should take over an already-correct symlink"""
-    # note: be sure to test addition to state db
+#    note: be sure to test addition to state db
 
 # TODO: def test__tracked_link_exists_with_different_target__updates():
 #    """A symlink we were tracking has changed in spec, so update the symlink"""
-    # note: be sure to test addition to state db
+#    note: be sure to test addition to state db
 
 # TODO: def test__untracked_link_exists_with_different_target__throws():
 #    """Symlink already exists and is pointing somewhere unexpected"""
 
-def test_ln__link_not_exist_and_target_exists__creates_and_tracks(fs):
+def test__link_not_exist_and_target_exists__creates_and_tracks(fs):
     """Basic behavior of creating new symlinks"""
 
     fs.create_file('/var/data/file.txt', contents='abc')
@@ -34,7 +35,7 @@ def test_ln__link_not_exist_and_target_exists__creates_and_tracks(fs):
 # TODO: def test__link_parent_not_exist__auto_creates():
 #    """Auto-create any parent folders required to create the link"""
 
-def test_ln__target_not_exist__ignores(fs): # pylint: disable=unused-argument
+def test__target_not_exist__ignores(fs):  # pylint: disable=unused-argument
     """Ignore symlinks referring to nonexistent target paths (will be very common across OS's)"""
 
     links.ln('~/link', '/var/data/no-file.txt')

@@ -1,5 +1,7 @@
 import os
+
 from pytest import raises
+
 from updot import exceptions, links
 
 # pylint: disable=protected-access
