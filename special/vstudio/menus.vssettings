@@ -1,0 +1,21 @@
+<UserSettings>
+    <ApplicationIdentity version="15.0"/>
+    <ToolsOptions/>
+    <Category name="Environment_Group" RegisteredName="Environment_Group">
+        <Category name="Environment_CommandBars" Category="{B9D9C123-B500-4202-B887-57C829CBD08F}" Package="{DA9FB551-C724-11d0-AE1F-00A0C90FFFC3}" RegisteredName="Environment_CommandBars" PackageName="Visual Studio Environment Package">
+            <CommandBars Version="05072811">
+                <UserCustomizations>
+                    <modify_toolbar Menu="{D309F791-903F-11D0-9EFC-00A0C911004F}:00000001" Visibility="hide" FullScreen="hide" Dock="top" Row="1"/>
+                    <modify_toolbar Menu="{9ADF33D0-8AAD-11D0-B606-00A0C922E851}:0000000e" Visibility="hide" FullScreen="hide" Dock="top" Row="1" FloatRectangle="0,0,210,24" DockRectangle="18,0,210,24"/>
+                    <modify_toolbar Menu="{15A7A3F3-845F-4D67-B540-5B232293D9A3}:00000101" Visibility="hide" FullScreen="hide" Dock="top" Row="1" FloatRectangle="0,0,216,25" DockRectangle="4,0,216,25"/>
+                    <add Cmd="{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:000007c6" CmdPri="0fe00001" Group="{D309F791-903F-11D0-9EFC-00A0C911004F}:0000010a" GroupPri="fe000000" Menu="{D309F791-903F-11D0-9EFC-00A0C911004F}:00000000"/>
+                    <add Cmd="{5EFC7975-14BC-11CF-9B2B-00AA00573819}:000002ac" CmdPri="17d00001" Group="{D309F791-903F-11D0-9EFC-00A0C911004F}:0000010a" GroupPri="fe000000" Menu="{D309F791-903F-11D0-9EFC-00A0C911004F}:00000000"/>
+                    <add Cmd="{5EFC7975-14BC-11CF-9B2B-00AA00573819}:000000b4" CmdPri="1fc00001" Group="{D309F791-903F-11D0-9EFC-00A0C911004F}:0000010a" GroupPri="fe000000" Menu="{D309F791-903F-11D0-9EFC-00A0C911004F}:00000000"/>
+                    <add Cmd="{5EFC7975-14BC-11CF-9B2B-00AA00573819}:0000013a" CmdPri="2fa00001" Group="{D309F791-903F-11D0-9EFC-00A0C911004F}:0000010a" GroupPri="fe000000" Menu="{D309F791-903F-11D0-9EFC-00A0C911004F}:00000000"/>
+                    <modify Cmd="{1496A755-94DE-11D0-8C3F-00C04FC2AAE2}:000007c6" CmdPri="0fe00001" Group="{D309F791-903F-11D0-9EFC-00A0C911004F}:0000010a" GroupPri="fe000000" Menu="{D309F791-903F-11D0-9EFC-00A0C911004F}:00000000" BeginGroup="true" Width="120"/>
+                    <modify Cmd="{5EFC7975-14BC-11CF-9B2B-00AA00573819}:000002ac" CmdPri="17d00001" Group="{D309F791-903F-11D0-9EFC-00A0C911004F}:0000010a" GroupPri="fe000000" Menu="{D309F791-903F-11D0-9EFC-00A0C911004F}:00000000" Width="120"/>
+                </UserCustomizations>
+            </CommandBars>
+        </Category>
+    </Category>
+</UserSettings>
