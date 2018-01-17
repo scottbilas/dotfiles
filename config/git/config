@@ -41,6 +41,9 @@
 [icdiff]
 	options = --highlight --line-numbers
 
+[fetch]
+    prune = true
+
 [merge]
     stat = true
 
