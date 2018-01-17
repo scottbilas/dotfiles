@@ -19,6 +19,7 @@ __pycache__
 *.1.tlog
 *.aps
 *.bak
+*.bak.meta
 *.cache
 *.Cache
 *.dll
@@ -31,6 +32,8 @@ __pycache__
 *.lastbuildstate
 *.lib
 *.log
+*.mdb
+*.mdb.meta
 *.ncb
 *.obj
 *.orig
