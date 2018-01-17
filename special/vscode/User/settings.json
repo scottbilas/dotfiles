@@ -58,9 +58,10 @@
     "files.associations": {
         "hgrc": "ini",
         "hgrc-*": "ini",
-        ".pylintrc": "ini",
         "config": "ini",
-        "config-*": "ini"
+        "config-*": "ini",
+        ".pylintrc": "ini",
+        "*.vssettings": "xml"
     },
     "files.autoSave": "off",
     "files.exclude": {
