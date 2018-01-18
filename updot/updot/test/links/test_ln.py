@@ -21,14 +21,17 @@ pyfakefs.deprecator.Deprecator.show_warnings = True
 # TODO: def test__untracked_link_exists_with_different_target__throws():
 #    """Symlink already exists and is pointing somewhere unexpected"""
 
-def test__link_not_exist_and_target_exists__creates_and_tracks(fs):
+def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(fs):
     """Basic behavior of creating new symlinks"""
 
-    fs.create_file('/var/data/file.txt', contents='abc')
+    fs.create_file('~/path/to/actual/file.txt', contents='abc')
 
-    links.ln('~/link', '/var/data/file.txt')
+    links.ln('~/path/to/link', '~/path/to/actual/file.txt')
 
-    assert open('~/link', 'r').read() == 'abc'
+    # ensure link is shortened and not absolute
+    assert os.readlink('~/path/to/link').replace('\\', '/') == '../actual/file.txt'
+    assert open('~/path/to/link', 'r').read() == 'abc'
+
     # TODO: test addition to state db
 
 

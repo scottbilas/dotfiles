@@ -3,11 +3,12 @@ import os
 import sys
 
 import tinydb
-from tinydb.operations import increment
 import xdg
+from tinydb.operations import increment
 
 _this = sys.modules[__name__]
 _this.initialized = False
+
 
 def _init():
     assert not _this.initialized
@@ -38,5 +39,6 @@ def _init():
 
     import atexit
     atexit.register(lambda: glob.update(increment('version'), q.version != None))
+
 
 _init()

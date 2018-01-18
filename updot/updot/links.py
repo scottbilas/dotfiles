@@ -51,6 +51,8 @@ def ln(link, target):
 
     # Make the link target relative.  This usually makes the link
     # shorter in ls output.
+    # ... but only if it's worth it. may end up with ../../.../../.././..//. where a simple root base would be shorter. so test results for length before changing.
+    # on the other hand, if we have a lot of these in one folder, they may become inconsistent if their targets are slightly different lengths from each other..
 ###    link_target = os.path.relpath(
 ###        file_pathname,
 ###        link_dir
