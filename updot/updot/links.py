@@ -13,13 +13,14 @@ def _normalize_path(path):
     if '\\' in path:
         raise updot.exceptions.PathInvalidError(path, 'Paths must contain forward slashes only (simplify xplat issues)')
 
-    path = os.path.expanduser(path)  # expand tilde before we check absolute
+    # expand macros before we check absolute
+    path = os.path.expanduser(path)
+    if '$' in path:
+        # TODO: expand $ style macros with env vars, throwing MacroNotFoundError if not exist
+        raise RuntimeError('$ macro expansion not currently supported')
 
     if not os.path.isabs(path):
         raise updot.exceptions.PathInvalidError(path, 'Paths must be home-based or absolute (avoid potential for errors from unclear cwd)')
-
-    # replace macros
-    # TODO: expand $() style macros with env vars, throwing on not exist
 
     # ~ replacement and general cleanup
     path = os.path.normpath(path)
@@ -38,7 +39,7 @@ class LinkResult(Enum):
     CREATED = auto()    # created a new link
     ADJUSTED = auto()   # recreated an existing managed link to point to a new target
 
-
+# optional 'exe' param to test if in path and skip making link if not (for example dont clutter with ~/.tmux.conf if no tmux installed)
 def ln(link, target):
     link_orig, link = link, _normalize_path(link)
     target_orig, target = target, _normalize_path(target)  # TODO: catch env var not exist and silent ignore
@@ -47,6 +48,13 @@ def ln(link, target):
     if not os.path.exists(target):
         logging.debug('Symlink target %s does not exist; skipping', target_orig)
         return LinkResult.SKIPPED
+
+    # Make the link target relative.  This usually makes the link
+    # shorter in ls output.
+###    link_target = os.path.relpath(
+###        file_pathname,
+###        link_dir
+###    )
 
     # link possibilities:
     #
@@ -72,16 +80,15 @@ def ln(link, target):
 
     linkparent = os.path.split(link)
     if not os.path.exists(linkparent):
-        logging.debug('Creating symlink parent folder %s', linkparent
+        logging.debug('Creating symlink parent folder %s', linkparent)
         os.makedirs(linkparent)
 
     os.symlink(target, link)
 
     query = Query()
     db.remove(query.link == link)
-    db.insert({'link': link, 'query'})
+    db.insert({'link': link, 'version': _db.})
 
     # TODO: at end of program...
     # 1. find all unused but managed links and delete them
     # 2. warn about all unmanaged links found in all parent folders of links
-
