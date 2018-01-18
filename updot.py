@@ -28,6 +28,7 @@ mkdir('~/.ssh')
 ln('~/dotfiles/private/ssh/authorized_keys', '~/.ssh/authorized_keys')
 
 ln('~/.config/tmux/tmux.conf', '~/.tmux.conf') # tmux refuses to support xdg (https://github.com/tmux/tmux/issues/142)
+ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py')    # pdbpp uses fancycompleter which hard codes ~/<configname> and doesn't do xdg
 ln(f'{PROJ}/unity-meta', '~/unity- X:os.name == 'nt'
     touchPOSIX . not WINDOWS
 
