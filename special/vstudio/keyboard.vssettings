@@ -1,4 +1,4 @@
-<UserSettings>
+<UserSettings></UserSettings>
     <ApplicationIdentity version="15.0"/>
     <ToolsOptions>
         <ToolsOptionsCategory name="Environment" RegisteredName="Environment"/>
@@ -71,6 +71,9 @@
                     <RemoveShortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Text Editor">Shift+Alt+O</RemoveShortcut>
                     <Shortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Shift+Alt+O</Shortcut>
                     <Shortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Ctrl+P</Shortcut>
+                    <RemoveShortcut Command="Edit.ExpandSelection" Scope="Text Editor">Ctrl+W</RemoveShortcut>
+                    <RemoveShortcut Command="Edit.NextKeyTyped" Scope="VC Accelerator Editor">Ctrl+W</RemoveShortcut>
+                    <Shortcut Command="Window.CloseDocumentWindow" Scope="Global">Ctrl+W</Shortcut>
                 </UserShortcuts>
             </KeyboardShortcuts>
         </Category>
