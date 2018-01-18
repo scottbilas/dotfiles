@@ -104,6 +104,7 @@
         "suppressGitVersionWarning": false,
         "suppressLineUncommittedWarning": false,
         "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": true,
         "suppressUpdateNotice": true,
         "suppressWelcomeNotice": false
     },
