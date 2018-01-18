@@ -4,6 +4,7 @@
         "[./]\\w+" // things that look like filenames/paths/extensions
     ],
     "cSpell.userWords": [
+        "atexit",
         "Bilas's",
         "Bilas",
         "chmod",
