@@ -1,6 +1,12 @@
 import os
 
+import pytest
+
 from updot import links
+
+
+# TODO:
+# make a fixture (that inherits 'fs') that mocks the singleton accessor
 
 
 # TODO: def test__tracked_link_exists_with_correct_target__ignores():
@@ -54,3 +60,7 @@ def test__target_not_exist__ignores(fs):  # pylint: disable=unused-argument
 # TODO: def test__windows_symlink_creation_failed_due_to_no_admin__fatals_with_help():
 #    """Let user know they should enable Developer Mode or run as admin"""
     # should be a permissions problem that leads to this
+
+
+if __name__ == "__main__":
+    pytest.main(__file__)

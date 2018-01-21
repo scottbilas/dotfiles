@@ -1,5 +1,6 @@
 import os
 
+import pytest
 from pytest import raises
 
 from updot import exceptions, links
@@ -48,3 +49,7 @@ def test__path_with_tilde__is_expanded_to_home():
     assert links._normalize_path('~/path/to/thing.txt') == f'{home}/path/to/thing.txt'
     assert links._normalize_path('/path/to/~/thing.txt') == f'/path/to/~/thing.txt'
     assert links._normalize_path('~foo/path') == f'{users}/foo/path'
+
+
+if __name__ == "__main__":
+    pytest.main(__file__)
