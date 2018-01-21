@@ -2,33 +2,46 @@ import logging
 import os
 from enum import Enum, auto
 
-from tinydb import Query
+from updot import exceptions, platform
 
-import updot
-from updot._db import db
+
+def _is_really_absolute(path):
+    # `isabs('/path/to/thing')` returns true on windows for some reason, so use `splitdrive` instead
+    if platform.WINDOWS:
+        return os.path.splitdrive(path)[0] != ''
+
+    return os.path.isabs(path)
 
 
 def _normalize_path(path):
+    path_orig = path
+
     # check slashes before we expand tilde
     if '\\' in path:
-        raise updot.exceptions.PathInvalidError(path, 'Paths must contain forward slashes only (simplify xplat issues)')
+        raise exceptions.PathInvalidError(path_orig, 'Paths must contain forward slashes only (simplify xplat issues)')
 
     # expand macros before we check absolute
     path = os.path.expanduser(path)
     if '$' in path:
         # TODO: expand $ style macros with env vars, throwing MacroNotFoundError if not exist
-        raise RuntimeError('$ macro expansion not currently supported')
+        raise exceptions.PathInvalidError(path_orig, '"$ macro" expansion not currently supported')
 
-    if not os.path.isabs(path):
-        raise updot.exceptions.PathInvalidError(path, 'Paths must be home-based or absolute (avoid potential for errors from unclear cwd)')
-
-    # ~ replacement and general cleanup
+    # general cleanup
     path = os.path.normpath(path)
+
+    # this is mostly a stylistic choice at this point, but i also think it will help avoid
+    # accidental cross plat problems.
+    if not _is_really_absolute(path):
+        raise exceptions.PathInvalidError(path_orig, 'All paths (after expansion) must be absolute')
 
     # python path funcs will use backslash, so swap it back
     path = path.replace('\\', '/')
 
-    # TODO: if windows-style path (\\unc\path or C:\blah), then for each level of path that exists, validate that the actual case matches what we have
+    # TODO: if windows-style path (\\unc\path or C:\blah), then for each level of path that exists,
+    # validate that the case of the path on disk matches exactly what `path` has. point of this is
+    # to catch potential failures going from windows to linux (going the other way would be fine).
+    # though..consider whether to warn about multiple symlinks in the same folder with same name but
+    # different casing.
     # (see answers in https://stackoverflow.com/a/35229734/14582 for ideas)
 
     return path
@@ -39,7 +52,8 @@ class LinkResult(Enum):
     CREATED = auto()    # created a new link
     ADJUSTED = auto()   # recreated an existing managed link to point to a new target
 
-# optional 'exe' param to test if in path and skip making link if not (for example dont clutter with ~/.tmux.conf if no tmux installed)
+
+# TODO: optional 'exe' param to test if in path and skip making link if not (for example dont clutter with ~/.tmux.conf if no tmux installed)
 def ln(link, target):
     link_orig, link = link, _normalize_path(link)
     target_orig, target = target, _normalize_path(target)  # TODO: catch env var not exist and silent ignore
@@ -49,14 +63,11 @@ def ln(link, target):
         logging.debug('Symlink target %s does not exist; skipping', target_orig)
         return LinkResult.SKIPPED
 
-    # Make the link target relative.  This usually makes the link
-    # shorter in ls output.
+    # TODO: Make the link target relative.  This usually makes the link
+    # shorter in `ls` output.
     # ... but only if it's worth it. may end up with ../../.../../.././..//. where a simple root base would be shorter. so test results for length before changing.
     # on the other hand, if we have a lot of these in one folder, they may become inconsistent if their targets are slightly different lengths from each other..
-###    link_target = os.path.relpath(
-###        file_pathname,
-###        link_dir
-###    )
+    # anyway, it's `link_target = os.path.relpath(file_pathname, link_dir)`
 
     # link possibilities:
     #
@@ -89,7 +100,7 @@ def ln(link, target):
 
     query = Query()
     db.remove(query.link == link)
-    db.insert({'link': link, 'version': _db.})
+#$$$    db.insert({'link': link, 'version': _db.})
 
     # TODO: at end of program...
     # 1. find all unused but managed links and delete them
