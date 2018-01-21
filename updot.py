@@ -57,8 +57,6 @@ if platform.WINDOWS:
     ln('~/Common/_Settings/gimp-2.8',                  '.gimp-2.8')
     ln('~/Common/_Settings/Ssh',                       '.ssh')
     ln('~/Common/_Settings/minttyrc.txt',              '.minttyrc')
-    ln('~/Common/Visual Studio 2013',                  'Documents/Visual Studio 2013')
-    ln('~/Common/Visual Studio 2015',                  'Documents/Visual Studio 2015')
     ln('~/Common/Visual Studio 2017',                  'Documents/Visual Studio 2017')
     ln('~/Common/WindowsPowerShell',                   'Documents/WindowsPowerShell')
 
