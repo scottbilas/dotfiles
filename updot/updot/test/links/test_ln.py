@@ -1,10 +1,6 @@
 import os
 
-import pyfakefs
-
 from updot import links
-
-pyfakefs.deprecator.Deprecator.show_warnings = True
 
 
 # TODO: def test__tracked_link_exists_with_correct_target__ignores():
