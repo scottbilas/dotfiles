@@ -50,5 +50,9 @@
         "key": "ctrl+=",
         "command": "-restructuredtext.features.underline.underline",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "-editor.action.toggleTabFocusMode"
     }
 ]
