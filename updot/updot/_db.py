@@ -42,4 +42,5 @@ _this.shared_db = None
 def get_shared_db():
     if not _this.shared_db:
         _this.shared_db = _Db()
+        _this.shared_db.__enter__()
         atexit.register(_this.shared_db.__exit__)
