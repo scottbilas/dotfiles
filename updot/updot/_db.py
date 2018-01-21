@@ -1,44 +1,45 @@
+import atexit
 import logging
 import os
 import sys
 
 import tinydb
-import xdg
 from tinydb.operations import increment
+from tinydb.queries import where
+import xdg
+
+
+class _Db:
+    def __init__(self, path=None):
+        if not path:
+            path = os.path.join(xdg.XDG_DATA_HOME, 'updot', 'db.json')
+
+        self.path = path        # location of db file
+        self.db = None          # the tinydb instance at `path`
+        self.version = 0        # increments each time db is closed; use to garbage collect unreferenced links etc.
+
+    def __enter__(self):
+        logging.debug('Using %s', self.path)
+        self.db = tinydb.TinyDB(self.path, create_dirs=True)
+
+        ver_field = self.db.get(where('version') != None)
+        if ver_field:
+            self.version = ver_field['version']
+        else:
+            self.version = 1
+            self.db.insert({'version': 1})
+
+        return self
+
+    def __exit__(self, *args):
+        logging.debug('Closing %s', self.path)
+        self.db.update(increment('version'), where('version') != None)
+
 
 _this = sys.modules[__name__]
-_this.initialized = False
+_this.shared_db = None
 
-
-def _init():
-    assert not _this.initialized
-    _this.initialized = True
-
-    # create/open db
-
-    cache_dir = os.path.join(xdg.XDG_DATA_HOME, 'updot')
-    os.makedirs(cache_dir, exist_ok=True)
-
-    db_file = os.path.join(cache_dir, 'db.json')
-    logging.debug('Using %s', db_file)
-    _this.db = tinydb.TinyDB(db_file)
-
-    # get db version, which can be used to remove expired elements that we maintain
-
-    glob = _this.db.table('global')
-    q = tinydb.Query()
-
-    ver_field = glob.get(q.version != None)
-    if ver_field:
-        _this.version = ver_field['version']
-    else:
-        _this.version = 0
-        glob.insert({'version': 1})
-
-    # tick version on shutdown
-
-    import atexit
-    atexit.register(lambda: glob.update(increment('version'), q.version != None))
-
-
-_init()
+def get_shared_db():
+    if not _this.shared_db:
+        _this.shared_db = _Db()
+        atexit.register(_this.shared_db.__exit__)
