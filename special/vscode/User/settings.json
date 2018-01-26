@@ -1,7 +1,7 @@
 {
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreRegExpList": [
-        "[./]\\w+",     // things that look like filenames/paths/extensions
+        "[./]\\w+",       // things that look like filenames/paths/extensions
         "\\W[Rr]'\\w"     // raw format string prefixes
     ],
     "cSpell.userWords": [
@@ -16,6 +16,7 @@
         "fatals",
         "Fody",
         "funcs",
+        "isabs",
         "LLDB",
         "minimap",
         "mkdir",
