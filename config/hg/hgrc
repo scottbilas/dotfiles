@@ -1,5 +1,4 @@
 %include ~/dotfiles/private/hg/hgrc
-%include ~/.config/hg/hgrc-$OS
 
 
 # ---------
@@ -148,5 +147,7 @@ initialrevision = workingdir
 graphopt = True
 
 
-# potential overrides for non-gui
-%include ~/Work/hgrc-Powershell_$POWERSHELL_HOST.txt
+# overrides based on various differentiators of system config
+%include ~/.config/hg/hgrc-OS_$OS
+%include ~/.config/hg/hgrc-Powershell_$POWERSHELL_HOST.txt
+%include ~/.config/hg/hgrc-Terminal_$TERM_PROGRAM

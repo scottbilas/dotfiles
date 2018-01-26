@@ -1,0 +1,8 @@
+# Hyper has some ANSI escape code parsing bugs, so disable that for now
+# (works fine in other shell hosts: posh, cmd, conemu..)
+
+[ui]
+style = ~/unity-meta/Configs/Mercurial/unity.hgstyle
+
+[color]
+mode = off
