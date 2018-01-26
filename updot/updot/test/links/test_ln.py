@@ -4,10 +4,10 @@ import pytest
 
 from updot import links
 
+HOME = os.path.expanduser('~').replace('\\', '/')
 
 # TODO:
 # make a fixture (that inherits 'fs') that mocks the singleton accessor
-
 
 # TODO: def test__tracked_link_exists_with_correct_target__ignores():
 #    """Rebuilding an existing symlink should do nothing"""
@@ -23,17 +23,17 @@ from updot import links
 # TODO: def test__untracked_link_exists_with_different_target__throws():
 #    """Symlink already exists and is pointing somewhere unexpected"""
 
+
 def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(fs):
     """Basic behavior of creating new symlinks"""
 
-    fs.create_file(os.path.expanduser('~/path/to/actual/file.txt'), contents='abc')
+    fs.create_file(f'{HOME}/path/to/actual/file.txt', contents='abc')
 
     links.ln('~/path/to/link', '~/path/to/actual/file.txt')
 
     # ensure link is shortened and not absolute, and works
-    expanded_link = os.path.expanduser('~/path/to/link')
-    assert os.readlink(expanded_link).replace('\\', '/') == '../actual/file.txt'
-    assert open(expanded_link, 'r').read() == 'abc'
+    assert os.readlink(f'{HOME}/path/to/link').replace('\\', '/') == '../actual/file.txt'
+    assert open(f'{HOME}/path/to/link', 'r').read() == 'abc'
 
     # TODO: test addition to state db
 
@@ -45,7 +45,8 @@ def test__target_not_exist__ignores(fs):  # pylint: disable=unused-argument
     """Ignore symlinks referring to nonexistent target paths (will be very common across OS's)"""
 
     links.ln('~/link', '~/no-file.txt')
-    assert not os.path.exists(os.path.expanduser('~/link'))
+
+    assert not os.path.exists(f'{HOME}/link')
 
 
 # TODO: def test__dup_target_and_link__throws(fs):
