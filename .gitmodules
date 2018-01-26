@@ -52,6 +52,3 @@
 [submodule "ghdd/dikiaap/dotfiles"]
 	path = ghdd/dikiaap/dotfiles
 	url = https://github.com/dikiaap/dotfiles
-[submodule "ghdd/posquit0/dotfiles"]
-	path = ghdd/posquit0/dotfiles
-	url = https://github.com/posquit0/dotfiles
