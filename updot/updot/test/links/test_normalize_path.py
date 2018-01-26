@@ -33,10 +33,12 @@ def test__path_with_backslash__throws():
 def test__path_with_redundancy__is_collapsed():
     """Ensure unnecessary `./` and `path/../path` and `//` etc. are collapsed"""
 
-    assert links._normalize_path('/blah/.') == '/blah'
-    assert links._normalize_path('/blah/../blah') == '/blah'
-    assert links._normalize_path('/blah/./.././blah') == '/blah'
-    assert links._normalize_path('/blah//foo') == '/blah/foo'
+    home = os.path.expanduser('~').replace('\\', '/')
+
+    assert links._normalize_path('~/blah/.') == f'{home}/blah'
+    assert links._normalize_path('~/blah/../blah') == f'{home}/blah'
+    assert links._normalize_path('~/blah/./.././blah') == f'{home}/blah'
+    assert links._normalize_path('~/blah//foo') == f'{home}/blah/foo'
 
 
 def test__path_with_tilde__is_expanded_to_home():
@@ -47,7 +49,7 @@ def test__path_with_tilde__is_expanded_to_home():
 
     assert links._normalize_path('~') == home
     assert links._normalize_path('~/path/to/thing.txt') == f'{home}/path/to/thing.txt'
-    assert links._normalize_path('/path/to/~/thing.txt') == f'/path/to/~/thing.txt'
+    assert links._normalize_path('~/path/to/~/thing.txt') == f'{home}/path/to/~/thing.txt'
     assert links._normalize_path('~foo/path') == f'{users}/foo/path'
 
 
