@@ -1,3 +1,5 @@
+import pytest
+
 from updot import links, platform
 
 # pylint: disable=protected-access
@@ -30,3 +32,7 @@ if platform.POSIX:
         """Posix-style rooted paths should always return true on posix"""
 
         assert links._is_really_absolute('/path/to/thing')
+
+
+if __name__ == "__main__":
+    pytest.main(__file__)
