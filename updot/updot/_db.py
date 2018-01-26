@@ -9,7 +9,7 @@ from tinydb.queries import where
 import xdg
 
 
-class _Db:
+class _Db: # pylint: disable=too-few-public-methods
     def __init__(self, path=None):
         if not path:
             path = os.path.join(xdg.XDG_DATA_HOME, 'updot', 'db.json')
