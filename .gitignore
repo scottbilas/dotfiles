@@ -8,4 +8,4 @@ config/elinks/bookmarks.xbel
 config/micro/buffers/history
 special/vscode/User/vsicons\.settings\.json
 private
-updot/\.vscode/tags
+\.vscode/tags
