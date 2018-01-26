@@ -14,10 +14,6 @@ def error(text):
     stderr.write(text)
 
 
-PROJ                 = 'c:/proj'
-APPDATA              = environ["APPDATA"]
-SUBLIME_PACKAGE_ROOT = f'{APPDATA}/Sublime Text 3/Packages'
-
 mkdir('~/bin')
 mkdir('~/go/bin')
 
@@ -31,10 +27,9 @@ ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')   # tmux refuses t
 ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py')                     # pdbpp uses fancycompleter which hard codes ~/<configname> and doesn't do xdg
 ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')   # lots of XDG arguments at https://github.com/zeit/hyper/issues/137
 
-ln(f'{PROJ}/unity-meta', '~/unity-meta')
-
 if platform.POSIX:
     touch('~/.hushlogin')
+    PROJ = '~/proj'
 
 if platform.TERMUX:
     ln('~/.config/termux', '~/.termux')
@@ -61,14 +56,36 @@ if platform.WINDOWS:
     ln('~/Common/Visual Studio 2017',                  'Documents/Visual Studio 2017')
     ln('~/Common/WindowsPowerShell',                   'Documents/WindowsPowerShell')
 
+    PROJ                 = 'c:/proj'
+    APPDATA              = environ["APPDATA"]
+    SUBLIME_PACKAGE_ROOT = f'{APPDATA}/Sublime Text 3/Packages'
+
     ln('~/unity-meta/Perforce Jam Language Files',    f'{SUBLIME_PACKAGE_ROOT}/Perforce Jam Language Files')
     ln('~/unity-meta/Unity bindings',                 f'{SUBLIME_PACKAGE_ROOT}/Unity bindings')
+
+    # env by default is the user env
+    env('XDG_CONFIG_HOME', '~/.config', direxists=True)
+    env('XDG_DATA_HOME', '~/.local/share')
+    env('ChocolateyToolsLocation', R'~\choco')
+    env(['TEMP', 'TMP'], R'c:\temp')
+
+
+ln(f'{PROJ}/unity-meta', '~/unity-meta')
+
 
 
 # registry
 
 # vs code extensions
 
+# nvim :PlugInstall PlugUpgrade PlugUpdate etc.
+
 # visual studio keyboard settings
 
+# sync scoop, choco, cyg-get, apt-get, npm, gem, pip
+
 # parts of mc.ini and elinks configs that make sense to share
+
+# vim
+# curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# ^^ windows: make sure the ~ is expanded, or make new 'curl' command that does it
