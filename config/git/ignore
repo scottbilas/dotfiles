@@ -56,6 +56,9 @@ build.force
 TemporaryGeneratedFile_*
 Thumbs.db
 
+# my conventions
+**/.vscode/tags
+
 # from https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
