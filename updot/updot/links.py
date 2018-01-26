@@ -55,7 +55,7 @@ class LinkResult(Enum):
 
 # TODO: optional 'exe' param to test if in path and skip making link if not (for example dont clutter with ~/.tmux.conf if no tmux installed)
 def ln(link, target):
-    link_orig, link = link, _normalize_path(link)
+    link = _normalize_path(link)
     target_orig, target = target, _normalize_path(target)  # TODO: catch env var not exist and silent ignore
 
     # a missing target file is ok; common due to plat and install differences
@@ -91,17 +91,18 @@ def ln(link, target):
         else:
             pass
 
-    linkparent = os.path.split(link)
+    linkparent = os.path.split(link)[0]
     if not os.path.exists(linkparent):
         logging.debug('Creating symlink parent folder %s', linkparent)
         os.makedirs(linkparent)
 
     os.symlink(target, link)
 
-    query = Query()
-    db.remove(query.link == link)
+    #db.remove(query.link == link)
 #$$$    db.insert({'link': link, 'version': _db.})
 
     # TODO: at end of program...
     # 1. find all unused but managed links and delete them
     # 2. warn about all unmanaged links found in all parent folders of links
+
+    return LinkResult.CREATED

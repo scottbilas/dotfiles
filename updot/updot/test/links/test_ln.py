@@ -26,13 +26,14 @@ from updot import links
 def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(fs):
     """Basic behavior of creating new symlinks"""
 
-    fs.create_file('~/path/to/actual/file.txt', contents='abc')
+    fs.create_file(os.path.expanduser('~/path/to/actual/file.txt'), contents='abc')
 
     links.ln('~/path/to/link', '~/path/to/actual/file.txt')
 
-    # ensure link is shortened and not absolute
-    assert os.readlink('~/path/to/link').replace('\\', '/') == '../actual/file.txt'
-    assert open('~/path/to/link', 'r').read() == 'abc'
+    # ensure link is shortened and not absolute, and works
+    expanded_link = os.path.expanduser('~/path/to/link')
+    assert os.readlink(expanded_link).replace('\\', '/') == '../actual/file.txt'
+    assert open(expanded_link, 'r').read() == 'abc'
 
     # TODO: test addition to state db
 
@@ -43,8 +44,8 @@ def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(fs):
 def test__target_not_exist__ignores(fs):  # pylint: disable=unused-argument
     """Ignore symlinks referring to nonexistent target paths (will be very common across OS's)"""
 
-    links.ln('~/link', '/var/data/no-file.txt')
-    assert not os.path.exists('~/link')
+    links.ln('~/link', '~/no-file.txt')
+    assert not os.path.exists(os.path.expanduser('~/link'))
 
 
 # TODO: def test__dup_target_and_link__throws(fs):
