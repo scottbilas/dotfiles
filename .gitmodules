@@ -19,9 +19,6 @@
 [submodule "ghdd/xero/dotfiles"]
 	path = ghdd/xero/dotfiles
 	url = https://github.com/xero/dotfiles
-[submodule "ghdd/andschwa/dotfiles"]
-	path = ghdd/andschwa/dotfiles
-	url = https://github.com/andschwa/dotfiles
 [submodule "ghdd/driesvints/dotfiles"]
 	path = ghdd/driesvints/dotfiles
 	url = https://github.com/driesvints/dotfiles
@@ -43,15 +40,9 @@
 [submodule "ghdd/ashishb/dotfiles"]
 	path = ghdd/ashishb/dotfiles
 	url = https://github.com/ashishb/dotfiles
-[submodule "ghdd/posquit0/dotfiles"]
-	path = ghdd/posquit0/dotfiles
-	url = https://github.com/posquit0/dotfiles
 [submodule "ghdd/rkalis/dotfiles"]
 	path = ghdd/rkalis/dotfiles
 	url = https://github.com/rkalis/dotfiles
 [submodule "ghdd/mihaliak/dotfiles"]
 	path = ghdd/mihaliak/dotfiles
 	url = https://github.com/mihaliak/dotfiles
-[submodule "ghdd/dikiaap/dotfiles"]
-	path = ghdd/dikiaap/dotfiles
-	url = https://github.com/dikiaap/dotfiles
