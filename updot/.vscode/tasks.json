@@ -1,23 +1,27 @@
+// docs:
+//     https://code.visualstudio.com/docs/editor/tasks
+// schema:
+//     https://code.visualstudio.com/docs/editor/tasks-appendix
+// why doesn't the python extension include this?
+//     https://github.com/Microsoft/vscode-python/issues/120
+// sample python tasks.json (in the 0.1 schema):
+//     https://github.com/hendrics/python-vscode-pytest-example
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
+    // i can't seem to make the 2.0 schema work.
     "version": "0.1.0",
-    "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-    "echoCommand": true,
+    "command": "${config:python.pythonPath}",
     "suppressTaskName": true,
     "isShellCommand": true,
-    "options": {
-        "env": {
-            "PYTEST_ADDOPTS" : "-vv --tb=native"
-        }
-    },
+    "args": [
+        "-m",
+        "pytest",
+        "--tb=native",
+    ],
     "tasks": [
         {
             "taskName": "tests",
             "isTestCommand": true,
             "args": [
-                "-m",
-                "pytest",
                 "${workspaceRoot}"
             ],
             "problemMatcher": [
