@@ -3,7 +3,7 @@ import os
 import pytest
 from pytest import raises
 
-from updot import exceptions, links
+from updot import exceptions, links, platform
 
 # pylint: disable=protected-access
 
@@ -33,12 +33,12 @@ def test__path_with_backslash__throws():
 def test__path_with_redundancy__is_collapsed():
     """Ensure unnecessary `./` and `path/../path` and `//` etc. are collapsed"""
 
-    home = os.path.expanduser('~').replace('\\', '/')
+    root = "C:" if platform.WINDOWS else ""
 
-    assert links._normalize_path('~/blah/.') == f'{home}/blah'
-    assert links._normalize_path('~/blah/../blah') == f'{home}/blah'
-    assert links._normalize_path('~/blah/./.././blah') == f'{home}/blah'
-    assert links._normalize_path('~/blah//foo') == f'{home}/blah/foo'
+    assert links._normalize_path(f'{root}/blah/.') == f'{root}/blah'
+    assert links._normalize_path(f'{root}/blah/../blah') == f'{root}/blah'
+    assert links._normalize_path(f'{root}/blah/./.././blah') == f'{root}/blah'
+    assert links._normalize_path(f'{root}/blah//foo') == f'{root}/blah/foo'
 
 
 def test__path_with_tilde__is_expanded_to_home():
