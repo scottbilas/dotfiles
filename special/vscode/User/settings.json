@@ -52,10 +52,11 @@
     "editor.renderIndentGuides": false,
     "editor.roundedSelection": true,
     "editor.rulers": [
-        80,
+        //80,
         100,
-        120
+        //120
     ],
+    "editor.smoothScrolling": true,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "files.associations": {
