@@ -1,0 +1,41 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "${workspaceFolder}/.venv/Scripts/python.exe",
+    "echoCommand": true,
+    "suppressTaskName": true,
+    "isShellCommand": true,
+    "options": {
+        "env": {
+            "PYTEST_ADDOPTS" : "-vv --tb=native"
+        }
+    },
+    "tasks": [
+        {
+            "taskName": "tests",
+            "isTestCommand": true,
+            "args": [
+                "-m",
+                "pytest",
+                "${workspaceRoot}"
+            ],
+            "problemMatcher": [
+                {
+                    "fileLocation": "absolute",
+                    "pattern": [
+                        {
+                            "regexp": "^\\s+File \"(.*)\", line (\\d+), in (.*)$",
+                            "file": 1,
+                            "line": 2
+                        },
+                        {
+                            "regexp": "^\\s+(.*)$",
+                            "message": 1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
