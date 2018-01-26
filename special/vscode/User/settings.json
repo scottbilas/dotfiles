@@ -118,6 +118,10 @@
             ]
         }
     ],
+    "problems.decorations.enabled": true,
+    "python.unitTest.pyTestArgs": [
+        "-q"
+    ],
     "search.useRipgrep": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
