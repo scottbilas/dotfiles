@@ -32,7 +32,11 @@ runtime macros/matchit.vim
 
 " === Plugins ===
 
-call plug#begin()
+if has("win32")
+  source ~/.local/share/nvim/site/autoload/plug.vim " can't get autoload to work on windows
+endif
+
+call plug#begin('~/.local/share/nvim/plugged')
 source ~/.config/nvim/plugins.vim
 call plug#end()
 
