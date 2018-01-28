@@ -52,3 +52,7 @@
 [submodule "ghdd/dikiaap/dotfiles"]
 	path = ghdd/dikiaap/dotfiles
 	url = https://github.com/dikiaap/dotfiles
+[submodule "repos/pure-prompt"]
+	path = repos/pure-prompt
+	url = https://github.com/sindresorhus/pure
+	branch = master
