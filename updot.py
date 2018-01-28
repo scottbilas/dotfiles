@@ -28,12 +28,17 @@ ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py')                     # pdbpp uses fan
 ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')   # lots of XDG arguments at https://github.com/zeit/hyper/issues/137
 
 if platform.POSIX:
+    rm('~/.bash_history')
     touch('~/.hushlogin')
     ln('~/dotfiles/special/zsh/zshenv', '~/.zshenv') # http://zsh.org/mla/workers/2013/msg00692.html
     PROJ = '~/proj'
 
 if platform.TERMUX:
+    sys('termux-setup-storage')
     ln('~/.config/termux', '~/.termux')
+    ln('$PREFIX', '~/usr')
+    ln('~/storage/shared/Sync/Common', '~/Common')
+    # ^^^ do before ssh setup
 
 if platform.WSL:
     ln('/mnt/c', '/c')

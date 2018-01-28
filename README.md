@@ -78,7 +78,7 @@ sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
 
 ```bash
 cd ~
-git clone --recursive https://github.com/scottbilas/dotfiles
+git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles
 ```
 
 ### Wire up
