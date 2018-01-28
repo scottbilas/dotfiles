@@ -29,6 +29,7 @@ ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')   # lots of XDG ar
 
 if platform.POSIX:
     touch('~/.hushlogin')
+    ln('~/dotfiles/special/zsh/zshenv', '~/.zshenv') # http://zsh.org/mla/workers/2013/msg00692.html
     PROJ = '~/proj'
 
 if platform.TERMUX:
