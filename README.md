@@ -79,6 +79,7 @@ sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
 ```bash
 cd ~
 git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles
+# TODO also set up master branch tracking origin
 ```
 
 ### Wire up
