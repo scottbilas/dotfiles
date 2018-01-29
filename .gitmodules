@@ -56,3 +56,7 @@
 	path = repos/pure-prompt
 	url = https://github.com/sindresorhus/pure
 	branch = master
+[submodule "config/tmux/tmux-themepack"]
+	path = config/tmux/tmux-themepack
+	url = https://github.com/jimeh/tmux-themepack
+	branch = master
