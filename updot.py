@@ -96,6 +96,10 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # update and re-build any repos we are manually managing (such as micro in gopath)
 
+# zprezto-update
+
+# tmux plugin manager
+
 # vim
 # curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # ^^ windows: make sure the ~ is expanded, or make new 'curl' command that does it

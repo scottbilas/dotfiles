@@ -96,6 +96,7 @@ ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf
 touch ~/.hushlogin
 
 # termux only
+pkg install sed
 ln -s ~/dotfiles/config/termux ~/.termux
 
 # cygwin only
@@ -123,21 +124,6 @@ exit
 ```
 
 TODO: use aliasing of `tmux -f` instead of ln on tmux.conf (tmux devs [refuse to support XDG](https://github.com/tmux/tmux/issues/142))
-
-### Fish
-
-```bash
-sudo apt install -y fish
-chsh -s `which fish`
-```
-
-Then restart shell as Fish.
-
-```fish
-# install omf
-# TODO: dotfiles should do this instead..maybe call 'fisher' instead post-install?
-#curl -L https://get.oh-my.fish | fish
-```
 
 ## Basics
 
