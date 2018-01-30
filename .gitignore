@@ -5,6 +5,6 @@ config/nvim/.netrwhist
 config/elinks/cookies
 config/elinks/*hist
 config/elinks/bookmarks.xbel
-config/micro/buffers/history
+config/micro/buffers
 special/vscode/User/vsicons\.settings\.json
 private
