@@ -1,10 +1,9 @@
 config/configstore/
-config/fish/conf.d
-config/fish/fishd.*
 config/nvim/.netrwhist
 config/elinks/cookies
 config/elinks/*hist
 config/elinks/bookmarks.xbel
 config/micro/buffers
+config/zsh/.zcompdump*
 special/vscode/User/vsicons\.settings\.json
 private
