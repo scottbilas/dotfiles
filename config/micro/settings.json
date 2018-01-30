@@ -7,7 +7,7 @@
     "colorscheme": "zenburn",
     "cursorline": true,
     "eofnewline": true,
-    "fastdirty": false,
+    "fastdirty": true,
     "fileformat": "unix",
     "filemanager-showdotfiles": true,
     "filemanager-showignored": true,
