@@ -86,11 +86,15 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # nvim :PlugInstall PlugUpgrade PlugUpdate etc.
 
+# micro plugin update
+
 # visual studio keyboard settings
 
 # sync scoop, choco, cyg-get, apt-get, npm, gem, pip
 
 # parts of mc.ini and elinks configs that make sense to share
+
+# update and re-build any repos we are manually managing (such as micro in gopath)
 
 # vim
 # curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

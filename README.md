@@ -204,7 +204,14 @@ cd ~
 
 ```bash
 # termux
-apt install micro nvim
+apt install nvim
+
+# termux has an old micro package, so build it (maybe do this on all platforms)
+go get -d github.com/zyedidia/micro/cmd/micro
+cd $GOPATH/src/github.com/zyedidia/micro
+make install
+cd ~
+
 
 # other
 curl -sL https://gist.githubusercontent.com/zyedidia/d4acfcc6acf2d0d75e79004fa5feaf24/raw/a43e603e62205e1074775d756ef98c3fc77f6f8d/install_micro.sh | bash -s linux64 ~/bin
