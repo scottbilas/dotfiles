@@ -55,7 +55,7 @@ class LinkResult(Enum):
 
 # TODO: optional 'exe' param to test if in path and skip making link if not (for example dont clutter with ~/.tmux.conf if no tmux installed)
 def ln(link, target):
-    link = _normalize_path(link)
+    link_orig, link = link, _normalize_path(link)
     target_orig, target = target, _normalize_path(target)  # TODO: catch env var not exist and silent ignore
 
     # a missing target file is ok; common due to plat and install differences
@@ -63,11 +63,9 @@ def ln(link, target):
         logging.debug('Symlink target %s does not exist; skipping', target_orig)
         return LinkResult.SKIPPED
 
-    # TODO: Make the link target relative.  This usually makes the link
-    # shorter in `ls` output.
-    # ... but only if it's worth it. may end up with ../../.../../.././..//. where a simple root base would be shorter. so test results for length before changing.
-    # on the other hand, if we have a lot of these in one folder, they may become inconsistent if their targets are slightly different lengths from each other..
-    # anyway, it's `link_target = os.path.relpath(file_pathname, link_dir)`
+    # special: if both home-relative, make them relative to each other (shortens `ls`)
+    if link_orig.startswith('~/') and target_orig.startswith('~/'):
+        target = os.path.relpath(target, os.path.split(link)[0])
 
     # link possibilities:
     #
@@ -80,6 +78,7 @@ def ln(link, target):
 
     managed = True
 
+    # TODO: fill out this if-tree
     if os.path.exists(link):
         target_existing = os.readlink(link)  # will throw if not a link
 
@@ -91,12 +90,14 @@ def ln(link, target):
         else:
             pass
 
-    linkparent = os.path.split(link)[0]
-    if not os.path.exists(linkparent):
-        logging.debug('Creating symlink parent folder %s', linkparent)
-        os.makedirs(linkparent)
+    link_parent = os.path.split(link)[0]
+    if not os.path.exists(link_parent):
+        logging.debug('Creating symlink parent folder %s', link_parent)
+        os.makedirs(link_parent)
 
     os.symlink(target, link)
+
+    # TODO: test resolving the symlink
 
     #db.remove(query.link == link)
 #$$$    db.insert({'link': link, 'version': _db.})

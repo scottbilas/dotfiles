@@ -27,13 +27,31 @@ HOME = os.path.expanduser('~').replace('\\', '/')
 def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(fs):
     """Basic behavior of creating new symlinks"""
 
-    fs.create_file(f'{HOME}/path/to/actual/file.txt', contents='abc')
+    # ARRANGE
 
-    links.ln('~/path/to/link', '~/path/to/actual/file.txt')
+    file_path = '~/path/to/actual/file.txt'
+    file_contents = 'abc'
+    link_path = '~/path/to/the/.link'
+    target = '../actual/file.txt'
 
-    # ensure link is shortened and not absolute, and works
-    assert os.readlink(f'{HOME}/path/to/link').replace('\\', '/') == '../actual/file.txt'
-    assert open(f'{HOME}/path/to/link', 'r').read() == 'abc'
+    # note: only `ln` supports tilde-expansion, so everything else gets pre-expanded versions
+    file_path_expanded = file_path.replace('~', HOME)
+    link_path_expanded = link_path.replace('~', HOME)
+
+    fs.create_file(file_path_expanded, contents=file_contents)
+
+    # ACT
+
+    links.ln(link_path, file_path)
+
+    # ASSERT
+
+    # ensure link is shortened and not absolute
+    assert os.readlink(link_path_expanded).replace('\\', '/') == target
+
+    # ensure the symlink resolves correctly
+    assert fs.resolve(link_path_expanded).path.replace('\\', '/') == file_path_expanded
+    assert open(link_path_expanded, 'r').read() == file_contents
 
     # TODO: test addition to state db
 
