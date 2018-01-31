@@ -1,0 +1,4 @@
+alias realias='source ~/.config/zsh/aliases'
+
+alias l='ls -ACF'
+alias ll='ls -AgGhF $@'
