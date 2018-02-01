@@ -1,0 +1,96 @@
+#!/bin/bash
+
+# copied from http://eh.meklu.org/script/meksysinfo and shfmt'd
+
+## a simple system info script by meklu
+# if we don't have a display we'll try to set one
+# useful for e.g. ssh access
+[[ -z "$DISPLAY" ]] && export DISPLAY=":0"
+printf "%s" "Host:   "
+hostname
+printf "%s" "Kernel: "
+uname -rsm
+printf "%s" "Distro: "
+lsb_release >/dev/null 2>/dev/null
+if [ $? = 0 ]; then
+    lsb_release -ds | sed 's/^\"//g;s/\"$//g'
+    # a bunch of fallbacks if no lsb_release is available
+    # first trying /etc/os-release which is provided by systemd
+elif [ -f /etc/os-release ]; then
+    source /etc/os-release
+    if [ -n "${PRETTY_NAME}" ]; then
+        printf "%s\n" "${PRETTY_NAME}"
+    else
+        printf "%s" "${NAME}"
+        [[ -n "${VERSION}" ]] && printf "%s" " ${VERSION}"
+        printf "\n"
+    fi
+    # now looking at distro-specific files
+elif [ -f /etc/arch-release ]; then
+    printf "%s\n" "Arch Linux"
+elif [ -f /etc/gentoo-release ]; then
+    cat /etc/gentoo-release
+elif [ -f /etc/fedora-release ]; then
+    cat /etc/fedora-release
+elif [ -f /etc/redhat-release ]; then
+    cat /etc/redhat-release
+elif [ -f /etc/debian_version ]; then
+    printf "%s" "Debian GNU/Linux "
+    cat /etc/debian_version
+else
+    printf "%s\n" "Unknown"
+fi
+printf "%s" "CPU:    "
+cat /proc/cpuinfo | sed -n 's/^model name\t: //gp' | head -n1 | xargs
+if [ -f "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq" ]; then
+    CPUFREQUENCY="$(printf "%s\n" "scale=2;$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq)/1000" | bc -l)"
+else
+    CPUFREQUENCY="$(printf "%s\n" "scale=2;$(grep -m 1 "cpu MHz" /proc/cpuinfo | awk '{print $4}')/1" | bc -l)"
+fi
+printf "%s\n%s\n" "        $(grep -c "^processor" /proc/cpuinfo | sed 's/\n//g') cores/threads" "        $CPUFREQUENCY MHz"
+printf "%s\n" "RAM:    $(printf "%s\n" "scale=2;$(grep "^MemTotal:" /proc/meminfo | awk '{print $2}')/1024^2" | bc -l) GiB"
+GPUINFO="$(glxinfo 2>/dev/null | sed -n 's/^OpenGL core profile version string: /        OpenGL\/core /gp;s/^OpenGL core profile shading language version string: /        GLSL\/core /gp;s/^OpenGL renderer string: //gp;s/^OpenGL version string: /        OpenGL /gp;s/^OpenGL shading language version string: /        GLSL /gp')"
+printf "%s" "GPU:    "
+if [ -n "${GPUINFO}" ]; then
+    printf "%s\n" "${GPUINFO}"
+    RESOLUTION="$(xwininfo -root 2>/dev/null | grep "^  -geometry" | awk '{print $2}' | sed -e 's/+\(.*\)//g')"
+    if [ -z "${RESOLUTION}" ]; then
+        RESOLUTION="No screen detected. You might need to install xwininfo."
+    fi
+    printf "Screen: %s\n" "${RESOLUTION}"
+    _getxrootprop() {
+        PROP="$1"
+        if [ -z "${PROP}" ]; then
+            return
+        fi
+        if [ "$(printf %s "${PROP}")" = "-" ]; then
+            return
+        fi
+        TMP="$(xprop -notype -root -format "${PROP}" 8x '$0+' "${PROP}" 2>/dev/null | cut -b"$(expr 1 + "$(printf %s "${PROP}" | wc -c)")"-)"
+        if [ -n "$(printf %s "${TMP}" | grep -Ei '[^0-9A-Fx, ]')" ]; then
+            return
+        fi
+        TMP="$(printf %s "${TMP}" | xargs -d , | xargs | sed -e 's/0x/\\x/g')"
+        FORMAT=""
+        for i in ${TMP}; do
+            FORMAT="${FORMAT}${i}"
+        done
+        if [ -z "${FORMAT}" ]; then
+            return
+        fi
+        printf ${FORMAT}
+    }
+    WMNAME="${XDG_CURRENT_DESKTOP}"
+    if [ -z "${WMNAME}" ]; then
+        WMNAME="$(_getxrootprop _NET_WM_NAME)"
+    fi
+    if [ -z "${WMNAME}" ]; then
+        WMNAME="$(_getxrootprop WM_NAME)"
+    fi
+    if [ -z "${WMNAME}" ]; then
+        WMNAME="Unknown. You might need to install xprop."
+    fi
+    printf "WM/DE:  %s\n" "${WMNAME}"
+else
+    printf "%s\n" "No GPU detected."
+fi
