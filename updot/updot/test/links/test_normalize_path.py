@@ -50,7 +50,13 @@ def test__path_with_tilde__is_expanded_to_home():
     assert links._normalize_path('~') == home
     assert links._normalize_path('~/path/to/thing.txt') == f'{home}/path/to/thing.txt'
     assert links._normalize_path('~/path/to/~/thing.txt') == f'{home}/path/to/~/thing.txt'
-    assert links._normalize_path('~foo/path') == f'{users}/foo/path'
+
+
+def test__path_with_user_specific_tilde__throws():
+    """Ensure that non-xplat-compatible ~foo style paths are not permitted"""
+
+    with raises(exceptions.PathInvalidError):
+        links._normalize_path('~foo/path')
 
 
 if __name__ == "__main__":

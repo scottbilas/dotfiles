@@ -20,6 +20,10 @@ def _normalize_path(path):
     if '\\' in path:
         raise exceptions.PathInvalidError(path_orig, 'Paths must contain forward slashes only (simplify xplat issues)')
 
+    # check user-tilde before expansion (see docs on `os.expanduser` to see how unix differs from win)
+    if path[0] == '~' and len(path) > 1 and path[1] != '/':
+        raise exceptions.PathInvalidError(path_orig, 'Tilde-based paths that select a user are not xplat-friendly and therefore disallowed')
+
     # expand macros before we check absolute
     path = os.path.expanduser(path)
     if '$' in path:
