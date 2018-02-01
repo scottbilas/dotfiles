@@ -10,19 +10,47 @@ These dotfiles are intended to work across the few environments I care about, cu
 * Termux
 * Ubuntu (usually via WSL, currently 16.04LTS/xenial)
 * MSYS (via Windows git)
+* Misc hosted containers with old LTS kernels, like from CodeAnywhere
 * Cygwin (minimal, with shared HOME to Windows host) << marked for destruction
-
-TODO: move some of this stuff to an install.sh/ps1 or use something from _General-purpose dotfile utilities_ at [GitHub does dotfiles](https://dotfiles.github.io).
 
 Thanks to [Anish Athalye](www.anishathalye.com) for the inspirational post [Managing Your Dotfiles](http://www.anishathalye.com/2014/08/03/managing-your-dotfiles).
 
+## Barebones setup
+
+### Unix
+
+```bash
+# unix
+curl https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.sh | bash
+
+# powershell
+iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -usebasic | iex
+```
+
+---------------
+
 ## System Prep (unix)
+
+Which?
+```bash
+./scripts/meksysinfo
+```
+
+### Trusty
+
+```bash
+sudo apt install -y software-properties-common
+sudo add-apt-repository ppa:jonathonf/python-3.6
+sudo apt update
+
+sudo apt install -y tmux man git zsh bc
+sudo apt install -y golang python3.6
+```
 
 ### Xenial
 
 ```bash
 sudo add-apt-repository ppa:git-core/ppa
-sudo add-apt-repository http://ppa.launchpad.net/fish-shell/release-2/ubuntuxenial/main
 sudo add-apt-repository http://ppa.launchpad.net/neovim-ppa/stable/ubuntuxenial/main
 sudo add-apt-repository http://ppa.launchpad.net/mercurial-ppa/releases/ubuntuxenial/main
 sudo add-apt-repository http://ppa.launchpad.net/longsleep/golang-backports/ubuntuxenial/main
@@ -50,6 +78,8 @@ TODO: look up installer url
   wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg
   install apt-cyg /bin
   rm apt-cyg
+
+  # TODO: switch to cyg-get from choco
   ```
 
 ### Minimum packages
@@ -65,7 +95,10 @@ sudo apt install -y coreutils git
 iwr https://get.scoop.sh -usebasic | iex
 scoop install git
 scoop bucket add extras
-scoop install sudo busybox less # note that `less` overrides `busybox` with a better version
+scoop install sudo busybox
+
+# override busybox applets with better/newer versions
+scoop install less wget
 
 # chocolatey
 sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
@@ -80,41 +113,21 @@ sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
 cd ~
 git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles
 # TODO also set up master branch tracking origin
+
+# if working from shallow clone (such as a CodeAnywhere container)
+# git submodule update --jobs 3 --init --recursive
 ```
 
 ### Wire up
 
 ```bash
-# common
-mkdir ~/bin
-mkdir -p ~/go/bin
-ln -s sync:Common/Private ~/dotfiles/private
-ln -s ~/dotfiles/config ~/.config
-mkdir ~/.ssh
-ln -s ~/dotfiles/private/ssh/authorized_keys ~/.ssh/authorized_keys
-ln -s ~/.config/tmux/tmux.conf ~/.tmux.conf
-touch ~/.hushlogin
-
 # termux only
 pkg install sed
-ln -s ~/dotfiles/config/termux ~/.termux
-
-# cygwin only
-ln -s ~/dotfiles/special/cygwin/profile ~/.profile
-ln -s ~/dotfiles/special/cygwin/minttyrc ~/.minttyrc
 ```
 
 ```powershell
 # windows only (posh)
-mklinkf ~/.config/git/config-windows ~/.gitconfig
-mklinkf ~/.config/hg/hgrc ~/.hgrc    # XDG config code only runs on hg's posix code path
-mklinkd ~/dotfiles/special/vscode/User $env:APPDATA/Code/User
-mklinkd ~/dotfiles/config/omnisharp ~/.omnisharp
-
 powershell # open nested shell
-  . ~/scoop/apps/scoop/current/lib/core.ps1 # get shim func
-  shim ~/DevBin/hg/hg.exe
-  shim ~/DevBin/hg/thg.exe
 exit
 
 # TODO: disable path inheritance (https://github.com/Microsoft/BashOnWindows/issues/1493)
@@ -123,13 +136,11 @@ exit
 # another option is ignore entirely. just copy out what i want from default env and overwrite completely. simplest.
 ```
 
-TODO: use aliasing of `tmux -f` instead of ln on tmux.conf (tmux devs [refuse to support XDG](https://github.com/tmux/tmux/issues/142))
-
 ## Basics
 
 ### ghq
 
-```fish
+```bash
 sudo apt install -y golang
 go get github.com/motemen/ghq
 ```
@@ -138,9 +149,8 @@ go get github.com/motemen/ghq
 
 Is `tmux -V` < 2.2? If not, need to build it to get support for 24-bit color.
 
-```fish
-# xenial
-apt install -y libevent-dev ncurses-dev
+```bash
+sudo apt install -y libevent-dev ncurses-dev
 ghq get tmux; ghq look tmux
 sh autogen.sh; ./configure; sudo make install
 exit
@@ -189,12 +199,19 @@ cd ~
 ### Editor
 
 ```bash
-# termux
-apt install nvim micro
+sudo apt install nvim golang
 
-# other
-curl -sL https://gist.githubusercontent.com/zyedidia/d4acfcc6acf2d0d75e79004fa5feaf24/raw/a43e603e62205e1074775d756ef98c3fc77f6f8d/install_micro.sh | bash -s linux64 ~/bin
-sudo apt install nvim
+# micro
+pushd
+go get -d github.com/zyedidia/micro/cmd/micro
+cd $GOPATH/src/github.com/zyedidia/micro
+make install
+popd
+
+# alternate: direct bin install of micro
+curl https://getmic.ro | bash
+mv micro ~/bin/
+
 ```
 
 # fzf
@@ -220,31 +237,46 @@ See https://github.com/lukesampson/scoop/wiki/Example-Setup-Scripts
 
 TODO: auto sync this stuff, yo
 
-* Align
-* Auto Close Tag
-* Auto Rename Tag
-* Better TOML
-* C/C++
-* C#
-* Code Spell Checker
-* Cram Test Language Support
-* Debugger for Unity
-* EditorConfig for VS Code
-* Fish shell
-* Git Lens
-* Guides
-* LLDB Debugger
-* Local History
-* markdownlint
-* Mono Debug
-* PowerShell
-* Python
-* Ruby
-* TODO Highlight
-* vscode-devdocs
-* vscode-icons
-* XML Tools
-* YAML
+```powershell
+dir C:\Users\scott\.vscode\extensions\ | %{ '* ' + ($_.name -replace '-[0-9.]+$', '') } | clip
+```
+
+* 74th.monokai-charcoal-high-contrast
+* adamvoss.yaml
+* akfish.vscode-devdocs
+* anweber.vscode-tidyhtml
+* bungcip.better-toml
+* DavidAnson.vscode-markdownlint
+* DotJoshJohnson.xml
+* eamodio.gitlens
+* EditorConfig.editorconfig
+* fabiospampinato.vscode-statusbar-debugger
+* fallenwood.viml
+* formulahendry.auto-close-tag
+* formulahendry.auto-rename-tag
+* foxundermoon.shell-format
+* jtanx.ctagsx
+* lei.theme-chromodynamics
+* lextudio.restructuredtext
+* mihaipopescu.cram
+* ms-python.python
+* ms-vscode.cpptools
+* ms-vscode.csharp
+* ms-vscode.mono-debug
+* ms-vscode.powershell
+* robertohuertasm.vscode-icons
+* spywhere.guides
+* steve8708.align
+* streetsidesoftware.code-spell-checker
+* Unity.unity-debug
+* vadimcn.vscode-lldb
+* vscodevim.vim
+* wayou.vscode-todo-highlight
+* xyz.local-history
+
+```bash
+go get -u mvdan.cc/sh/cmd/shfmt  # for foxundermoon.shell-format
+```
 
 ### sshd
 

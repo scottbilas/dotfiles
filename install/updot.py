@@ -9,13 +9,22 @@ from updot import ln, mkdir, platform
 # global options:
 #   what-if
 #   stop-on-first
+#   dev-level
+#       bare [zsh, ssh, git, micro, man, elinks...]
+#       basic [add python, vim, go, ruby...]
+#       normal [all spec implemented]
+#       full [everything ever detected as installed on any box is replicated]
 
 def error(text):
     stderr.write(text)
 
 
+# clean junk
+rm('~/.bash_history')
+
 mkdir('~/bin')
 mkdir('~/go/bin')
+env('GOPATH', '~/go')           # TODO: put in env.json or  something
 
 ln('~/dotfiles/config', '~/.config')
 ln('~/Common/Private', '~/dotfiles/private')
@@ -23,12 +32,11 @@ ln('~/Common/Private', '~/dotfiles/private')
 mkdir('~/.ssh')
 ln('~/dotfiles/private/ssh/authorized_keys', '~/.ssh/authorized_keys')
 
-ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')   # tmux refuses to support xdg (https://github.com/tmux/tmux/issues/142)
-ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py')                     # pdbpp uses fancycompleter which hard codes ~/<configname> and doesn't do xdg
+ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')   # tmux refuses to support xdg (https://github.com/tmux/tmux/issues/142) TODO: switch to alias and use `-f`
+ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py', if_app='python')    # pdbpp uses fancycompleter which hard codes ~/<configname> and doesn't do xdg
 ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')   # lots of XDG arguments at https://github.com/zeit/hyper/issues/137
 
 if platform.POSIX:
-    rm('~/.bash_history')
     touch('~/.hushlogin')
     ln('~/dotfiles/special/zsh/zshenv', '~/.zshenv') # http://zsh.org/mla/workers/2013/msg00692.html
     PROJ = '~/proj'
@@ -42,6 +50,7 @@ if platform.TERMUX:
 
 if platform.WSL:
     ln('/mnt/c', '/c')
+    PROJ = '/c/proj'
 
 if platform.CYGWIN:
     ln('~/dotfiles/special/cygwin/profile', '~/.profile')
@@ -49,13 +58,17 @@ if platform.CYGWIN:
     ln('/cygdrive/c', '/c')
 
 if platform.WINDOWS:
-    ln('~/.config/git/config-windows',                 '~/.gitconfig')
-    ln('~/.config/omnisharp',                          '~/.omnisharp')
-    ln('~/dotfiles/special/vscode/User',              f'{APPDATA}/Code/User')
-    ln('~/dotfiles/private/openvpn/config',            '~/OpenVPN/config')
+    APPDATA = environ["APPDATA"]
 
-    ln('~/Games/Factorio',                            f'{APPDATA}/Factorio')
+    ln('~/.config/git/config-windows', '~/.gitconfig')
+    ln('~/.config/hg/hgrc', '~/.hgrc') # hg XDG code only runs under posix
+    ln('~/.config/omnisharp', '~/.omnisharp')
+    ln('~/dotfiles/special/vscode/User', f'{APPDATA}/Code/User')
+    ln('~/dotfiles/private/openvpn/config', '~/OpenVPN/config')
 
+    ln('~/Games/Factorio', f'{APPDATA}/Factorio')
+
+    # $$$ OUTDATED
     ln('~/Common/_Settings/gimp-2.8',                  '.gimp-2.8')
     ln('~/Common/_Settings/Ssh',                       '.ssh')
     ln('~/Common/_Settings/minttyrc.txt',              '.minttyrc')
@@ -63,17 +76,25 @@ if platform.WINDOWS:
     ln('~/Common/WindowsPowerShell',                   'Documents/WindowsPowerShell')
 
     PROJ                 = 'c:/proj'
-    APPDATA              = environ["APPDATA"]
+    # TODO: move the sublime-specific stuff to a 'helpers' module where can collect other similar goofy-lookup path methods
     SUBLIME_PACKAGE_ROOT = f'{APPDATA}/Sublime Text 3/Packages'
 
     ln('~/unity-meta/Perforce Jam Language Files',    f'{SUBLIME_PACKAGE_ROOT}/Perforce Jam Language Files')
     ln('~/unity-meta/Unity bindings',                 f'{SUBLIME_PACKAGE_ROOT}/Unity bindings')
 
-    # env by default is the user env
+    # XDG implementation on windows varies across tools. some fall back to ~/.config, some go to %localappdata%, some do
+    # another thing entirely. so just manually set the root folder env vars and get it consistent.
+    # TODO: `env` by default is the user env
     env('XDG_CONFIG_HOME', '~/.config', direxists=True)
     env('XDG_DATA_HOME', '~/.local/share')
     env('ChocolateyToolsLocation', R'~\choco')
     env(['TEMP', 'TMP'], R'c:\temp')
+
+    powershell("""
+        . ~/scoop/apps/scoop/current/lib/core.ps1 # access to shim
+        shim ~/DevBin/hg/hg.exe
+        shim ~/DevBin/hg/thg.exe
+    """)
 
 
 ln(f'{PROJ}/unity-meta', '~/unity-meta')
