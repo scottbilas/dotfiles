@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # copied from http://eh.meklu.org/script/meksysinfo and shfmt'd
 
