@@ -12,5 +12,5 @@ if [[ ! -e ~/dotfiles ]]; then
         sudo apt install git
     fi
 
-    git clone --recursive https://github.com/scottbilas/dotfiles ~/dotfiles
+    git clone -b master --recursive https://github.com/scottbilas/dotfiles ~/dotfiles
 fi
