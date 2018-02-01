@@ -64,17 +64,18 @@ def ln(link, target):
 
     # a missing target file is ok; common due to plat and install differences
     if not os.path.exists(target):
-        logging.debug('Symlink target %s does not exist; skipping', target_orig)
+        logging.debug('Symlink target ''%s'' does not exist; skipping', target_orig)
         return LinkResult.SKIPPED
 
     # special: if both home-relative, make them relative to each other (shortens `ls`)
+    target_final = target
     if link_orig.startswith('~/') and target_orig.startswith('~/'):
-        target = os.path.relpath(target, os.path.split(link)[0])
+        target_final = os.path.relpath(target, os.path.split(link)[0])
 
     # link possibilities:
     #
     #  1. doesn't exist (just create it and take ownership)
-    #  2. exists, but isn't a link (throw) [TODO: if file, offer to user to show first 10 lines and overwrite with link, take ownership; maybe same if empty dir]
+    #  2. exists, but isn't a link (throw) [TODO: if file, offer to user to show first 10 lines and overwrite with link, take ownership; maybe same if empty dir or existing file contents match target of link]
     #  3. is a link, but points at something else (move if managed, throw otherwise) [TODO: offer to user to take ownership]
     #  4. already points at target (move if managed, take ownership with warning otherwise)
     #
@@ -86,7 +87,7 @@ def ln(link, target):
     if os.path.exists(link):
         target_existing = os.readlink(link)  # will throw if not a link
 
-        if target_existing == target:
+        if target_existing == target_final:
             if not managed:
                 pass
         elif managed:
@@ -96,12 +97,12 @@ def ln(link, target):
 
     link_parent = os.path.split(link)[0]
     if not os.path.exists(link_parent):
-        logging.debug('Creating symlink parent folder %s', link_parent)
+        logging.debug('Creating symlink parent folder ''%s''', link_parent)
         os.makedirs(link_parent)
 
-    os.symlink(target, link)
-
-    # TODO: test resolving the symlink
+    os.symlink(target_final, link)
+    if not os.path.samefile(link, target):
+        raise exceptions.UnexpectedError(f"Unexpected mismatch when testing new symlink '{link_orig}' -> '{target_orig}'")
 
     #db.remove(query.link == link)
 #$$$    db.insert({'link': link, 'version': _db.})
