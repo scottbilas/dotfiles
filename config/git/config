@@ -47,6 +47,9 @@
 [merge]
     stat = true
 
+[push]
+    default = simple
+
 [tig]
     horizontal-scroll = 10
     ignore-case = smart-case
@@ -58,3 +61,5 @@
     main-view = id date:relative-compact author:email-user commit-title:graph=v2,refs=yes
 
 #	diff-highlight = true  -- not currently avail w termux
+
+#   TODO: move this stuff to ~/.config/tig/config
