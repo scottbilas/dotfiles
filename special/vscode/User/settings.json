@@ -124,6 +124,7 @@
         "-q"
     ],
     "search.useRipgrep": true,
+    "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.scrollback": 10000,

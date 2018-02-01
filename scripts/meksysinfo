@@ -5,7 +5,7 @@
 ## a simple system info script by meklu
 # if we don't have a display we'll try to set one
 # useful for e.g. ssh access
-[[ -z "$DISPLAY" ]] && export DISPLAY=":0"
+[[ -z $DISPLAY ]] && export DISPLAY=":0"
 printf "%s" "Host:   "
 hostname
 printf "%s" "Kernel: "
@@ -22,7 +22,7 @@ elif [ -f /etc/os-release ]; then
         printf "%s\n" "${PRETTY_NAME}"
     else
         printf "%s" "${NAME}"
-        [[ -n "${VERSION}" ]] && printf "%s" " ${VERSION}"
+        [[ -n ${VERSION} ]] && printf "%s" " ${VERSION}"
         printf "\n"
     fi
     # now looking at distro-specific files
