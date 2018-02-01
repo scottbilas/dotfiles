@@ -2,7 +2,6 @@
 
 ## Investigations
 
-* Figure out why VSCode "step into" is acting like "continue"
 * Figure out why VSCode "debug unit test method" doesn't do anything (but "debug all unit tests" works)
 
 ## Setup.py
