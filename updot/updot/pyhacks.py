@@ -3,10 +3,10 @@ import os
 # maintainers apparently don't care about https://bugs.python.org/issue9949, so here is @ncdave4life's patched version
 if os.name == 'nt':
     def _fixed_nt_realpath(path):
+        """Return the absolute version of a path with symlinks resolved."""
+
         from nt import _getfinalpathname
         from ntpath import normpath
-
-        """Return the absolute version of a path with symlinks resolved."""
 
         if path: # Empty path must return current working directory.
             try:
