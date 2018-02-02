@@ -14,6 +14,11 @@ class PathInvalidError(UpdotError):
         self.path = path
 
 
+class DbError(UpdotError):
+    """General updot database related error"""
+    pass
+
+
 class UnexpectedError(UpdotError):
     """Something happened that the code wasn't expecting"""
     pass

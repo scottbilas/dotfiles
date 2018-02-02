@@ -1,16 +1,59 @@
 import os
+import types
 
 import pytest
+from pytest import raises
 
-from updot import links
+from updot import _db, exceptions, links
+
+# pylint: disable=redefined-outer-name
 
 HOME = os.path.expanduser('~').replace('\\', '/')
 
-# TODO:
-# make a fixture (that inherits 'fs') that mocks the singleton accessor
 
-# TODO: def test__tracked_link_exists_with_correct_target__ignores():
-#    """Rebuilding an existing symlink should do nothing"""
+def expand(path):
+    result = types.SimpleNamespace()
+    result.expanded = HOME + path[1:] if path[0] == '~' else path
+    result.orig = path
+    return result
+
+
+@pytest.fixture
+# pylint: disable=protected-access, unused-argument
+def links_db(monkeypatch, fs):
+    with _db._Db() as the_db:
+        monkeypatch.setattr(_db, 'get_shared_db', lambda: the_db)
+        yield links._LinksDb(the_db)
+
+
+def test__add_dup_to_db__throws(links_db):
+    """Adding twice to the links db isn't allowed"""
+
+    links_db.add('foo', 'bar')
+
+    with raises(exceptions.DbError):
+        links_db.add('foo', 'bar')
+
+
+def test__tracked_link_exists_with_correct_target__ignores(links_db, fs):
+    """Creating an existing symlink should do nothing"""
+
+    # ARRANGE
+
+    file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
+
+    fs.create_file(file_path.expanded, contents='abc')
+    fs.create_symlink(link_path.expanded, target)
+    links_db.add(link_path.expanded, target)
+
+    # ACT
+
+    linked = links.ln(link_path.orig, file_path.orig)
+
+    # ASSERT
+
+    assert linked == links.LinkResult.SKIPPED
+
 
 # TODO: def test__untracked_link_exists_with_correct_target__tracks_and_ignores():
 #    """Should take over an already-correct symlink"""
@@ -29,29 +72,26 @@ def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(fs):
 
     # ARRANGE
 
-    file_path = '~/path/to/actual/file.txt'
     file_contents = 'abc'
-    link_path = '~/path/to/the/.link'
+    file_path = expand('~/path/to/actual/file.txt')
+    link_path = expand('~/path/to/the/.link')
     target = '../actual/file.txt'
 
-    # note: only `ln` supports tilde-expansion, so everything else gets pre-expanded versions
-    file_path_expanded = file_path.replace('~', HOME)
-    link_path_expanded = link_path.replace('~', HOME)
-
-    fs.create_file(file_path_expanded, contents=file_contents)
+    fs.create_file(file_path.expanded, contents=file_contents)
 
     # ACT
 
-    links.ln(link_path, file_path)
+    # only `ln` supports tilde-expansion, so everything else gets pre-expanded versions
+    links.ln(link_path.orig, file_path.orig)
 
     # ASSERT
 
     # ensure link is shortened and not absolute
-    assert os.readlink(link_path_expanded).replace('\\', '/') == target
+    assert os.readlink(link_path.expanded).replace('\\', '/') == target
 
     # ensure the symlink resolves correctly
-    assert fs.resolve(link_path_expanded).path.replace('\\', '/') == file_path_expanded
-    assert open(link_path_expanded, 'r').read() == file_contents
+    assert fs.resolve(link_path.expanded).path.replace('\\', '/') == file_path.expanded
+    assert open(link_path.expanded, 'r').read() == file_contents
 
     # TODO: test addition to state db
 

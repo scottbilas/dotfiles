@@ -21,27 +21,38 @@ def db(fs):  # pylint: disable=unused-argument
         yield the_db
 
 
+def test__db_schema__is_current(db):
+    """Ensure that a fresh db always has the current schema version"""
+
+    assert db.schema == _db.SCHEMA
+
+
 @pytest.mark.usefixtures('fs')
-def test__db_open_close__increments_version():
+def test__db_open_close__increments_serial():
+    """Ensure that each open/close of the db (including fresh create) ticks the serial number"""
 
     db_path = '~/db.json'
 
-    def version_from_json():
+    def serial_from_json():
         with open(db_path) as file:
             db_json = json.load(file)
-        return db_json['_default']['1']['version']
+
+        for item in db_json['_default'].values():
+            serial = item.get('serial')
+            if serial:
+                return serial
 
     with _db._Db(db_path) as the_db:
-        assert the_db.version == 1
-    assert version_from_json() == 2
+        assert the_db.serial == 1
+    assert serial_from_json() == 2
 
     with _db._Db(db_path):
         pass
-    assert version_from_json() == 3
+    assert serial_from_json() == 3
 
     with _db._Db(db_path):
         pass
-    assert version_from_json() == 4
+    assert serial_from_json() == 4
 
 
 if __name__ == "__main__":

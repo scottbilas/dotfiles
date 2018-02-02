@@ -2,7 +2,9 @@ import logging
 import os
 from enum import Enum, auto
 
-from updot import exceptions, platform
+from tinydb import where
+
+from updot import _db, exceptions, platform
 
 
 def _is_really_absolute(path):
@@ -57,6 +59,25 @@ class LinkResult(Enum):
     ADJUSTED = auto()   # recreated an existing managed link to point to a new target
 
 
+class _LinksDb:
+    def __init__(self, db=None):
+        self.db = db if db else _db.get_shared_db()
+        self.links = self.db.db.table('links')
+
+    def add(self, link, target):
+        existing = self.find(link)
+        if existing:
+            raise exceptions.DbError(f'Unexpected existing link ''{link}''')
+
+        self.links.insert({
+            'link': link,
+            'target': target,
+            'last': self.db.serial})
+
+    def find(self, link):
+        return self.links.get(where('link') == link)
+
+
 # TODO: optional 'exe' param to test if in path and skip making link if not (for example dont clutter with ~/.tmux.conf if no tmux installed)
 def ln(link, target):
     link_orig, link = link, _normalize_path(link)
@@ -72,6 +93,9 @@ def ln(link, target):
     if link_orig.startswith('~/') and target_orig.startswith('~/'):
         target_final = os.path.relpath(target, os.path.split(link)[0])
 
+    links_db = _LinksDb()
+    managed = links_db.find(link)
+
     # link possibilities:
     #
     #  1. doesn't exist (just create it and take ownership)
@@ -81,14 +105,17 @@ def ln(link, target):
     #
     # for cases 3 and 4, behavior will change depending on whether the symlink is already managed
 
-    managed = True
-
     # TODO: fill out this if-tree
     if os.path.exists(link):
         target_existing = os.readlink(link)  # will throw if not a link
 
         if target_existing == target_final:
-            if not managed:
+            if managed:
+                # skip
+                # update 'last'
+                pass
+            else:
+                # take ownership
                 pass
         elif managed:
             pass
@@ -104,8 +131,10 @@ def ln(link, target):
     if not os.path.samefile(link, target):
         raise exceptions.UnexpectedError(f"Unexpected mismatch when testing new symlink '{link_orig}' -> '{target_orig}'")
 
-    #db.remove(query.link == link)
-#$$$    db.insert({'link': link, 'version': _db.})
+    #... do somethign with 'last' = self.db.get(where('last') != None)
+
+    # db.remove(query.link == link)
+#$$$    db.insert({'link': link, 'last': _db.})
 
     # TODO: at end of program...
     # 1. find all unused but managed links and delete them
