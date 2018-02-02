@@ -49,6 +49,7 @@ __pycache__
 *.tlog
 *.user
 *.VC.db
+*.VC.db-*
 *.VC.opendb
 *.vspscc
 *Resources.resources
