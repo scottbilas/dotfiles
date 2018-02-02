@@ -61,26 +61,17 @@ sudo apt update
 
 ### Cygwin
 
-TODO: look up installer url
+```powershell
+sudo cinst cyg-get
+cyg-get <stuff>
+```
 
-* Save installer exe to `c:\cygwin64` and run it
-  * Accept defaults
-  * Add `wget` package
-* Open cyg terminal and do
-  ```bash
-  cat >> /etc/nsswitch.conf
-  db_home: windows
-  <Ctrl-D>
-  ln -s /cygdrive/c /c # etc
-  ```
-* Install apt-cyg
-  ```bash
-  wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg
-  install apt-cyg /bin
-  rm apt-cyg
-
-  # TODO: switch to cyg-get from choco
-  ```
+```bash
+# cygwin terminal
+cat >> /etc/nsswitch.conf
+db_home: windows<Ctrl-D>
+<Updot>
+```
 
 ### Minimum packages
 
