@@ -21,6 +21,7 @@
         // matcher), and sometimes old problems won't go away without a restart. wait until that
         // gets fixed. in the meantime, don't use `native` because it's less readable.
         //"--tb=native",
+        "--tb=short"
     ],
     "tasks": [
         {
