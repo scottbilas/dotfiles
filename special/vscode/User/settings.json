@@ -3,7 +3,7 @@
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
         "@\\w+",          // usernames
-        "\\W[Rr]'\\w"     // raw format string prefixes
+        "\\W[Rr]'(?=\\w)" // raw format string prefixes
     ],
     "cSpell.userWords": [
         "Bilas's",

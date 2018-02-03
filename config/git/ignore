@@ -57,8 +57,9 @@ build.force
 TemporaryGeneratedFile_*
 Thumbs.db
 
-# my conventions
+# various extensions will generate these
 **/.vscode/tags
+**/.ropeproject/objectdb
 
 # from https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
 **/.idea/**/workspace.xml

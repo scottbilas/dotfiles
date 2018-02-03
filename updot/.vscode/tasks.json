@@ -15,7 +15,12 @@
     "args": [
         "-m",
         "pytest",
-        "--tb=native",
+
+        // problem matcher requires this to get paths, but the 'problems' panel has some bugs in it.
+        // sometimes new problems are not ever noticed (no matter what i try or how i mess with the
+        // matcher), and sometimes old problems won't go away without a restart. wait until that
+        // gets fixed. in the meantime, don't use `native` because it's less readable.
+        //"--tb=native",
     ],
     "tasks": [
         {

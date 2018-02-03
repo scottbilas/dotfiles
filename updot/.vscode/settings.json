@@ -9,11 +9,13 @@
     ],
     "cSpell.words": [
         "atexit",
+        "capsys",
         "pyhacks",
         "pylint",
         "pytest",
         "tinydb",
         "tmux",
-        "updot"
+        "updot",
+        "upsert"
     ]
 }

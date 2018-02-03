@@ -6,3 +6,4 @@ pyfakefs==3.4   # pypi has 3.3, so fetched with `pip install https://github.com/
 pylint==1.8.1
 pytest==3.3.1
 pytest-pylint==0.7.1
+rope==0.10.7
