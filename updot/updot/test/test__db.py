@@ -41,6 +41,7 @@ def test__db_open_close__increments_serial():
             serial = item.get('serial')
             if serial:
                 return serial
+        return None
 
     with _db._Db(db_path) as the_db:
         assert the_db.serial == 1

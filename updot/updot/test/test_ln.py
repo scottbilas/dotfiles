@@ -5,25 +5,27 @@ import pytest
 from pytest import raises
 
 from updot import _db, exceptions, links
+from updot.links import LinkResult
 
-# pylint: disable=redefined-outer-name
+# pylint: disable=redefined-outer-name, protected-access
 
 HOME = os.path.expanduser('~').replace('\\', '/')
 
 
-def expand(path):
-    result = types.SimpleNamespace()
-    result.expanded = HOME + path[1:] if path[0] == '~' else path
-    result.orig = path
-    return result
-
-
 @pytest.fixture
-# pylint: disable=protected-access, unused-argument
-def links_db(monkeypatch, fs):
+def links_db(monkeypatch, fs):  # pylint: disable=unused-argument
     with _db._Db() as the_db:
         monkeypatch.setattr(_db, 'get_shared_db', lambda: the_db)
         yield links._LinksDb(the_db)
+
+
+# only updot main api funcs will automatically do tilde-expansion, so manually expand for everything else
+def expand(path):
+    exp = HOME + path[1:] if path[0] == '~' else path
+    return types.SimpleNamespace(exp=exp, orig=path)
+
+
+# DB TESTS
 
 
 def test__add_dup_to_db__throws(links_db):
@@ -31,35 +33,105 @@ def test__add_dup_to_db__throws(links_db):
 
     links_db.add('foo', 'bar')
 
-    with raises(exceptions.DbError):
-        links_db.add('foo', 'bar')
+    with raises(exceptions.DbError, match='Unexpected existing link'):
+        links_db.add('foo', 'bar2')
+
+    assert links_db.find('foo')['target'] == 'bar', 'second call should not overwrite existing target'
 
 
-def test__tracked_link_exists_with_correct_target__ignores(links_db, fs):
+def test__add_out_of_bounds_last_to_db__throws(links_db):
+    """Ensure we check bounds on `last` entries in db"""
+
+    # should not throw
+    links_db.db.serial = 5
+    links_db.add('foo1', 'bar1', 4)
+    links_db.add('foo2', 'bar2', 5)
+
+    with raises(exceptions.DbError, match='out of bounds'):
+        links_db.add('foo3', 'bar3', -1)
+    with raises(exceptions.DbError, match='out of bounds'):
+        links_db.add('foo4', 'bar4', 0)
+    with raises(exceptions.DbError, match='out of bounds'):
+        links_db.add('foo5', 'bar5', 6)
+
+    assert links_db.find('foo3') is None, 'exception should have aborted add'
+    assert links_db.find('foo4') is None, 'exception should have aborted add'
+    assert links_db.find('foo5') is None, 'exception should have aborted add'
+
+
+def test__find_out_of_bounds_last_to_db__throws(links_db):
+    """Ensure we check bounds on found entries in db against unexpected integrity failure"""
+
+    links_db.db.serial = 5
+    links_db.add('foo', 'bar', 5)
+    links_db.db.serial = 4
+
+    with raises(exceptions.DbError, match='out of bounds'):
+        links_db.find('foo')
+
+
+# LN TESTS
+
+
+@pytest.mark.usefixtures('fs')
+def test__target_not_exist__ignores(caplog, links_db):
+    """Ignore symlinks referring to nonexistent target paths (will be very common across OS's)"""
+
+    link_path = '~/link'
+
+    #|
+    result = links.ln(link_path, '~/no-file.txt')
+    #|
+
+    assert 'does not exist; skipping' in caplog.text
+    assert result == LinkResult.NO_TARGET
+
+    assert links_db.find(link_path) is None
+    assert not os.path.exists(f'{HOME}/link')
+
+
+def test__tracked_link_exists_with_correct_target__ignores(caplog, fs, links_db):
     """Creating an existing symlink should do nothing"""
 
-    # ARRANGE
+    file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
+    fs.create_file(file_path.exp, contents='abc')
+    fs.create_symlink(link_path.exp, target)
+    links_db.db.serial = 5
+    links_db.add(link_path.exp, target, 2)
+
+    #|
+    result = links.ln(link_path.orig, file_path.orig)
+    #|
+
+    assert 'Skipping managed symlink' in caplog.text
+    assert result == LinkResult.LINK_OK
+
+    entry = links_db.find(link_path.exp)
+    assert entry['link'] == link_path.exp
+    assert entry['target'] == target
+    assert entry['last'] == 5, '`last` should match db serial now that it has been seen'
+
+
+def test__untracked_link_exists_with_correct_target__tracks_and_ignores(caplog, fs, links_db):
+    """Should take over an already-correct symlink"""
 
     file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
+    fs.create_file(file_path.exp, contents='abc')
+    fs.create_symlink(link_path.exp, target)
+    links_db.db.serial = 5
 
-    fs.create_file(file_path.expanded, contents='abc')
-    fs.create_symlink(link_path.expanded, target)
-    links_db.add(link_path.expanded, target)
+    #|
+    result = links.ln(link_path.orig, file_path.orig)
+    #|
 
-    # ACT
+    assert 'Taking ownership of existing symlink' in caplog.text
+    assert result == LinkResult.LINK_OK
 
-    linked = links.ln(link_path.orig, file_path.orig)
+    entry = links_db.find(link_path.exp)
+    assert entry['link'] == link_path.exp
+    assert entry['target'] == target
+    assert entry['last'] == 5, 'Entry should have been created with `last` matching db serial'
 
-    # ASSERT
-
-    assert linked == links.LinkResult.LINK_OK
-    # test db
-    # test captured debug output
-
-
-# TODO: def test__untracked_link_exists_with_correct_target__tracks_and_ignores():
-#    """Should take over an already-correct symlink"""
-#    note: be sure to test addition to state db
 
 # TODO: def test__tracked_link_exists_with_different_target__updates():
 #    """A symlink we were tracking has changed in spec, so update the symlink"""
@@ -69,45 +141,36 @@ def test__tracked_link_exists_with_correct_target__ignores(links_db, fs):
 #    """Symlink already exists and is pointing somewhere unexpected"""
 
 
-def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(fs):
+def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, fs, links_db):
     """Basic behavior of creating new symlinks"""
-
-    # ARRANGE
 
     file_contents = 'abc'
     file_path = expand('~/path/to/actual/file.txt')
     link_path = expand('~/path/to/the/.link')
     target = '../actual/file.txt'
 
-    fs.create_file(file_path.expanded, contents=file_contents)
+    fs.create_file(file_path.exp, contents=file_contents)
+    links_db.db.serial = 5
 
-    # ACT
+    #|
+    result = links.ln(link_path.orig, file_path.orig)
+    #|
 
-    # only `ln` supports tilde-expansion, so everything else gets pre-expanded versions
-    links.ln(link_path.orig, file_path.orig)
+    assert 'Creating symlink' in caplog.text
+    assert result == LinkResult.LINK_OK
 
-    # ASSERT
+    assert os.readlink(link_path.exp).replace('\\', '/') == target, 'link is shortened and not absolute'
+    assert fs.resolve(link_path.exp).path.replace('\\', '/') == file_path.exp, 'link resolves correctly'
+    assert open(link_path.exp, 'r').read() == file_contents, 'link target matches expected'
 
-    # ensure link is shortened and not absolute
-    assert os.readlink(link_path.expanded).replace('\\', '/') == target
-
-    # ensure the symlink resolves correctly
-    assert fs.resolve(link_path.expanded).path.replace('\\', '/') == file_path.expanded
-    assert open(link_path.expanded, 'r').read() == file_contents
-
-    # TODO: test addition to state db
+    entry = links_db.find(link_path.exp)
+    assert entry['link'] == link_path.exp
+    assert entry['target'] == target
+    assert entry['last'] == 5, 'Entry should have been created with `last` matching db serial'
 
 
 # TODO: def test__link_parent_not_exist__auto_creates():
 #    """Auto-create any parent folders required to create the link"""
-
-def test__target_not_exist__ignores(fs):  # pylint: disable=unused-argument
-    """Ignore symlinks referring to nonexistent target paths (will be very common across OS's)"""
-
-    links.ln('~/link', '~/no-file.txt')
-
-    assert not os.path.exists(f'{HOME}/link')
-
 
 # TODO: def test__dup_target_and_link__throws(fs):
 #    """Catch accidental duplication of symlinks"""

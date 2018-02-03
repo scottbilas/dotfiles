@@ -9,24 +9,24 @@ from updot import exceptions, links, platform
 
 
 def test__path_not_absolute__throws():
-    """Only supporting absolute link paths to avoid script bugs from ambiguity"""
+    """Disallowing relative link paths to avoid potential script bugs from ambiguity"""
 
-    with raises(exceptions.PathInvalidError):
+    with raises(exceptions.PathInvalidError, match='must be absolute'):
         links._normalize_path('relative')
-    with raises(exceptions.PathInvalidError):
+    with raises(exceptions.PathInvalidError, match='must be absolute'):
         links._normalize_path('../relative')
-    with raises(exceptions.PathInvalidError):
+    with raises(exceptions.PathInvalidError, match='must be absolute'):
         links._normalize_path('./relative')
-    with raises(exceptions.PathInvalidError):
+    with raises(exceptions.PathInvalidError, match='must be absolute'):
         links._normalize_path('relative/path')
 
 
 def test__path_with_backslash__throws():
     """Avoid xplat bugs by requiring forward slashes in client code"""
 
-    with raises(exceptions.PathInvalidError):
+    with raises(exceptions.PathInvalidError, match='forward slashes only'):
         links._normalize_path(R'\path')
-    with raises(exceptions.PathInvalidError):
+    with raises(exceptions.PathInvalidError, match='forward slashes only'):
         links._normalize_path(R'\path\to\thing')
 
 
@@ -55,7 +55,7 @@ def test__path_with_tilde__is_expanded_to_home():
 def test__path_with_user_specific_tilde__throws():
     """Ensure that non-xplat-compatible ~foo style paths are not permitted"""
 
-    with raises(exceptions.PathInvalidError):
+    with raises(exceptions.PathInvalidError, match='Tilde-based paths that select a user'):
         links._normalize_path('~foo/path')
 
 

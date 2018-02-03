@@ -1,16 +1,12 @@
 class UpdotError(Exception):
     """Base updot exception"""
-
-    def __init__(self, reason):
-        super().__init__()
-        self.reason = reason
-
+    pass
 
 class PathInvalidError(UpdotError):
     """The path is invalid"""
 
-    def __init__(self, path, reason):
-        super().__init__(reason)
+    def __init__(self, message, path):
+        super().__init__(message)
         self.path = path
 
 
