@@ -4,7 +4,7 @@ from enum import Enum, auto
 
 from tinydb import where
 
-from updot import _db, exceptions, platform
+from updot import _db, exceptions
 
 # TODO: at end of program...
 # 1. find all unused but managed links and delete them from db (atexit)
@@ -128,7 +128,7 @@ def ln(link, target):
 
     if result != LinkResult.LINK_MISMATCH:
 
-    # (re-)create symlink if needed
+        # (re-)create symlink if needed
         if target_existing != target_final:
 
             # first ensure we have a folder to put it in

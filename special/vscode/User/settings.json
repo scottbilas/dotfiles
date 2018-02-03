@@ -2,40 +2,27 @@
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
+        "@\\w+",          // usernames
         "\\W[Rr]'\\w"     // raw format string prefixes
     ],
     "cSpell.userWords": [
-        "atexit",
         "Bilas's",
         "Bilas",
-        "chmod",
         "cygwin",
         "dll's",
         "dotfiles",
         "executables",
         "fatals",
-        "Fody",
         "funcs",
-        "isabs",
-        "LLDB",
         "minimap",
         "mkdir",
-        "ncurses",
-        "openssh",
         "POSIX",
-        "pyfakefs",
-        "pylint",
-        "pytest",
         "REPO",
         "Resilio",
-        "sshd",
         "submodules",
         "termux",
-        "tinydb",
-        "tmux",
         "transcode",
         "untracked",
-        "updot",
         "xplat"
     ],
     "debug.hideActionBar": true,            // use vscode-statusbar-debugger extension until they improve this toolbar's ui
