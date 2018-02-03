@@ -133,13 +133,44 @@ def test__untracked_link_exists_with_correct_target__tracks_and_ignores(caplog, 
     assert entry == {'link': link_path.exp, 'target': target, 'last': db_serial}
 
 
-def test__tracked_link_exists_with_different_target__updates():
+def test__tracked_link_exists_with_different_target__updates(caplog, fs, links_db):
     """A symlink we were tracking has changed in spec, so update the symlink"""
 
-    pass
+    file_existing_path, file_moved_path = expand('~/existing.txt'), expand('~/moved.txt')
+    link_path, target_existing, target_moved = expand('~/link'), 'existing.txt', 'moved.txt'
+    db_serial = 30
 
-# TODO: def test__untracked_link_exists_with_different_target__throws():
-#    """Symlink already exists and is pointing somewhere unexpected"""
+    # symlink and db entry point to old location
+    fs.create_symlink(link_path.exp, target_existing)
+    links_db.db.serial = db_serial
+    links_db.add(link_path.exp, target_existing, db_serial - 1)
+
+    # but the file has been 'moved' already to its new location
+    fs.create_file(file_moved_path.exp, contents='abc')
+
+    #|
+    result = links.ln(link_path.orig, file_moved_path.orig)
+    entry = links_db.find(link_path.exp)
+    #|
+
+    assert 'Moving managed symlink' in caplog.text
+    assert result == LinkResult.LINK_OK
+    assert entry['target'] == target_moved
+
+
+def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, fs):
+    """Symlink already exists, but is not managed and is pointing somewhere unexpected"""
+
+    file_path, link_path = expand('~/file.txt'), expand('~/link')
+    fs.create_file(file_path.exp, contents='abc')
+    fs.create_symlink(link_path.exp, 'otherfile.txt')
+
+    #|
+    result = links.ln(link_path.orig, file_path.orig)
+    #|
+
+    assert 'Unmanaged symlink found' in caplog.text
+    assert result == LinkResult.LINK_MISMATCH
 
 
 def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, fs, links_db):
@@ -160,6 +191,7 @@ def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, 
     #|
 
     assert 'Creating symlink' in caplog.text
+    assert 'Creating parent folder' in caplog.text
     assert result == LinkResult.LINK_OK
     assert entry == {'link': link_path.exp, 'target': target, 'last': db_serial}
 
@@ -168,11 +200,19 @@ def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, 
     assert open(link_path.exp, 'r').read() == file_contents, 'link target matches expected'
 
 
-# TODO: def test__link_parent_not_exist__auto_creates():
-#    """Auto-create any parent folders required to create the link"""
+def test__dup_target_and_link__throws(fs):
+    """Catch accidental duplication of symlinks"""
 
-# TODO: def test__dup_target_and_link__throws(fs):
-#    """Catch accidental duplication of symlinks"""
+    file_path, file2_path, link_path = expand('~/file.txt'), expand('~/file2.txt'), expand('~/link')
+
+    fs.create_file(file_path.exp, contents='abc')
+    fs.create_file(file2_path.exp, contents='abc')
+
+    links.ln(link_path.orig, file_path.orig)
+    with raises(exceptions.UpdotError, match='Duplicate creation of symlink'):
+        links.ln(link_path.orig, file_path.orig)
+    with raises(exceptions.UpdotError, match='Duplicate creation of symlink'):
+        links.ln(link_path.orig, file2_path.orig)
 
 
 # TODO: def test__unspecified_symlinks_found_in_any_link_parent__warns():
@@ -183,7 +223,9 @@ def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, 
 
 # TODO: def test__windows_symlink_creation_failed_due_to_no_admin__fatals_with_help():
 #    """Let user know they should enable Developer Mode or run as admin"""
-    # should be a permissions problem that leads to this
+#
+# * detect if windows and have SeCreateSymbolicLinkPrivilege and fatal asking for sudo otherwise
+#   see docs on `os.symlink`. obviously we only need to bother with this outside of pytest.
 
 
 if __name__ == "__main__":

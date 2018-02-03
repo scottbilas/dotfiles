@@ -7,7 +7,9 @@ from tinydb import where
 from updot import _db, exceptions
 
 # TODO: at end of program...
-# 1. find all unused but managed links and delete them from db (atexit)
+# 1. find all unused but managed links and warn (atexit)
+#    - ask user per link if should delete from hdd too (could imply a ln we don't want any more from a previous iteration of the user's updot script)
+#    - delete from db if user says either ignore or delete, otherwise leave for next time
 # 2. warn about all unmanaged links found in all parent folders of links (perhaps manual call)
 
 
@@ -102,8 +104,13 @@ def ln(link, target):
     link_orig, link = link, _normalize_path(link)
     target_orig, target = target, _normalize_path(target)  # TODO: catch env var not exist and silent ignore
 
+    # special note on `lexists` - we usually do not want to "look through" a symlink for the target
+    # file existence. because updot is going to get mixed with another tool syncing file moves (such
+    # as a `git pull`) we need to be tolerant where `!exists && !exists` because updot is about to
+    # resolve the intermediate conflicts.
+
     # a missing target file is ok; common due to plat and install differences, so early-out
-    if not os.path.exists(target):
+    if not os.path.lexists(target):
         logging.debug('Symlink target ''%s'' does not exist; skipping', target_orig)
         return LinkResult.NO_TARGET
 
@@ -116,11 +123,15 @@ def ln(link, target):
     managed = links_db.find(link)
     result = None
 
+    if managed and managed['last'] == links_db.db.serial:
+        raise exceptions.UpdotError(f'Duplicate creation of symlink ''{link}''')
+
     # fetch existing link
     # TODO:
     #   * if either empty or identical contents to new target, or empty, offer to user to take ownership and replace with link
     #   * if file and mismatched, maybe show first 10 lines and make same offer (user may not care what's already there)
-    target_existing = os.readlink(link) if os.path.exists(link) else None
+    #   * on windows, we have to care about whether it's a dir or file symlink, so should test for mismatch from expected and possibly track is-dir/file in the db
+    target_existing = os.readlink(link) if os.path.lexists(link) else None
 
     # link exists and matches
     if target_existing == target_final:
