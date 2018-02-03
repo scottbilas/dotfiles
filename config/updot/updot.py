@@ -67,6 +67,7 @@ if platform.WINDOWS:
     ln('~/dotfiles/private/openvpn/config', '~/OpenVPN/config')
 
     ln('~/Games/Factorio', f'{APPDATA}/Factorio')
+    ln('~/Programs/Everything', f'{APPDATA}/Everything')
 
     # $$$ OUTDATED
     ln('~/Common/_Settings/gimp-2.8',                  '.gimp-2.8')
