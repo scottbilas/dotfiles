@@ -11,14 +11,6 @@ from updot import _db, exceptions, platform
 # 2. warn about all unmanaged links found in all parent folders of links (perhaps manual call)
 
 
-def _is_really_absolute(path):
-    # `isabs('/path/to/thing')` returns true on windows for some reason, so use `splitdrive` instead
-    if platform.WINDOWS:
-        return os.path.splitdrive(path)[0] != ''
-
-    return os.path.isabs(path)
-
-
 def _normalize_path(path):
     path_orig = path
 
@@ -41,7 +33,7 @@ def _normalize_path(path):
 
     # this is mostly a stylistic choice at this point, but i also think it will help avoid
     # accidental cross plat problems.
-    if not _is_really_absolute(path):
+    if not os.path.isabs(path):
         raise exceptions.PathInvalidError(path_orig, 'All paths (after expansion) must be absolute')
 
     # python path funcs will use backslash, so swap it back
