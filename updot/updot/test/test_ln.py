@@ -42,8 +42,8 @@ def test__add_dup_to_db__throws(links_db):
 def test__add_out_of_bounds_last_to_db__throws(links_db):
     """Ensure we check bounds on `last` entries in db"""
 
-    # should not throw
     links_db.db.serial = 5
+
     links_db.add('foo1', 'bar1', 4)
     links_db.add('foo2', 'bar2', 5)
 
@@ -62,9 +62,11 @@ def test__add_out_of_bounds_last_to_db__throws(links_db):
 def test__find_out_of_bounds_last_to_db__throws(links_db):
     """Ensure we check bounds on found entries in db against unexpected integrity failure"""
 
-    links_db.db.serial = 5
-    links_db.add('foo', 'bar', 5)
-    links_db.db.serial = 4
+    db_serial = 5
+
+    links_db.db.serial = db_serial
+    links_db.add('foo', 'bar', db_serial)
+    links_db.db.serial = db_serial - 1
 
     with raises(exceptions.DbError, match='out of bounds'):
         links_db.find('foo')
@@ -81,12 +83,12 @@ def test__target_not_exist__ignores(caplog, links_db):
 
     #|
     result = links.ln(link_path, '~/no-file.txt')
+    entry = links_db.find(link_path)
     #|
 
     assert 'does not exist; skipping' in caplog.text
     assert result == LinkResult.NO_TARGET
-
-    assert links_db.find(link_path) is None
+    assert entry is None
     assert not os.path.exists(f'{HOME}/link')
 
 
@@ -94,48 +96,47 @@ def test__tracked_link_exists_with_correct_target__ignores(caplog, fs, links_db)
     """Creating an existing symlink should do nothing"""
 
     file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
+    db_serial = 5
+
     fs.create_file(file_path.exp, contents='abc')
     fs.create_symlink(link_path.exp, target)
-    links_db.db.serial = 5
-    links_db.add(link_path.exp, target, 2)
+    links_db.db.serial = db_serial
+    links_db.add(link_path.exp, target, db_serial - 1)
 
     #|
     result = links.ln(link_path.orig, file_path.orig)
+    entry = links_db.find(link_path.exp)
     #|
 
     assert 'Skipping managed symlink' in caplog.text
     assert result == LinkResult.LINK_OK
-
-    entry = links_db.find(link_path.exp)
-    assert entry['link'] == link_path.exp
-    assert entry['target'] == target
-    assert entry['last'] == 5, '`last` should match db serial now that it has been seen'
+    assert entry == {'link': link_path.exp, 'target': target, 'last': db_serial}
 
 
 def test__untracked_link_exists_with_correct_target__tracks_and_ignores(caplog, fs, links_db):
     """Should take over an already-correct symlink"""
 
     file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
+    db_serial = 20
+
     fs.create_file(file_path.exp, contents='abc')
     fs.create_symlink(link_path.exp, target)
-    links_db.db.serial = 5
+    links_db.db.serial = db_serial
 
     #|
     result = links.ln(link_path.orig, file_path.orig)
+    entry = links_db.find(link_path.exp)
     #|
 
     assert 'Taking ownership of existing symlink' in caplog.text
     assert result == LinkResult.LINK_OK
-
-    entry = links_db.find(link_path.exp)
-    assert entry['link'] == link_path.exp
-    assert entry['target'] == target
-    assert entry['last'] == 5, 'Entry should have been created with `last` matching db serial'
+    assert entry == {'link': link_path.exp, 'target': target, 'last': db_serial}
 
 
-# TODO: def test__tracked_link_exists_with_different_target__updates():
-#    """A symlink we were tracking has changed in spec, so update the symlink"""
-#    note: be sure to test addition to state db
+def test__tracked_link_exists_with_different_target__updates():
+    """A symlink we were tracking has changed in spec, so update the symlink"""
+
+    pass
 
 # TODO: def test__untracked_link_exists_with_different_target__throws():
 #    """Symlink already exists and is pointing somewhere unexpected"""
@@ -148,25 +149,23 @@ def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, 
     file_path = expand('~/path/to/actual/file.txt')
     link_path = expand('~/path/to/the/.link')
     target = '../actual/file.txt'
+    db_serial = 12
 
     fs.create_file(file_path.exp, contents=file_contents)
-    links_db.db.serial = 5
+    links_db.db.serial = db_serial
 
     #|
     result = links.ln(link_path.orig, file_path.orig)
+    entry = links_db.find(link_path.exp)
     #|
 
     assert 'Creating symlink' in caplog.text
     assert result == LinkResult.LINK_OK
+    assert entry == {'link': link_path.exp, 'target': target, 'last': db_serial}
 
     assert os.readlink(link_path.exp).replace('\\', '/') == target, 'link is shortened and not absolute'
     assert fs.resolve(link_path.exp).path.replace('\\', '/') == file_path.exp, 'link resolves correctly'
     assert open(link_path.exp, 'r').read() == file_contents, 'link target matches expected'
-
-    entry = links_db.find(link_path.exp)
-    assert entry['link'] == link_path.exp
-    assert entry['target'] == target
-    assert entry['last'] == 5, 'Entry should have been created with `last` matching db serial'
 
 
 # TODO: def test__link_parent_not_exist__auto_creates():
