@@ -6,6 +6,10 @@ from tinydb import where
 
 from updot import _db, exceptions, platform
 
+# TODO: at end of program...
+# 1. find all unused but managed links and delete them from db (atexit)
+# 2. warn about all unmanaged links found in all parent folders of links (perhaps manual call)
+
 
 def _is_really_absolute(path):
     # `isabs('/path/to/thing')` returns true on windows for some reason, so use `splitdrive` instead
@@ -53,12 +57,6 @@ def _normalize_path(path):
     return path
 
 
-class LinkResult(Enum):
-    SKIPPED = auto()    # didn't do anything
-    CREATED = auto()    # created a new link
-    ADJUSTED = auto()   # recreated an existing managed link to point to a new target
-
-
 class _LinksDb:
     def __init__(self, db=None):
         self.db = db if db else _db.get_shared_db()
@@ -78,15 +76,21 @@ class _LinksDb:
         return self.links.get(where('link') == link)
 
 
+class LinkResult(Enum):
+    NO_TARGET = auto()      # target doesn't exist, so didn't do anything
+    LINK_OK = auto()        # link created/moved/exists and points at correct target
+    LINK_MISMATCH = auto()  # link already existed but was unmanaged and pointed at wrong target
+
+
 # TODO: optional 'exe' param to test if in path and skip making link if not (for example dont clutter with ~/.tmux.conf if no tmux installed)
 def ln(link, target):
     link_orig, link = link, _normalize_path(link)
     target_orig, target = target, _normalize_path(target)  # TODO: catch env var not exist and silent ignore
 
-    # a missing target file is ok; common due to plat and install differences
+    # a missing target file is ok; common due to plat and install differences, so early-out
     if not os.path.exists(target):
         logging.debug('Symlink target ''%s'' does not exist; skipping', target_orig)
-        return LinkResult.SKIPPED
+        return LinkResult.NO_TARGET
 
     # special: if both home-relative, make them relative to each other (shortens `ls`)
     target_final = target
@@ -99,45 +103,54 @@ def ln(link, target):
     # link possibilities:
     #
     #  1. doesn't exist (just create it and take ownership)
-    #  2. exists, but isn't a link (throw) [TODO: if file, offer to user to show first 10 lines and overwrite with link, take ownership; maybe same if empty dir or existing file contents match target of link]
+    #  2. exists, but isn't a link (throw)
     #  3. is a link, but points at something else (move if managed, throw otherwise) [TODO: offer to user to take ownership]
     #  4. already points at target (move if managed, take ownership with warning otherwise)
     #
     # for cases 3 and 4, behavior will change depending on whether the symlink is already managed
 
-    # TODO: fill out this if-tree
-    if os.path.exists(link):
-        target_existing = os.readlink(link)  # will throw if not a link
+    result = None
 
-        if target_existing == target_final:
-            if managed:
-                # skip
-                # update 'last'
-                pass
-            else:
-                # take ownership
-                pass
-        elif managed:
-            pass
+    # fetch existing link
+    # TODO:
+    #   * if either empty or identical contents to new target, or empty, offer to user to take ownership and replace with link
+    #   * if file and mismatched, maybe show first 10 lines and make same offer (user may not care what's already there)
+    target_existing = os.readlink(link) if os.path.exists(link) else None
+
+    # link exists, matches
+    if target_existing == target_final:
+        result = LinkResult.LINK_OK
+        if managed:
+            logging.debug('Skipping managed symlink ''%s''->''%s''', link_orig, target_existing)
         else:
-            pass
+            logging.info('Taking ownership of existing symlink ''%s''->''%s''', link_orig, target_existing)
+    # link exists, mismatch
+    elif target_existing != None:
+        if managed:
+            logging.info('Moving managed symlink ''%s''->''%s''', link_orig, target_existing)
+            os.remove(link)
+            target_existing = None
+        else:
+            logging.error('Unmanaged symlink found ''%s''->''%s''', link_orig, target_existing)
+            result = LinkResult.LINK_MISMATCH
 
-    link_parent = os.path.split(link)[0]
-    if not os.path.exists(link_parent):
-        logging.debug('Creating symlink parent folder ''%s''', link_parent)
-        os.makedirs(link_parent)
+    if result != LinkResult.LINK_MISMATCH:
 
-    os.symlink(target_final, link)
-    if not os.path.samefile(link, target):
-        raise exceptions.UnexpectedError(f"Unexpected mismatch when testing new symlink '{link_orig}' -> '{target_orig}'")
+    # (re-)create symlink if needed
+        if target_existing != target_final:
 
-    #... do somethign with 'last' = self.db.get(where('last') != None)
+            # first ensure we have a folder to put it in
+            link_parent = os.path.split(link)[0]
+            if not os.path.exists(link_parent):
+                logging.info('Creating symlink parent folder ''%s''', link_parent)
+                os.makedirs(link_parent)
 
-    # db.remove(query.link == link)
-#$$$    db.insert({'link': link, 'last': _db.})
+            os.symlink(target_final, link)
+            if not os.path.samefile(link, target):
+                raise exceptions.UnexpectedError(f"Unexpected mismatch when testing new symlink '{link_orig}' -> '{target_orig}'")
 
-    # TODO: at end of program...
-    # 1. find all unused but managed links and delete them
-    # 2. warn about all unmanaged links found in all parent folders of links
+        # TODO: let db know that this has been seen
 
-    return LinkResult.CREATED
+        result = LinkResult.LINK_OK
+
+    return result

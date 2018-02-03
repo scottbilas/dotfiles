@@ -52,7 +52,9 @@ def test__tracked_link_exists_with_correct_target__ignores(links_db, fs):
 
     # ASSERT
 
-    assert linked == links.LinkResult.SKIPPED
+    assert linked == links.LinkResult.LINK_OK
+    # test db
+    # test captured debug output
 
 
 # TODO: def test__untracked_link_exists_with_correct_target__tracks_and_ignores():
