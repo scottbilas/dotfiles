@@ -1,6 +1,12 @@
-import contextlib, os
+import contextlib
+import os
+import types
 
-# from https://stackoverflow.com/a/34333710/14582
+
+HOME = os.path.expanduser('~').replace('\\', '/')
+
+
+# adapted from https://stackoverflow.com/a/34333710/14582
 @contextlib.contextmanager
 def modified_environ(*remove, **update):
     """
@@ -25,8 +31,16 @@ def modified_environ(*remove, **update):
 
     try:
         env.update(update)
-        [env.pop(k, None) for k in remove]
+        for item in remove:
+            env.pop(item, None)
         yield
     finally:
         env.update(update_after)
-        [env.pop(k) for k in remove_after]
+        for item in remove_after:
+            env.pop(item)
+
+
+# only updot main api funcs will automatically do tilde-expansion, so manually expand for everything else
+def expand(path):
+    exp = HOME + path[1:] if path[0] == '~' else path
+    return types.SimpleNamespace(exp=exp, orig=path)
