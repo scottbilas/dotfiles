@@ -10,6 +10,7 @@
     "cSpell.words": [
         "atexit",
         "capsys",
+        "lexists",
         "pyhacks",
         "pylint",
         "pytest",

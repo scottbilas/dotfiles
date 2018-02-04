@@ -24,7 +24,7 @@ rm('~/.bash_history')
 
 mkdir('~/bin')
 mkdir('~/go/bin')
-env('GOPATH', '~/go')           # TODO: put in env.json or  something
+env('GOPATH', '~/go')           # TODO: put in env.json or something. or possibly have env update and gen .ps1 and .sh files
 
 ln('~/dotfiles/config', '~/.config')
 ln('~/Common/Private', '~/dotfiles/private')
