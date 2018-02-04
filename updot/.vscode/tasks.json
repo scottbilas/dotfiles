@@ -9,25 +9,25 @@
 {
     // i can't seem to make the 2.0 schema work.
     "version": "0.1.0",
-    "command": "${config:python.pythonPath}",
-    "suppressTaskName": true,
-    "isShellCommand": true,
-    "args": [
-        "-m",
-        "pytest",
-
-        // problem matcher requires this to get paths, but the 'problems' panel has some bugs in it.
-        // sometimes new problems are not ever noticed (no matter what i try or how i mess with the
-        // matcher), and sometimes old problems won't go away without a restart. wait until that
-        // gets fixed. in the meantime, don't use `native` because it's less readable.
-        //"--tb=native",
-        "--tb=short"
-    ],
     "tasks": [
         {
-            "taskName": "tests",
+            "taskName": "Local tests",
+            "command": "${config:python.pythonPath}",
+            "isShellCommand": true,
             "isTestCommand": true,
+            "suppressTaskName": true,
             "args": [
+                "-m",
+                "pytest",
+        
+                // problem matcher requires this to get paths, but the 'problems' panel has some
+                // bugs in it. sometimes new problems are not ever noticed (no matter what i try or
+                // how i mess with the matcher), and sometimes old problems won't go away without a
+                // restart. wait until that gets fixed. in the meantime, don't use `native` because
+                // it's less readable.
+                "--tb=short",
+                //"--tb=native",
+
                 "${workspaceRoot}"
             ],
             "problemMatcher": [
@@ -45,6 +45,19 @@
                         }
                     ]
                 }
+            ]
+        },
+        // TODO: have above and this work through common script (switched via cl args), and move to setup.py.
+        // also make setup.py support setting up test env (creating venvs etc. including autodetect windows
+        // and trigger linux setup via bash), then make tasks to map onto each. 
+        {
+            "taskName": "Full tests",
+            "command": "powershell",
+            "isShellCommand": true,
+            "isTestCommand": true,
+            "args": [
+                "-noprofile",
+                "${workspaceRoot}/.vscode/test.ps1" // everything hard coded for now
             ]
         }
     ]
