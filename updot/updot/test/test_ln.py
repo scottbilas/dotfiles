@@ -89,7 +89,7 @@ def test__tracked_link_exists_with_correct_target__ignores(caplog, fs, links_db)
     file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
     db_serial = 5
 
-    fs.create_file(file_path.exp, contents='abc')
+    fs.create_file(file_path.exp)
     fs.create_symlink(link_path.exp, target)
     links_db.db.serial = db_serial
     links_db.add(link_path.exp, target, db_serial - 1)
@@ -110,7 +110,7 @@ def test__untracked_link_exists_with_correct_target__tracks_and_ignores(caplog, 
     file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
     db_serial = 20
 
-    fs.create_file(file_path.exp, contents='abc')
+    fs.create_file(file_path.exp)
     fs.create_symlink(link_path.exp, target)
     links_db.db.serial = db_serial
 
@@ -127,8 +127,8 @@ def test__untracked_link_exists_with_correct_target__tracks_and_ignores(caplog, 
 def test__tracked_link_exists_with_different_target__updates(caplog, fs, links_db):
     """A symlink we were tracking has changed in spec, so update the symlink"""
 
-    file_existing_path, file_moved_path = expand('~/existing.txt'), expand('~/moved.txt')
-    link_path, target_existing, target_moved = expand('~/link'), 'existing.txt', 'moved.txt'
+    file_moved_path, link_path = expand('~/moved.txt'), expand('~/link')
+    target_existing, target_moved = 'existing.txt', 'moved.txt'
     db_serial = 30
 
     # symlink and db entry point to old location
@@ -137,7 +137,7 @@ def test__tracked_link_exists_with_different_target__updates(caplog, fs, links_d
     links_db.add(link_path.exp, target_existing, db_serial - 1)
 
     # but the file has been 'moved' already to its new location
-    fs.create_file(file_moved_path.exp, contents='abc')
+    fs.create_file(file_moved_path.exp)
 
     #|
     result = links.ln(link_path.orig, file_moved_path.orig)
@@ -153,7 +153,7 @@ def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, 
     """Symlink already exists, but is not managed and is pointing somewhere unexpected"""
 
     file_path, link_path = expand('~/file.txt'), expand('~/link')
-    fs.create_file(file_path.exp, contents='abc')
+    fs.create_file(file_path.exp)
     fs.create_symlink(link_path.exp, 'otherfile.txt')
 
     #|
@@ -196,8 +196,8 @@ def test__dup_target_and_link__throws(fs):
 
     file_path, file2_path, link_path = expand('~/file.txt'), expand('~/file2.txt'), expand('~/link')
 
-    fs.create_file(file_path.exp, contents='abc')
-    fs.create_file(file2_path.exp, contents='abc')
+    fs.create_file(file_path.exp)
+    fs.create_file(file2_path.exp)
 
     links.ln(link_path.orig, file_path.orig)
     with raises(exceptions.UpdotError, match='Duplicate creation of symlink'):
