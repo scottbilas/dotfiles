@@ -11,7 +11,7 @@ syntax: glob
 
 __pycache__
 .history
-.venv
+.*env
 .vs
 .last_tmp.*
 *_i.c
