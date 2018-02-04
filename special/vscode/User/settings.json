@@ -14,6 +14,7 @@
         "executables",
         "fatals",
         "funcs",
+        "icase",
         "minimap",
         "mkdir",
         "POSIX",
@@ -125,10 +126,11 @@
         }
     ],
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
-    "window.zoomLevel": 0,
-    "workbench.activityBar.visible": true,
+    "window.zoomLevel": -1,
+    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "Hidden High Contrast (hc_black)",
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
-    "vsicons.dontShowNewVersionMessage": true
+    "vsicons.dontShowNewVersionMessage": true,
 }
