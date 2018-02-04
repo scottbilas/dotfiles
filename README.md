@@ -254,7 +254,7 @@ See https://github.com/lukesampson/scoop/wiki/Example-Setup-Scripts
 TODO: auto sync this stuff, yo
 
 ```powershell
-dir ~\.vscode\extensions\ | %{ '* ' + ($_.name -replace '-[0-9.]+$', '') } | clip
+code --list-extensions | %{ '* ' + ($_.name -replace '-[0-9.]+$', '') } | clip
 ```
 
 Can install the below with `code --install-extension <packagename>`
