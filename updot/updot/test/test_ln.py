@@ -215,6 +215,28 @@ def test__dup_target_and_link__throws(fs):
         links.ln(link_path.orig, file2_path.orig)
 
 
+def test__symlink_pointing_at_self__throws(fs):
+    """Catch accidental creation of self-referential symlinks"""
+
+    file_path = expand('~/foo')
+    fs.create_file(file_path.exp)
+
+    #|
+    with raises(exceptions.PathInvalidError, match='Symlink points at itself'):
+        links.ln(file_path.orig, file_path.orig)
+
+
+def test__symlink_pointing_at_cycle__throws(fs):
+    """Catch when referencing a symlink cycle"""
+
+    cycle_path, target = expand('~/foo'), 'foo'
+    fs.create_symlink(cycle_path.exp, target)
+
+    #|
+    with raises(OSError, match='Too many levels of symbolic links'):
+        links.ln('~/leaf', cycle_path.orig)
+
+
 # TODO: def test__unspecified_symlinks_found_in_any_link_parent__warns():
 #    """Detect when user has added symlinks manually and forgotten to update spec"""
     # FUTURE: offer to add to spec

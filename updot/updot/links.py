@@ -114,6 +114,10 @@ def ln(link, target):
         logging.debug('Symlink target ''%s'' does not exist; skipping', target_orig)
         return LinkResult.NO_TARGET
 
+    # don't symlink to yourself
+    if os.path.realpath(link) == os.path.realpath(target):
+        raise exceptions.PathInvalidError(f'Symlink points at itself ''{link}''->''{target}''', os.path.realpath(link))
+
     # special: if both home-relative, make them relative to each other (shortens `ls`)
     target_final = target
     if link_orig.startswith('~/') and target_orig.startswith('~/'):
