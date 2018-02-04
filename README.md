@@ -214,9 +214,34 @@ ghq look fzf
 exit
 ```
 
+# everything (Windows)
+
+```powershell
+scoop install everything
+everything
+```
+
+* Ctrl-P (options)
+* Check 'Store settings and data in %APPDATA%\Everything'
+* Check 'Start Everything on system startup'
+* Check 'Everything Service'
+* Exit Everything
+
+```powershell
+net stop everything
+mv ~\AppData\Roaming\Everything ~\AppData\Roaming\Everything.old
+mklinkd -link ~\AppData\Roaming\Everything -folder ~\Programs\Everything
+copy ~\Programs\Everything\Everything.ini ~\Programs\Everything\Everything.ini.bak # just in case
+net start everything
+everything
+```
+
+Test to ensure hotkey and exclusions are working.
+
 ## Tools
 
 ```sh
+pip install --upgrade pip
 pip install tldr ptpython
 ```
 
@@ -229,11 +254,13 @@ See https://github.com/lukesampson/scoop/wiki/Example-Setup-Scripts
 TODO: auto sync this stuff, yo
 
 ```powershell
-dir C:\Users\scott\.vscode\extensions\ | %{ '* ' + ($_.name -replace '-[0-9.]+$', '') } | clip
+dir ~\.vscode\extensions\ | %{ '* ' + ($_.name -replace '-[0-9.]+$', '') } | clip
 ```
 
+Can install the below with `code --install-extension <packagename>`
+
 * 74th.monokai-charcoal-high-contrast
-* adamvoss.yaml
+* adamvoss.yaml (broken?)
 * akfish.vscode-devdocs
 * anweber.vscode-tidyhtml
 * bungcip.better-toml
@@ -246,7 +273,7 @@ dir C:\Users\scott\.vscode\extensions\ | %{ '* ' + ($_.name -replace '-[0-9.]+$'
 * formulahendry.auto-close-tag
 * formulahendry.auto-rename-tag
 * foxundermoon.shell-format
-* jtanx.ctagsx
+* jtanx.ctagsx (disable)
 * lei.theme-chromodynamics
 * lextudio.restructuredtext
 * mihaipopescu.cram
@@ -261,7 +288,7 @@ dir C:\Users\scott\.vscode\extensions\ | %{ '* ' + ($_.name -replace '-[0-9.]+$'
 * streetsidesoftware.code-spell-checker
 * Unity.unity-debug
 * vadimcn.vscode-lldb
-* vscodevim.vim
+* vscodevim.vim (disable)
 * wayou.vscode-todo-highlight
 * xyz.local-history
 
