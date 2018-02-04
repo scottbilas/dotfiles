@@ -109,9 +109,6 @@
         }
     ],
     "problems.decorations.enabled": true,
-    "python.unitTest.pyTestArgs": [
-        "-q"
-    ],
     "search.useRipgrep": true,
     "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,
