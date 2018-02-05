@@ -76,50 +76,22 @@ db_home: windows<Ctrl-D>
 ### Minimum packages
 
 ```bash
-sudo apt install -y coreutils git
+sudo apt install -y coreutils git sed
 ```
 
 ## System Prep (windows)
 
 ```powershell
 # scoop
-iwr https://get.scoop.sh -usebasic | iex
-scoop install git
 scoop bucket add extras
-scoop install sudo busybox
+scoop install sudo busybox win32-openssh concfg
 
 # override busybox applets with better/newer versions
-scoop install less wget
+scoop install less wget sed curl
 
 # chocolatey
 sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"
 <restart shell>
-```
-
-## Bootstrap
-
-### Git em
-
-```bash
-cd ~
-git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles
-# TODO also set up master branch tracking origin
-
-# if working from shallow clone (such as a CodeAnywhere container)
-# git submodule update --jobs 3 --init --recursive
-```
-
-### Wire up
-
-```bash
-# termux only
-pkg install sed
-```
-
-```powershell
-# windows only (posh)
-powershell # open nested shell
-exit
 
 # TODO: disable path inheritance (https://github.com/Microsoft/BashOnWindows/issues/1493)
 # reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss /v AppendNtPath /t REG_DWORD /d 0
@@ -228,11 +200,11 @@ everything
 * Exit Everything
 
 ```powershell
-net stop everything
+sudo stop-service everything
 mv ~\AppData\Roaming\Everything ~\AppData\Roaming\Everything.old
 mklinkd -link ~\AppData\Roaming\Everything -folder ~\Programs\Everything
 copy ~\Programs\Everything\Everything.ini ~\Programs\Everything\Everything.ini.bak # just in case
-net start everything
+sudo start-service everything
 everything
 ```
 
@@ -242,12 +214,8 @@ Test to ensure hotkey and exclusions are working.
 
 ```sh
 pip install --upgrade pip
-pip install tldr ptpython
+pip install tldr ptpython pdbpp
 ```
-
-### Misc
-
-See https://github.com/lukesampson/scoop/wiki/Example-Setup-Scripts
 
 ### VSCode
 

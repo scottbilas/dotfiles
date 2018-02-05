@@ -13,7 +13,7 @@ if (!(test-path ~/dotfiles)) {
         scoop install git
     }
 
-    git clone -b master --recursive https://github.com/scottbilas/dotfiles "$(resolve-path ~)/dotfiles"
+    git clone -b master --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(resolve-path ~)/dotfiles"
 }
 
 # further:
