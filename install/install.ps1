@@ -3,16 +3,13 @@
 # This script installs scottbilas's dotfiles to a basic level under Powershell on Windows.
 #
 # Install:
-#    `iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -usebasic | iex`
+#    `iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -useb | iex`
 
 $erroractionpreference = 'stop'
 
 if (!(test-path ~/dotfiles)) {
-    if (!(which git)) {
-        iwr https://get.scoop.sh -useb | iex
-        scoop install git
-    }
-
+    iwr https://get.scoop.sh -useb | iex
+    scoop install git
     git clone -b master --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(resolve-path ~)/dotfiles"
 }
 
