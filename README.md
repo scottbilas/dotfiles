@@ -87,7 +87,7 @@ scoop bucket add extras
 scoop install sudo busybox win32-openssh concfg
 
 # override busybox applets with better/newer versions
-scoop install less wget sed curl
+scoop install which less wget sed curl
 
 # chocolatey
 sudo powershell "iwr https://chocolatey.org/install.ps1 -usebasic | iex"

@@ -4,15 +4,15 @@
 #
 # Install:
 #
-#    <from developer commmand line>
 #    iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -useb | iex
-#
-#    <from automation>
-#    powershell -noprofile -executionpolicy unrestricted -command "iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -useb | iex"
 
 $erroractionpreference = 'stop'
 
 if (!(test-path ~/dotfiles)) {
+
+    if ((get-executionpolicy) -eq 'restricted') {
+        set-executionpolicy remotesigned process -force
+    }
 
     if (!(get-command scoop -ea si)) {
         iwr https://get.scoop.sh -useb | iex
