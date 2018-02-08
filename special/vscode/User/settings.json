@@ -23,6 +23,7 @@
         "submodules",
         "termux",
         "transcode",
+        "uncrustify",
         "untracked",
         "xplat"
     ],
@@ -84,10 +85,8 @@
         // folders
         "**/.history": true,
         "**/.venv": true,
-        "**/__pycache__": true,
         "**/.vs": true,
-        "**/bin": true,
-        "**/obj": true
+        "**/__pycache__": true
     },
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
@@ -100,14 +99,6 @@
         "suppressUpdateNotice": true,
         "suppressWelcomeNotice": false
     },
-    "gitlens.codeLens.perLanguageLocations": [
-        {
-            "language": "markdown",
-            "locations": [
-                "document"
-            ]
-        }
-    ],
     "problems.decorations.enabled": true,
     "search.useRipgrep": true,
     "shellformat.flag": "-i 4 -s",
