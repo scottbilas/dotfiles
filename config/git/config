@@ -65,4 +65,6 @@
 #   TODO: move this stuff to ~/.config/tig/config
 
 [user]
-    name = Scott Bilas
+	name = Scott Bilas
+    # https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/
+	useConfigOnly = true

@@ -10,7 +10,7 @@ $erroractionpreference = 'stop'
 
 if (!(test-path ~/dotfiles)) {
 
-    if ((get-executionpolicy) -eq 'restricted') {
+    if ((get-executionpolicy) -gt 'remotesigned') {
         set-executionpolicy remotesigned process -force
     }
 
