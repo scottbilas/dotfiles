@@ -33,10 +33,10 @@ iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install
 
 Which?
 ```bash
-./scripts/meksysinfo
+~/dotfiles/scripts/meksysinfo
 ```
 
-### Trusty
+### Trusty (16.04 LTS)
 
 ```bash
 sudo apt install -y software-properties-common

@@ -6,6 +6,7 @@ export EDITOR='micro'
 export VISUAL='micro'
 export PAGER='less'
 export GOPATH="$HOME/go"
+export ELINKS_CONFDIR='.config/elinks' # termux's elinks does not like ~/.config; something is wrong
 
 # less
 
