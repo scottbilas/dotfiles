@@ -29,7 +29,7 @@
 
 [core]
     autocrlf = false
-	editor = micro
+    editor = micro
     excludesfile = ~/.config/git/ignore
 #    pager = perl ~/dotfiles/scripts/diff-so-fancy | less --tabs=4 -RFX
 
@@ -39,7 +39,7 @@
     mnemonicprefix = true
 
 [icdiff]
-	options = --highlight --line-numbers
+    options = --highlight --line-numbers
 
 [fetch]
     prune = true
@@ -60,6 +60,9 @@
 
     main-view = id date:relative-compact author:email-user commit-title:graph=v2,refs=yes
 
-#	diff-highlight = true  -- not currently avail w termux
+#   diff-highlight = true  -- not currently avail w termux
 
 #   TODO: move this stuff to ~/.config/tig/config
+
+[user]
+    name = Scott Bilas
