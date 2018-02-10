@@ -2,3 +2,5 @@ alias realias='source ~/.config/zsh/aliases'
 
 alias l='ls -ACF'
 alias ll='ls -AgGhF $@'
+
+alias ncdu='ncdu --color dark $@'
