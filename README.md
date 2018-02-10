@@ -24,7 +24,7 @@ Thanks to [Anish Athalye](www.anishathalye.com) for the inspirational post [Mana
 curl https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.sh | bash
 
 # powershell
-iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -usebasic | iex
+iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -useb | iex
 ```
 
 ---------------
