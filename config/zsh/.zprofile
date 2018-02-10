@@ -6,7 +6,9 @@ export EDITOR='micro'
 export VISUAL='micro'
 export PAGER='less'
 export GOPATH="$HOME/go"
-export ELINKS_CONFDIR='.config/elinks' # termux's elinks does not like ~/.config; something is wrong
+
+# termux's elinks does not like ~/.config; something seems wrong
+export ELINKS_CONFDIR='.config/elinks'
 
 # less
 
@@ -28,6 +30,17 @@ if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
 
+# completion
+
+# TODO: figure out why getting compdef error after uncommenting below
+# (see https://github.com/sorin-ionescu/prezto/issues/1138)
+# bash compatibility
+#autoload bashcompinit && bashcompinit
+#
+#if [[ $(type -p az) ]]; then
+#    . ~/lib/azure-cli/az.completion
+#fi
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
@@ -39,5 +52,6 @@ cdpath=(
 path=(
   /usr/local/{bin,sbin}
   $path
+  ~/bin
   $GOPATH/bin
 )
