@@ -41,6 +41,9 @@ fi
 #    . ~/lib/azure-cli/az.completion
 #fi
 
+[[ $- == *i* ]] && source "$HOME/.local/share/fzf/shell/completion.zsh" 2> /dev/null
+source "$HOME/.local/share/fzf/shell/key-bindings.zsh"
+
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 

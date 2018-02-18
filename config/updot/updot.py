@@ -120,6 +120,11 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # zprezto-update
 
+# fzf
+# git clone https://github.com/junegunn/fzf ~/.local/share/fzf
+# ~/.local/share/fzf/install --bin
+# ln -s ~/.local/share/fzf/bin/fzf ~/bin/fzf
+
 # tmux plugin manager and updates
 ## we only need the initial tpm clone. after that, it will take care of
 ## updating its own repo. for now using a submodule, but in future would

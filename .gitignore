@@ -5,6 +5,7 @@ config/elinks/*hist
 config/elinks/bookmarks.xbel
 config/micro/buffers
 config/zsh/.zcompdump*
+config/zsh/.zcompcache
 special/vscode/User/vsicons\.settings\.json
 special/vscode/User/workspaceStorage/
 private
