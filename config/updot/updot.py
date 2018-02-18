@@ -120,7 +120,12 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # zprezto-update
 
-# tmux plugin manager
+# tmux plugin manager and updates
+## we only need the initial tpm clone. after that, it will take care of
+## updating its own repo. for now using a submodule, but in future would
+## be better to just have updot ensure we have it in .local/share/tmux/plugins/tpm and after that completely leave unmanaged.
+## so it makes sense to have clone() take a flag to say "do not autoupdate")
+## or alternatively, tell it to keep .local/share/tmux/plugins/* up to date and then that can be part of the ordinary update rather than needing to tell tmux to do it.
 
 # vim
 # curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
