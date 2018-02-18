@@ -101,6 +101,8 @@ if platform.WINDOWS:
 ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 
+## git submodule --init --recurse --jobs 3
+
 
 # registry
 
