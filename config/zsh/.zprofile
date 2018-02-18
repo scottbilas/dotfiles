@@ -12,7 +12,7 @@ export ELINKS_CONFDIR='.config/elinks'
 
 # less
 
-export LESS='-F -g -i -M -R -S -w -X -z-4'
+export LESS='-F -g -i -M -R -w -X -z-4'
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
@@ -35,7 +35,7 @@ fi
 # TODO: figure out why getting compdef error after uncommenting below
 # (see https://github.com/sorin-ionescu/prezto/issues/1138)
 # bash compatibility
-#autoload bashcompinit && bashcompinit
+#autoload -U bashcompinit && bashcompinit
 #
 #if [[ $(type -p az) ]]; then
 #    . ~/lib/azure-cli/az.completion
