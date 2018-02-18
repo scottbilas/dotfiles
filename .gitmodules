@@ -1,8 +1,7 @@
-[submodule "config/tmux/tmux-themepack"]
-	path = config/tmux/tmux-themepack
-	url = https://github.com/jimeh/tmux-themepack
-	branch = master
 [submodule "config/zsh/.zprezto"]
 	path = config/zsh/.zprezto
 	url = https://github.com/sorin-ionescu/prezto
 	branch = master
+[submodule "config/tmux/plugins/tpm"]
+	path = config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
