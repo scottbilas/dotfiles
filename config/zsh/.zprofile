@@ -6,6 +6,7 @@ export EDITOR='micro'
 export VISUAL='micro'
 export PAGER='less'
 export GOPATH="$HOME/go"
+export GIT_SUBREPO_ROOT="$HOME/.config/git/git-subrepo"
 
 # termux's elinks does not like ~/.config; something seems wrong
 export ELINKS_CONFDIR='.config/elinks'
@@ -57,4 +58,5 @@ path=(
   $path
   ~/bin
   $GOPATH/bin
+  $GIT_SUBREPO_ROOT/lib # TODO: symlink the command instead
 )
