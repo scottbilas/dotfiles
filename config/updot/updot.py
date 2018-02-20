@@ -40,6 +40,7 @@ if platform.POSIX:
     touch('~/.hushlogin')
     ln('~/dotfiles/special/zsh/zshenv', '~/.zshenv') # http://zsh.org/mla/workers/2013/msg00692.html
     PROJ = '~/proj'
+    # TODO ^ WORK = ~/work
 
 if platform.TERMUX:
     sys('termux-setup-storage')
@@ -90,6 +91,7 @@ if platform.WINDOWS:
     env('XDG_DATA_HOME', '~/.local/share')
     env('ChocolateyToolsLocation', R'~\choco')
     env(['TEMP', 'TMP'], R'c:\temp')
+    env('UNITY_MIXED_CALLSTACK', '1', direxists=f'{PROJ}/unity')
 
     powershell("""
         . ~/scoop/apps/scoop/current/lib/core.ps1 # access to shim
