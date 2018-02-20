@@ -22,8 +22,6 @@ __pycache__
 *.bak.meta
 *.cache
 *.Cache
-*.dll
-*.exe
 *.exe.*
 *.FileListAbsolute.txt
 *.idb
@@ -37,7 +35,6 @@ __pycache__
 *.ncb
 *.obj
 *.orig
-*.pch
 *.pdb
 *.pyo
 *.res

@@ -67,8 +67,6 @@
         "**/*.cache": true,
         "**/*.csproj.CopyComplete": true,
         "**/*.csproj.user": true,
-        "**/*.dll": true,
-        "**/*.exe": true,
         "**/*.idb": true,
         "**/*.ilk": true,
         "**/*.lib": true,
