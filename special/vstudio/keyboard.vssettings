@@ -70,6 +70,7 @@
                     <RemoveShortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Text Editor">Shift+Alt+O</RemoveShortcut>
                     <RemoveShortcut Command="Edit.ExpandSelection" Scope="Text Editor">Ctrl+W</RemoveShortcut>
                     <RemoveShortcut Command="Edit.NextKeyTyped" Scope="VC Accelerator Editor">Ctrl+W</RemoveShortcut>
+                    <RemoveShortcut Command="ReSharper.ReSharper_LocateInSolutionOrAssemblyExplorer" Scope="Text Editor">Shift+Alt+L</RemoveShortcut>
                     <Shortcut Command="Window.ActivateQuickLaunch" Scope="Global">Ctrl+Shift+P</Shortcut>
                     <Shortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Shift+Alt+O</Shortcut>
                     <Shortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Ctrl+P</Shortcut>
@@ -79,8 +80,10 @@
                     <Shortcut Command="ReSharper.ReSharper_GotoInheritors" Scope="Text Editor">Alt+End</Shortcut>
                     <Shortcut Command="ReSharper.ReSharper_GotoBase" Scope="Text Editor">Alt+Home</Shortcut>
                     <Shortcut Command="ReSharper.ReSharper_GotoRecentFiles" Scope="Global">Ctrl+Shift+T</Shortcut>
-                    <RemoveShortcut Command="ReSharper.ReSharper_LocateInSolutionOrAssemblyExplorer" Scope="Text Editor">Shift+Alt+L</RemoveShortcut>
                     <Shortcut Command="ReSharper.ReSharper_LocateInSolutionOrAssemblyExplorer" Scope="Global">Shift+Alt+L</Shortcut>
+                    <Shortcut Command="ReSharper.ReSharper_UnitTestDebugContext" Scope="Global">Ctrl+U, D</Shortcut>
+                    <Shortcut Command="ReSharper.ReSharper_UnitTestRunSolution" Scope="Global">Ctrl+U, L</Shortcut>
+                    <Shortcut Command="ReSharper.ReSharper_UnitTestSessionRepeatPreviousRun" Scope="Global">Ctrl+U, U</Shortcut>
                 </UserShortcuts>
             </KeyboardShortcuts>
         </Category>
