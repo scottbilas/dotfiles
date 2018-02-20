@@ -1,4 +1,29 @@
 {
+    "logFileHighlighter.customPatterns": [
+        {
+            "pattern": "error",
+            "foreground": "red"
+        }
+    ],
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                // log.constant
+                // log.date
+                // log.debug
+                // log.error
+                // log.exception
+                // log.info
+                // log.string
+                // log.exceptiontype
+                // log.warning
+                "scope": "log.constant",
+                "settings": {
+                    "foreground": "#DDD"
+                }
+            }
+        ]
+    },
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
@@ -9,12 +34,15 @@
         "Bilas's",
         "Bilas",
         "cygwin",
+        "devs",
         "dll's",
         "dotfiles",
         "executables",
         "fatals",
         "funcs",
         "icase",
+        "IDE's",
+        "katana",
         "minimap",
         "mkdir",
         "POSIX",
@@ -55,6 +83,7 @@
         "config": "ini",
         "config-*": "ini",
         ".pylintrc": "ini",
+        "*.asmdef": "json",
         "*.vssettings": "xml"
     },
     "files.autoSave": "off",
