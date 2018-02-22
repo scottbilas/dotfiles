@@ -7,6 +7,7 @@ Plug 'mhinz/vim-startify'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tmhedberg/SimpylFold'
 Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
@@ -20,10 +21,19 @@ endif
 " Must be after nerdtree related plugins above
 Plug 'ryanoasis/vim-devicons'
 
+let g:startify_bookmarks = [
+    \ { 'c': '~/.config/nvim/init.vim' }
+    \ ]
+
+let g:startify_relative_path=1
+let g:startify_update_oldfiles=1
+let g:startify_session_autoload=1
+let g:startify_session_persistence=1
+
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeDirArrows=1
-let g:NERDTreeDirArrowExpandable='+'
-let g:NERDTreeDirArrowCollapsible='-'
+let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeAutoDeleteBuffer=1
 
 let g:undotree_ShortIndicators=1
 
