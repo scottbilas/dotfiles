@@ -141,7 +141,7 @@
         }
     ],
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "Hidden High Contrast (hc_black)",
     "workbench.iconTheme": "vscode-icons",
