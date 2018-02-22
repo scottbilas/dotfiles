@@ -30,7 +30,8 @@ ln('~/dotfiles/config', '~/.config')
 ln('~/Common/Private', '~/dotfiles/private')
 
 mkdir('~/.ssh')
-ln('~/dotfiles/private/ssh/authorized_keys', '~/.ssh/authorized_keys')
+#ln('~/dotfiles/private/ssh/authorized_keys', '~/.ssh/authorized_keys')
+#^^ this gets bad permissions on termux, so use a cp() or sync() instead
 
 ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')   # tmux refuses to support xdg (https://github.com/tmux/tmux/issues/142) TODO: switch to alias and use `-f`
 ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py', if_app='python')    # pdbpp uses fancycompleter which hard codes ~/<configname> and doesn't do xdg
