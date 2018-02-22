@@ -55,7 +55,7 @@ set noswapfile
 
 " Keep undo history across sessions, by storing in file. Only works all the time.
 if has('persistent_undo')
-  if !isdirectory(expand('~').'/.tmp/nvim/backups')
+  if !isdirectory(expand('~').'/.cache/nvim/backups')
     silent !mkdir -p ~/.tmp/nvim/backups > /dev/null 2>&1
   endif
   set undodir=~/.tmp/nvim/backups
@@ -109,6 +109,6 @@ set infercase
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
-    autocmd BufWritePost ~/.config/nvim/plugins.vim source $MYVIMRC
+    autocmd BufWritePost plugins.vim source $MYVIMRC
 augroup END " }
 
