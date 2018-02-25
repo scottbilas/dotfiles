@@ -32,6 +32,9 @@ runtime macros/matchit.vim
 
 " === Plugins ===
 
+" TODO: auto create pip venv and `pip install neovim` into it
+let g:python3_host_prog=glob('~/.local/share/nvim/venv/bin/python')
+
 " auto download vim-plug and activate it
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
@@ -43,11 +46,12 @@ if has("win32")
   source ~/.local/share/nvim/site/autoload/plug.vim " can't get autoload to work on windows
 endif
 
+let g:plugins_loading=1 " this lets me keep plugin-specific settings right next to the plugin being selected
 call plug#begin('~/.local/share/nvim/plugged')
 source ~/.config/nvim/plugins.vim
 call plug#end()
-
-colorscheme Tomorrow-Night
+let g:plugins_loading=0
+source ~/.config/nvim/plugins.vim
 
 " === Backup ===
 
@@ -56,9 +60,9 @@ set noswapfile
 " Keep undo history across sessions, by storing in file. Only works all the time.
 if has('persistent_undo')
   if !isdirectory(expand('~').'/.cache/nvim/backups')
-    silent !mkdir -p ~/.tmp/nvim/backups > /dev/null 2>&1
+    silent !mkdir -p ~/.local/share/nvim/backups > /dev/null 2>&1
   endif
-  set undodir=~/.tmp/nvim/backups
+  set undodir=~/.local/share/nvim/backups
   set undofile
   set nobackup
   set nowb
