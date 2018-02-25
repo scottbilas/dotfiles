@@ -1,7 +1,7 @@
 # TERMUX: Ctrl+Alt+
 
-New session:		C
-Rename session:	    R
+New session:        C
+Rename session:     R
 Next, prev session: N/dn, P/up
 Select session:     1-9
 Paste from OS:      V

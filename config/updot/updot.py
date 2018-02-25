@@ -111,7 +111,8 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # vs code extensions
 
-# nvim :PlugInstall PlugUpgrade PlugUpdate etc.
+# nvim :PlugInstall PlugUpgrade PlugUpdate UpdateRemotePlugins etc.
+# nvim: create venv at ~/.local/share/nvim/venv and `pip install neovim pytest` into it
 
 # micro plugin update
 
