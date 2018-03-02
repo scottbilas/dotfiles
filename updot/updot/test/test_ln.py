@@ -206,16 +206,18 @@ def test__dup_target_and_link__throws(fs):
         links.ln(link_path.orig, file2_path.orig)
 
 
-if platform.WINDOWS: # TODO: this is paired with the `if platform.WINDOWS` in `ln()`
-    def test__symlink_pointing_at_self__throws(fs):
-        """Catch accidental creation of self-referential symlinks"""
+def test__symlink_pointing_at_self__throws(fs):
+    """Catch accidental creation of self-referential symlinks"""
 
-        file_path = expand('~/foo')
-        fs.create_file(file_path.exp)
+    file_path = expand('~/foo')
+    fs.create_file(file_path.exp)
 
-        #|
-        with raises(exceptions.PathInvalidError, match='Symlink points at itself'):
-            links.ln(file_path.orig, file_path.orig)
+    # TODO: add parent-dir symlinks to look through before hitting `foo`, to
+    # exercise the `realpath` stuff.
+
+    #|
+    with raises(exceptions.PathInvalidError, match='Symlink points at itself'):
+        links.ln(file_path.orig, file_path.orig)
 
 
 def test__symlink_pointing_at_cycle__throws(fs):

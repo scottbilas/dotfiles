@@ -70,6 +70,7 @@ def _normalize_path(path):
         return value
 
     # replace macros and clean up any escaped $'s
+    # TODO: consider using os.path.expandvars in here somewhere
     path = re.sub(r'(\\)?\$([A-Za-z]\w*)', lookup, path)
     path = path.replace('\\$', '$')
 
@@ -164,10 +165,13 @@ def ln(link, target):
         logging.debug('Symlink target \'%s\' does not exist; skipping', target_orig)
         return LinkResult.NO_TARGET
 
-    # don't symlink to yourself
-    if platform.WINDOWS: # TODO: something fundamentally broken here if this test exclusively works on windows. fix and update this and the associated test.
-        if os.path.realpath(link) == os.path.realpath(target):
-            raise exceptions.PathInvalidError(f'Symlink points at itself \'{link}\'->\'{target}\'', os.path.realpath(link))
+    # don't symlink to yourself. note that we `realpath` just the parent dir
+    # and not all of `link` in case the symlink already exists, in which case
+    # `realpath` would resolve it too far.
+    link_parent, link_filename = os.path.split(link)
+    link_realpath = os.path.join(os.path.realpath(link_parent), link_filename).replace('\\', '/')
+    if link_realpath == os.path.realpath(target):
+        raise exceptions.PathInvalidError(f'Symlink points at itself \'{link}\'->\'{target}\'', os.path.realpath(link))
 
     # special: if both home-relative, make them relative to each other (shortens `ls`)
     target_final = target
@@ -211,7 +215,6 @@ def ln(link, target):
         if target_existing != target_final:
 
             # first ensure we have a folder to put it in
-            link_parent = os.path.split(link)[0]
             if not os.path.exists(link_parent):
                 logging.info('Creating parent folder \'%s\'', link_parent)
                 os.makedirs(link_parent)
