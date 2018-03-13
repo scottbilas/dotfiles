@@ -127,6 +127,7 @@
         "suppressWelcomeNotice": false
     },
     "problems.decorations.enabled": true,
+    "search.smartCase": true,
     "search.useRipgrep": true,
     "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,

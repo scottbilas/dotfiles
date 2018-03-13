@@ -4,7 +4,7 @@ import pytest
 from pytest import raises
 
 from testutils import HOME, expand
-from updot import _db, exceptions, links, platform
+from updot import _db, exceptions, links
 from updot.links import LinkResult
 
 # pylint: disable=redefined-outer-name, protected-access
