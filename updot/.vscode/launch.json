@@ -11,11 +11,11 @@
             "stopOnEntry": false,
             "pythonPath": "${config:python.pythonPath}",
             "program": "${file}",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceRoot}",
             "env": {
                 // "debug all unit tests" auto-adds the root to sys.path, so in order to debug
                 // via pytest.main(), need to do the same here.
-                "PYTHONPATH": "${workspaceFolder}"
+                "PYTHONPATH": "${workspaceRoot}"
             },
             "debugOptions": [
                 "RedirectOutput"

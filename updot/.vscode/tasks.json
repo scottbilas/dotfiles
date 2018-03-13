@@ -28,7 +28,7 @@
                 "--tb=short",
                 //"--tb=native",
 
-                "${workspaceRoot}"
+                "${workspaceFolder}"
             ],
             "problemMatcher": [
                 {
@@ -57,7 +57,7 @@
             "isTestCommand": true,
             "args": [
                 "-noprofile",
-                "${workspaceRoot}/.vscode/test.ps1" // everything hard coded for now
+                "${workspaceFolder}/.vscode/test.ps1" // everything hard coded for now
             ]
         }
     ]
