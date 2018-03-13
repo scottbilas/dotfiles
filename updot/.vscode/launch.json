@@ -18,7 +18,8 @@
                 "PYTHONPATH": "${workspaceRoot}"
             },
             "debugOptions": [
-                "RedirectOutput"
+                "RedirectOutput",
+                "DebugStdLib"
             ]
         },
         {
