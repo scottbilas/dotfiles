@@ -5,7 +5,7 @@ from enum import Enum, auto
 
 from tinydb import where
 
-from updot import _db, exceptions, platform
+from updot import _db, exceptions
 
 # TODO: at end of program...
 # 1. find all unused but managed links and warn (atexit)
@@ -23,6 +23,29 @@ from updot import _db, exceptions, platform
 # policy is to restrict to the least common denominator, encoded in a simple rule:
 #
 # -- the counts of case-sensitive and -insensitive matches should both equal exactly 1 --
+
+
+class UnixPath: # pylint: disable=too-few-public-methods
+    def __getattr__(self, name):
+        attr = getattr(os.path, name)
+        if not callable(attr):
+            return attr
+
+        def hooked(*args, **kwargs):
+            result = attr(*args, **kwargs)
+            if name in ('expanduser', 'join', 'normpath', 'realpath', 'relpath'):
+                result = result.replace('\\', '/')
+            elif name == 'split':
+                head, tail = result
+                head = head.replace('\\', '/')
+                result = head, tail
+            return result
+        return hooked
+
+# os.path returns backslashes for various query funcs on windows, but we want to always work in
+# forward slashes. far simpler to just treat everything the same, and only use backslashes where explicitly
+# needed right at os call points (very few places).
+os_path = UnixPath() # pylint: disable=invalid-name
 
 
 def _normalize_path(path):
@@ -49,7 +72,7 @@ def _normalize_path(path):
             raise exceptions.MacroExpansionError(
                 f'Macro \'{name}\' not found (or empty)', name, None, path_orig)
 
-        if os.path.isabs(value) and match.start(0) != 0:
+        if os_path.isabs(value) and match.start(0) != 0:
             raise exceptions.MacroExpansionError(
                 f'Macro \'{name}\' refers to an absolute path, but is not used from the start of the path it is used in', name, value, path_orig)
 
@@ -70,7 +93,7 @@ def _normalize_path(path):
         return value
 
     # replace macros and clean up any escaped $'s
-    # TODO: consider using os.path.expandvars in here somewhere
+    # TODO: consider using os_path.expandvars in here somewhere
     path = re.sub(r'(\\)?\$([A-Za-z]\w*)', lookup, path)
     path = path.replace('\\$', '$')
 
@@ -81,15 +104,15 @@ def _normalize_path(path):
             path.split('/')[0], None, path_orig)
 
     # final expansion and cleanup
-    path = os.path.expanduser(path)
-    path = os.path.normpath(path)
+    path = os_path.expanduser(path)
+    path = os_path.normpath(path)
 
     # this is mostly a stylistic choice at this point, but i also think it will help avoid
     # accidental xplat problems.
-    if not os.path.isabs(path):
+    if not os_path.isabs(path):
         raise exceptions.PathInvalidError('All paths (after expansion) must be absolute', path_orig)
 
-    # various python path funcs (and possibly expanded macros) will use backslash, so ensure we swap it back
+    # expanded macros may use backslash, so ensure we swap it back
     path = path.replace('\\', '/')
 
     # TODO: if windows-style path (\\unc\path or C:\blah), then for each level of path that exists,
@@ -161,22 +184,22 @@ def ln(link, target):
     # resolve the intermediate conflicts.
 
     # a missing target file is ok; common due to plat and install differences, so early-out
-    if not os.path.lexists(target):
+    if not os_path.lexists(target):
         logging.debug('Symlink target \'%s\' does not exist; skipping', target_orig)
         return LinkResult.NO_TARGET
 
     # don't symlink to yourself. note that we `realpath` just the parent dir
     # and not all of `link` in case the symlink already exists, in which case
     # `realpath` would resolve it too far.
-    link_parent, link_filename = os.path.split(link)
-    link_realpath = os.path.join(os.path.realpath(link_parent), link_filename).replace('\\', '/')
-    if link_realpath == os.path.realpath(target):
-        raise exceptions.PathInvalidError(f'Symlink points at itself \'{link}\'->\'{target}\'', os.path.realpath(link))
+    link_parent, link_filename = os_path.split(link)
+    link_realpath = os_path.join(os_path.realpath(link_parent), link_filename)
+    if link_realpath == os_path.realpath(target):
+        raise exceptions.PathInvalidError(f'Symlink points at itself \'{link}\'->\'{target}\'', os_path.realpath(link))
 
     # special: if both home-relative, make them relative to each other (shortens `ls`)
     target_final = target
     if link_orig.startswith('~/') and target_orig.startswith('~/'):
-        target_final = os.path.relpath(target, os.path.split(link)[0]).replace('\\', '/')
+        target_final = os_path.relpath(target, os_path.split(link)[0])
 
     links_db = _LinksDb()
     managed = links_db.find(link)
@@ -190,7 +213,7 @@ def ln(link, target):
     #   * if either empty or identical contents to new target, or empty, offer to user to take ownership and replace with link
     #   * if file and mismatched, maybe show first 10 lines and make same offer (user may not care what's already there)
     #   * on windows, we have to care about whether it's a dir or file symlink, so should test for mismatch from expected and possibly track is-dir/file in the db
-    target_existing = os.readlink(link) if os.path.lexists(link) else None
+    target_existing = os.readlink(link) if os_path.lexists(link) else None
 
     # link exists and matches
     if target_existing == target_final:
@@ -215,13 +238,13 @@ def ln(link, target):
         if target_existing != target_final:
 
             # first ensure we have a folder to put it in
-            if not os.path.exists(link_parent):
+            if not os_path.exists(link_parent):
                 logging.info('Creating parent folder \'%s\'', link_parent)
                 os.makedirs(link_parent)
 
             logging.info('Creating symlink \'%s\'->\'%s\'', link_orig, target_final)
             os.symlink(target_final, link)
-            if not os.path.samefile(link, target):
+            if not os_path.samefile(link, target):
                 raise exceptions.UnexpectedError(f"Unexpected mismatch when testing new symlink '{link_orig}' -> '{target_orig}'")
 
         # add new, or if existing, mark as 'seen' (for later culling)
