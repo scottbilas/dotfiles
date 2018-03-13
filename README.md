@@ -236,6 +236,7 @@ Can install the below with `code --install-extension <packagename>`
 * DotJoshJohnson.xml
 * eamodio.gitlens
 * EditorConfig.editorconfig
+* emilast.LogFileHighlighter
 * fabiospampinato.vscode-statusbar-debugger
 * fallenwood.viml
 * formulahendry.auto-close-tag
