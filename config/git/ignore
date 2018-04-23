@@ -35,7 +35,6 @@ __pycache__
 *.ncb
 *.obj
 *.orig
-*.pdb
 *.pyo
 *.res
 *.sbr

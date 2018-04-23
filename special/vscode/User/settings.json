@@ -103,7 +103,6 @@
         "**/*.meta": true,
         "**/*.obj": true,
         "**/*.orig": true,
-        "**/*.pdb": true,
         "**/*.pyc": true,
         "**/*.pyo": true,
         "**/*.suo": true,
