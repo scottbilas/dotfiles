@@ -14,9 +14,9 @@ j::Down
 k::Up
 l::Right
 ; could try to be vimish on these, but can't really do $ with left pinky already on capslock
-y::Home
-n::End
-u::PgUp
-m::PgDn
+u::Home
+m::End
+i::PgUp
+,::PgDn
 BackSpace::Del
 #IfWinExist
