@@ -1,4 +1,4 @@
-import os
+import logging, os
 
 import pytest
 from pytest import raises
@@ -70,6 +70,8 @@ def test__find_out_of_bounds_last_to_db__throws(links_db):
 def test__target_not_exist__ignores(caplog, links_db):
     """Ignore symlinks referring to nonexistent target paths (will be very common across OS's)"""
 
+    caplog.set_level(logging.DEBUG)
+
     link_path = '~/link'
 
     #|
@@ -85,6 +87,8 @@ def test__target_not_exist__ignores(caplog, links_db):
 
 def test__tracked_link_exists_with_correct_target__ignores(caplog, fs, links_db):
     """Creating an existing symlink should do nothing"""
+
+    caplog.set_level(logging.DEBUG)
 
     file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
     db_serial = 5
@@ -107,6 +111,8 @@ def test__tracked_link_exists_with_correct_target__ignores(caplog, fs, links_db)
 def test__untracked_link_exists_with_correct_target__tracks_and_ignores(caplog, fs, links_db):
     """Should take over an already-correct symlink"""
 
+    caplog.set_level(logging.DEBUG)
+
     file_path, link_path, target = expand('~/file.txt'), expand('~/link'), 'file.txt'
     db_serial = 20
 
@@ -126,6 +132,8 @@ def test__untracked_link_exists_with_correct_target__tracks_and_ignores(caplog, 
 
 def test__tracked_link_exists_with_different_target__updates(caplog, fs, links_db):
     """A symlink we were tracking has changed in spec, so update the symlink"""
+
+    caplog.set_level(logging.DEBUG)
 
     file_moved_path, link_path = expand('~/moved.txt'), expand('~/link')
     target_existing, target_moved = 'existing.txt', 'moved.txt'
@@ -152,6 +160,8 @@ def test__tracked_link_exists_with_different_target__updates(caplog, fs, links_d
 def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, fs):
     """Symlink already exists, but is not managed and is pointing somewhere unexpected"""
 
+    caplog.set_level(logging.DEBUG)
+
     file_path, link_path = expand('~/file.txt'), expand('~/link')
     fs.create_file(file_path.exp)
     fs.create_symlink(link_path.exp, 'otherfile.txt')
@@ -166,6 +176,8 @@ def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, 
 
 def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, fs, links_db):
     """Basic behavior of creating new symlinks"""
+
+    caplog.set_level(logging.DEBUG)
 
     file_contents = 'abc'
     file_path = expand('~/path/to/actual/file.txt')
