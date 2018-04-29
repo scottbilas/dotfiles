@@ -12,6 +12,7 @@ syntax: glob
 __pycache__
 .history
 .*env
+.pytest_cache
 .vs
 .last_tmp.*
 *_i.c
