@@ -36,6 +36,15 @@ Which?
 ~/dotfiles/scripts/meksysinfo
 ```
 
+### Termux
+
+```bash
+pkg install wget
+wget https://sdrausty.github.io/TermuxArch/setupTermuxArch.sh
+bash setupTermuxArch.sh
+bash arch/startarch
+pacman -Syu
+
 ### Trusty (16.04 LTS)
 
 ```bash
