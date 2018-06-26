@@ -11,3 +11,6 @@
 [submodule "config/git/git-subrepo"]
 	path = config/git/git-subrepo
 	url = https://github.com/ingydotnet/git-subrepo
+[submodule "config/fzf/fzf"]
+	path = config/fzf/fzf
+	url = https://github.com/junegunn/fzf
