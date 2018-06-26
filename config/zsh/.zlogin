@@ -15,6 +15,11 @@
 } &!
 
 # Execute code only if STDERR is bound to a TTY.
-[[ -o INTERACTIVE && -t 2 ]] && {
-  if [ -z $TMUX ]; then tmux; exit; fi
+[[ -o INTERACTIVE && -t 2 && -z $TMUX ]] && {
+  # TODO: remove this when i fix tmux on my wsl via cmd shell
+  grep -qsi microsoft /proc/version
+  if [[ $? -ne 0 ]]; then
+    tmux
+    exit
+  fi
 } >&2
