@@ -115,6 +115,7 @@
         "suppressShowKeyBindingsNotice": true,
         "suppressUpdateNotice": true
     },
+    "gitlens.historyExplorer.enabled": true,
     "logFileHighlighter.customPatterns": [
         {
             "pattern": "error",
