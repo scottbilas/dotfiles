@@ -236,21 +236,27 @@ code --list-extensions | %{ '* ' + ($_.name -replace '-[0-9.]+$', '') } | clip
 
 Can install the below with `code --install-extension <packagename>`
 
+* 13xforever.language-x86-64-assembly
 * 74th.monokai-charcoal-high-contrast
-* adamvoss.yaml (broken?)
+* adamvoss.yaml (not in marketplace..replace)
 * akfish.vscode-devdocs
 * anweber.vscode-tidyhtml
+* bbenoist.vagrant
 * bungcip.better-toml
-* DavidAnson.vscode-markdownlint
-* DotJoshJohnson.xml
+* codezombiech.gitignore
+* davidanson.vscode-markdownlint
+* dotjoshjohnson.xml
 * eamodio.gitlens
-* EditorConfig.editorconfig
-* emilast.LogFileHighlighter
+* editorconfig.editorconfig
+* emilast.logfilehighlighter
+* fabiospampinato.vscode-statusbar-debugger
 * fallenwood.viml
 * formulahendry.auto-close-tag
 * formulahendry.auto-rename-tag
 * foxundermoon.shell-format
 * jtanx.ctagsx (disable)
+* helixquar.asciidecorator
+* k3a.theme-dark-plus-contrast
 * lei.theme-chromodynamics
 * lextudio.restructuredtext
 * mihaipopescu.cram
@@ -260,10 +266,13 @@ Can install the below with `code --install-extension <packagename>`
 * ms-vscode.mono-debug
 * ms-vscode.powershell
 * robertohuertasm.vscode-icons
+* slevesque.vscode-autohotkey
 * spywhere.guides
 * steve8708.align
+* stkb.rewrap
 * streetsidesoftware.code-spell-checker
-* Unity.unity-debug
+* tristanremy.mirage
+* unity.unity-debug
 * vadimcn.vscode-lldb
 * vscodevim.vim (disable)
 * wayou.vscode-todo-highlight
