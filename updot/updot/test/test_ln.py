@@ -9,6 +9,9 @@ from updot.links import LinkResult
 
 # pylint: disable=redefined-outer-name, protected-access
 
+# this fixture provides a local links db and overrides any attempt to get at the global.
+# each links db gets its own fake file system too. this should be used as a fixture in any
+# test that calls `ln`.
 @pytest.fixture
 def links_db(monkeypatch, fs):  # pylint: disable=unused-argument
     with _db._Db() as the_db:
@@ -157,7 +160,7 @@ def test__tracked_link_exists_with_different_target__updates(caplog, fs, links_d
     assert entry['target'] == target_moved
 
 
-def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, fs):
+def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, fs, links_db):
     """Symlink already exists, but is not managed and is pointing somewhere unexpected"""
 
     caplog.set_level(logging.DEBUG)
@@ -203,7 +206,7 @@ def test__link_not_exist_and_target_exists__shortens_creates_and_tracks(caplog, 
     assert open(link_path.exp, 'r').read() == file_contents, 'link target matches expected'
 
 
-def test__dup_target_and_link__throws(fs):
+def test__dup_target_and_link__throws(fs, links_db):  # pylint: disable=unused-argument
     """Catch accidental duplication of symlinks"""
 
     file_path, file2_path, link_path = expand('~/file.txt'), expand('~/file2.txt'), expand('~/link')
@@ -218,7 +221,7 @@ def test__dup_target_and_link__throws(fs):
         links.ln(link_path.orig, file2_path.orig)
 
 
-def test__symlink_pointing_at_self__throws(fs):
+def test__symlink_pointing_at_self__throws(fs, links_db):  # pylint: disable=unused-argument
     """Catch accidental creation of self-referential symlinks"""
 
     file_path = expand('~/foo')
@@ -232,7 +235,7 @@ def test__symlink_pointing_at_self__throws(fs):
         links.ln(file_path.orig, file_path.orig)
 
 
-def test__symlink_pointing_at_cycle__throws(fs):
+def test__symlink_pointing_at_cycle__throws(fs, links_db):  # pylint: disable=unused-argument
     """Catch when referencing a symlink cycle"""
 
     cycle_path, target = expand('~/foo'), 'foo'
@@ -257,4 +260,4 @@ def test__symlink_pointing_at_cycle__throws(fs):
 
 
 if __name__ == "__main__":
-    pytest.main(__file__)
+    pytest.main([__file__, '-k', 'test'])
