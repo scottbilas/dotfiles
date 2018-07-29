@@ -228,6 +228,8 @@ pip install tldr ptpython pdbpp
 
 ### VSCode
 
+# TODO: ln -s C:\Users\scott\dotfiles\special\vscode\User C:\Users\scott\scoop\persist\vscode-portable\data\user-data\User
+
 TODO: auto sync this stuff, yo
 
 ```powershell
