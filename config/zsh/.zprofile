@@ -43,7 +43,8 @@ fi
 #fi
 
 [[ $- == *i* ]] && source "$HOME/.config/fzf/fzf/shell/completion.zsh" 2> /dev/null
-source "$HOME/.config/fzf/fzf/shell/key-bindings.zsh"
+source "$HOME/.config/fzf/fzf/shell/key-bindings.zsh" 2> /dev/null
+### FIX ME ^^ drop the /dev/null routing of errors
 
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path

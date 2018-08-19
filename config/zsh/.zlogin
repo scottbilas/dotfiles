@@ -19,7 +19,7 @@
   # TODO: remove this when i fix tmux on my wsl via cmd shell
   grep -qsi microsoft /proc/version
   if [[ $? -ne 0 ]]; then
-    tmux
-    exit
+#    tmux
+#    exit
   fi
 } >&2
