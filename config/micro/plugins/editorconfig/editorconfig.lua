@@ -1,4 +1,6 @@
-VERSION = "0.2.1"
+VERSION = "0.2.3"
+
+local verbose = GetOption("editorconfigverbose") or false
 
 local function logger(msg, view)
     messenger:AddLog(("EditorConfig <%s>: %s"):
@@ -29,6 +31,7 @@ local function setIndentation(properties, view)
 
     local indent_size = tonumber(indent_size_str, 10)
     local tab_width = tonumber(tab_width_str, 10)
+
     if indent_size_str == "tab" then
         indent_size = tab_width
     elseif tab_width == nil then
@@ -36,14 +39,13 @@ local function setIndentation(properties, view)
     end
 
     if indent_style == "space" then
-        setSafely("tabstospaces", "on", view)
+        setSafely("tabstospaces", true, view)
         setSafely("tabsize", indent_size, view)
     elseif indent_style == "tab" then
-        setSafely("tabstospaces", "off", view)
+        setSafely("tabstospaces", false, view)
         setSafely("tabsize", tab_width, view)
-    else
+    elseif indent_style ~= nil then
         logger(("Unknown value for editorconfig property indent_style: %s"):format(indent_style or "nil"), view)
-        setSafely("tabsize", indent_size, view)
     end
 end
 
@@ -74,7 +76,7 @@ local function setTrimTrailingWhitespace(properties, view)
         setSafely("rmtrailingws", true, view)
     elseif val == "false" then
         setSafely("rmtrailingws", false, view)
-    else
+    elseif val ~= nil then
         logger(("Unknown value for editorconfig property trim_trailing_whitespace: %s"):format(val), view)
     end
 end
@@ -85,7 +87,7 @@ local function setInsertFinalNewline(properties, view)
         setSafely("eofnewline", true, view)
     elseif val == "false" then
         setSafely("eofnewline", false, view)
-    else
+    elseif val ~= nil then
         logger(("Unknown value for editorconfig property insert_final_newline: %s"):format(val), view)
     end
 end
@@ -100,7 +102,9 @@ end
 
 function onEditorConfigExit(output)
     local view = CurView()
-    logger(("Output: \n%s"):format(output), view)
+    if verbose then
+        logger(("Output: \n%s"):format(output), view)
+    end
     local properties = {}
     for line in output:gmatch('([^\n]+)') do
         local key, value = line:match('([^=]*)=(.*)')
@@ -115,7 +119,9 @@ function onEditorConfigExit(output)
     end
 
     applyProperties(properties, view)
-    logger("Running editorconfig done", view)
+    if verbose then
+        logger("Running editorconfig done", view)
+    end
 end
 
 function getApplyProperties(view)
@@ -132,7 +138,9 @@ function getApplyProperties(view)
         return
     end
 
-    logger(("Running editorconfig %s"):format(fullpath), view)
+    if verbose then
+        logger(("Running editorconfig %s"):format(fullpath), view)
+    end
     JobSpawn("editorconfig", {fullpath}, "", "", "editorconfig.onEditorConfigExit")
 end
 
