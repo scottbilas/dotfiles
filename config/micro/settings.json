@@ -20,7 +20,7 @@
     "keymenu": false,
     "linter": true,
     "literate": true,
-    "matchbrace": false,
+    "matchbrace": true,
     "mouse": true,
     "pluginchannels": [
         "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
