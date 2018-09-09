@@ -7,6 +7,10 @@ Host *
     UserKnownHostsFile ~/dotfiles/private/ssh/known_hosts
     StrictHostKeyChecking no
 
+    # speed up multiple identical connects with multiplexing
+    ControlMaster auto
+    ControlPath ~/.cache/ssh/mux/%C
+
 Host github.com
     HostName github.com
     IdentityFile ~/dotfiles/private/ssh/github_rsa
