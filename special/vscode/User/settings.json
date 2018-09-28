@@ -1,4 +1,5 @@
 {
+    "breadcrumbs.enabled": true,
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
@@ -42,7 +43,7 @@
     "editor.lineNumbers": "off",
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 40,
-    "editor.mouseWheelScrollSensitivity": 0.2,
+    "editor.mouseWheelScrollSensitivity": 1,
     "editor.mouseWheelZoom": true,
     "editor.renderIndentGuides": false,
     "editor.roundedSelection": true,
@@ -137,10 +138,12 @@
             "overviewRulerColor": "yellow"
         }
     ],
+    "window.menuBarVisibility": "default",
+    "window.smoothScrollingWorkaround": true,
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
     "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
-    "workbench.colorTheme": "Hidden High Contrast (hc_black)",
+    "workbench.colorTheme": "Mirage",
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
