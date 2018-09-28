@@ -1,35 +1,30 @@
 # this file contains high level integration tests for `ln`
 
-#import os
+import pytest
+from pytest import raises
 
-#import pytest
-#from pytest import raises
-
-#from updot import _db, exceptions, links, platform
-#from updot.links import ln
-#from testutils import HOME, expand
+from testutils import HOME, expand
+from testutils import links_db # pylint: disable=unused-import
+from updot import exceptions, platform
+from updot.links import ln
 
 
-#def mkdir(fs, path):
-#    fs.create_dir(expand('~/bin').exp)
-
-"""
-def test__basic_integration_scenario__succeeds(fs):
-
-    mkdir('~/bin')
-    mkdir('~/go/bin')
-    mkdir('~/.ssh')
-
-    PROJ = '~/proj'
+def test__basic_integration_scenario__succeeds(links_db):
 
     #|
+
+#    mkdir('~/bin')
+#    mkdir('~/go/bin')
+#    mkdir('~/.ssh')
+
+    PROJ = '~/proj'
 
     ln('~/dotfiles/config', '~/.config')
     ln('~/Common/Private', '~/dotfiles/private')
     ln('~/dotfiles/private/ssh/authorized_keys', '~/.ssh/authorized_keys')
-    ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')
-    ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py', if_app='python')
-    ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')
+#    ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')
+#    ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py', if_app='python')
+#    ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')
     ln('~/dotfiles/special/zsh/zshenv', '~/.zshenv')
     ln('~/.config/termux', '~/.termux')
     ln('~/storage/shared/Sync/Common', '~/Common')
@@ -46,7 +41,7 @@ def test__basic_integration_scenario__succeeds(fs):
     ln('~/Common/WindowsPowerShell',                   'Documents/WindowsPowerShell')
 
     if platform.WINDOWS:
-        APPDATA = os.
+        APPDATA = os.getenv('APPDATA')
         ln('~/dotfiles/special/vscode/User', f'{APPDATA}/Code/User')
         ln('~/Games/Factorio', f'{APPDATA}/Factorio')
         ln('~/Programs/Everything', f'{APPDATA}/Everything')
@@ -55,4 +50,3 @@ def test__basic_integration_scenario__succeeds(fs):
 
 if __name__ == "__main__":
     pytest.main(__file__)
-"""

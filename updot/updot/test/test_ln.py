@@ -4,19 +4,11 @@ import pytest
 from pytest import raises
 
 from testutils import HOME, expand
-from updot import _db, exceptions, links
+from testutils import links_db # pylint: disable=unused-import
+from updot import exceptions, links, platform
 from updot.links import LinkResult
 
-# pylint: disable=redefined-outer-name, protected-access
-
-# this fixture provides a local links db and overrides any attempt to get at the global.
-# each links db gets its own fake file system too. this should be used as a fixture in any
-# test that calls `ln`.
-@pytest.fixture
-def links_db(monkeypatch, fs):  # pylint: disable=unused-argument
-    with _db._Db() as the_db:
-        monkeypatch.setattr(_db, 'get_shared_db', lambda: the_db)
-        yield links._LinksDb(the_db)
+# pylint: disable=redefined-outer-name
 
 
 # DB TESTS
@@ -238,12 +230,14 @@ def test__symlink_pointing_at_self__throws(fs, links_db):  # pylint: disable=unu
 def test__symlink_pointing_at_cycle__throws(fs, links_db):  # pylint: disable=unused-argument
     """Catch when referencing a symlink cycle"""
 
-    cycle_path, target = expand('~/foo'), 'foo'
-    fs.create_symlink(cycle_path.exp, target)
+    if not platform.WINDOWS:
 
-    #|
-    with raises(OSError, match='Too many levels of symbolic links'):
-        links.ln('~/leaf', cycle_path.orig)
+        cycle_path, target = expand('~/foo'), 'foo'
+        fs.create_symlink(cycle_path.exp, target)
+
+        #|
+        with raises(OSError, match='Too many levels of symbolic links'):
+            links.ln('~/leaf', cycle_path.orig)
 
 
 # TODO: def test__unspecified_symlinks_found_in_any_link_parent__warns():
