@@ -21,3 +21,7 @@ Host gitlab.internal.unity3d.com
     HostName gitlab.internal.unity3d.com
     IdentityFile ~/dotfiles/private/ssh/gitlab_rsa
     User git
+
+Host hgcf.hq.unity3d.com
+    HostName hgcf.hq.unity3d.com
+    IdentityFile ~/dotfiles/private/ssh/hgcf_rsa
