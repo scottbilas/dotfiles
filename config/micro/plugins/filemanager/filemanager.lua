@@ -1,4 +1,4 @@
-VERSION = "3.1.0"
+VERSION = "3.3.1"
 
 -- Let the user disable showing of dotfiles like ".editorconfig" or ".DS_STORE"
 if GetOption("filemanager-showdotfiles") == nil then
@@ -8,6 +8,16 @@ end
 -- Let the user disable showing files ignored by the VCS (i.e. gitignored)
 if GetOption("filemanager-showignored") == nil then
 	AddOption("filemanager-showignored", true)
+end
+
+-- Let the user disable going to parent directory via left arrow key when file selected (not directory)
+if GetOption("filemanager-compressparent") == nil then
+	AddOption("filemanager-compressparent", true)
+end
+
+-- Let the user choose to list sub-folders first when listing the contents of a folder
+if GetOption("filemanager-foldersfirst") == nil then
+	AddOption("filemanager-foldersfirst", true)
 end
 
 -- Clear out all stuff in Micro's messenger
@@ -117,7 +127,7 @@ local function get_basename(path)
 		return nil
 	else
 		-- Get Go's path lib for a basename callback
-		local golib_path = import("path")
+		local golib_path = import("filepath")
 		return golib_path.Base(path)
 	end
 end
@@ -147,6 +157,7 @@ local function get_scanlist(dir, ownership, indent_n)
 
 	-- The list of files to be returned (and eventually put in the view)
 	local results = {}
+	local files = {}
 
 	local function get_results_object(file_name)
 		local abs_path = JoinPaths(dir, file_name)
@@ -158,9 +169,10 @@ local function get_scanlist(dir, ownership, indent_n)
 	-- Save so we don't have to rerun GetOption a bunch
 	local show_dotfiles = GetOption("filemanager-showdotfiles")
 	local show_ignored = GetOption("filemanager-showignored")
+	local folders_first = GetOption("filemanager-foldersfirst")
 
 	-- The list of VCS-ignored files (if any)
-	-- Only bother gettig ignored files if we're not showing ignored
+	-- Only bother getting ignored files if we're not showing ignored
 	local ignored_files = (not show_ignored and get_ignored_files(dir) or {})
 	-- True/false if the file is an ignored file
 	local function is_ignored_file(filename)
@@ -175,39 +187,36 @@ local function get_scanlist(dir, ownership, indent_n)
 	-- Hold the current scan's filename in most of the loops below
 	local filename
 
-	-- Splitting the loops for speed, so we don't run an unnecessary if every pass
-	if not show_dotfiles and not show_ignored then
-		-- Don't show dotfiles or ignored
-		for i = 1, #dir_scan do
-			filename = dir_scan[i]:Name()
-			-- Check if it's a hidden file
-			if not is_dotfile(filename) and not is_ignored_file(filename) then
-				-- Since we skip indicies of dotfiles, don't use i here or we add nil values
+	for i = 1, #dir_scan do
+		local showfile = true
+		filename = dir_scan[i]:Name()
+		-- If we should not show dotfiles, and this is a dotfile, don't show
+		if not show_dotfiles and is_dotfile(filename) then
+			showfile = false
+		end
+		-- If we should not show ignored files, and this is an ignored file, don't show
+		if not show_ignored and is_ignored_file(filename) then
+			showfile = false
+		end
+		if showfile then
+			-- This file is good to show, proceed
+			if folders_first and not is_dir(JoinPaths(dir, filename)) then
+				-- If folders_first and this is a file, add it to (temporary) files
+				files[#files + 1] = get_results_object(filename)
+			else
+				-- Otherwise, add to results
 				results[#results + 1] = get_results_object(filename)
 			end
-		end
-	elseif show_dotfiles and not show_ignored then
-		-- Show dotfiles but not ignored
-		for i = 1, #dir_scan do
-			filename = dir_scan[i]:Name()
-			if not is_ignored_file(filename) then
-				results[#results + 1] = get_results_object(filename)
-			end
-		end
-	elseif not show_dotfiles and show_ignored then
-		-- Show ignored but not dotfiles
-		for i = 1, #dir_scan do
-			filename = dir_scan[i]:Name()
-			if not is_dotfile(filename) then
-				results[#results + 1] = get_results_object(filename)
-			end
-		end
-	else
-		-- Show dotfiles and ignored (aka everything)
-		for i = 1, #dir_scan do
-			results[i] = get_results_object(dir_scan[i]:Name())
 		end
 	end
+	if #files > 0 then
+		-- Append any files to results, now that all folders have been added
+		-- files will be > 0 only if folders_first and there are files
+		for i = 1, #files do
+			results[#results + 1] = files[i]
+		end
+	end
+
 	-- Return the list of scanned files
 	return results
 end
@@ -350,9 +359,7 @@ end
 local function compress_target(y, delete_y)
 	-- Can't compress the top stuff, or if there's nothing there, so exit early
 	if y == 0 or scanlist_is_empty() then
-		do
-			return
-		end
+		return
 	end
 	-- Check if the target is a dir, since files don't have anything to compress
 	-- Also make sure it's actually an uncompressed dir by checking the gutter message
@@ -415,6 +422,10 @@ local function compress_target(y, delete_y)
 			-- Update the dir message
 			scanlist[y].dirmsg = "+"
 		end
+	elseif GetOption("filemanager-compressparent") and not delete_y then
+		goto_parent_dir()
+		-- Prevent a pointless refresh of the view
+		return
 	end
 
 	-- Put outside check above because we call this to delete targets as well
@@ -456,13 +467,10 @@ function prompt_delete_at_cursor()
 	if y == 0 or scanlist_is_empty() then
 		messenger:Error("You can't delete that")
 		-- Exit early if there's nothing to delete
-		do
-			return
-		end
+		return
 	end
 
-	local yes_del,
-		no_del =
+	local yes_del, no_del =
 		messenger:YesNoPrompt(
 		"Do you want to delete the " .. (scanlist[y].dirmsg ~= "" and "dir" or "file") .. ' "' .. scanlist[y].abspath .. '"? '
 	)
@@ -545,9 +553,7 @@ local function try_open_at_y(y)
 			-- If it's a file, then open it
 			messenger:Message("Filemanager opened ", scanlist[y].abspath)
 			-- Opens the absolute path in new vertical view
-			CurView():VSplitIndex(NewBuffer("", scanlist[y].abspath), 1)
-			-- Refreshes it to be visible
-			CurView().Buf:ReOpen()
+			CurView():VSplitIndex(NewBufferFromFile(scanlist[y].abspath), 1)
 			-- Resizes all views after opening a file
 			tabs[curTab + 1]:Resize()
 		end
@@ -560,9 +566,7 @@ end
 local function uncompress_target(y)
 	-- Exit early if on the top 3 non-list items
 	if y == 0 or scanlist_is_empty() then
-		do
-			return
-		end
+		return
 	end
 	-- Only uncompress if it's a dir and it's not already uncompressed
 	if scanlist[y].dirmsg == "+" then
@@ -639,17 +643,13 @@ end
 function rename_at_cursor(new_name)
 	if CurView() ~= tree_view then
 		messenger:Message("Rename only works with the cursor in the tree!")
-		do
-			return
-		end
+		return
 	end
 
 	-- Safety check they actually passed a name
 	if new_name == nil then
 		messenger:Error('When using "rename" you need to input a new name')
-		do
-			return
-		end
+		return
 	end
 
 	-- +1 since Go uses zero-based indices
@@ -658,9 +658,7 @@ function rename_at_cursor(new_name)
 	if y == 0 then
 		-- Error since they tried to rename the top stuff
 		messenger:Message("You can't rename that!")
-		do
-			return
-		end
+		return
 	end
 
 	-- The old file/dir's path
@@ -679,9 +677,7 @@ function rename_at_cursor(new_name)
 	-- Check if the rename worked
 	if not path_exists(new_path) then
 		messenger:Error("Path doesn't exist after rename!")
-		do
-			return
-		end
+		return
 	end
 
 	-- NOTE: doesn't alphabetically sort after refresh, but it probably should
@@ -695,17 +691,13 @@ end
 local function create_filedir(filedir_name, make_dir)
 	if CurView() ~= tree_view then
 		messenger:Message("You can't create a file/dir if your cursor isn't in the tree!")
-		do
-			return
-		end
+		return
 	end
 
 	-- Safety check they passed a name
 	if filedir_name == nil then
 		messenger:Error('You need to input a name when using "touch" or "mkdir"!')
-		do
-			return
-		end
+		return
 	end
 
 	-- The target they're trying to create on top of/in/at/whatever
@@ -733,9 +725,7 @@ local function create_filedir(filedir_name, make_dir)
 	-- Check if the name is already taken by a file/dir
 	if path_exists(filedir_path) then
 		messenger:Error("You can't create a file/dir with a pre-existing name")
-		do
-			return
-		end
+		return
 	end
 
 	-- Use Go's os package for creating the files
@@ -754,9 +744,8 @@ local function create_filedir(filedir_name, make_dir)
 	-- If the file we tried to make doesn't exist, fail
 	if not path_exists(filedir_path) then
 		messenger:Error("The file/dir creation failed")
-		do
-			return
-		end
+
+		return
 	end
 
 	-- Creates a sort of default object, to be modified below
@@ -775,9 +764,8 @@ local function create_filedir(filedir_name, make_dir)
 		-- Only actually add the object to the list if it's not created on an uncompressed folder
 		if scanlist[y].dirmsg == "+" then
 			-- Exit early, since it was created into an uncompressed folder
-			do
-				return
-			end
+
+			return
 		elseif scanlist[y].dirmsg == "-" then
 			-- Check if created on top of an uncompressed folder
 			-- Change ownership to the folder it was created on top of..
@@ -910,9 +898,7 @@ end
 -- Not local so it can be bound
 function goto_prev_dir()
 	if CurView() ~= tree_view or scanlist_is_empty() then
-		do
-			return
-		end
+		return
 	end
 
 	local cur_y = get_safe_y()
@@ -936,9 +922,7 @@ end
 -- Not local so it can be bound
 function goto_next_dir()
 	if CurView() ~= tree_view or scanlist_is_empty() then
-		do
-			return
-		end
+		return
 	end
 
 	local cur_y = get_safe_y()
@@ -967,28 +951,21 @@ end
 -- Not local so it can be keybound
 function goto_parent_dir()
 	if CurView() ~= tree_view or scanlist_is_empty() then
-		do
-			return
-		end
+		return
 	end
 
 	local cur_y = get_safe_y()
 	-- Check if the cursor is even in a valid location for jumping to the owner
-	if cur_y > 1 then
-		-- Check if the current y is a root file
-		if scanlist[cur_y].owner > 0 then
-			-- Jump to its parent (the ownership)
-			tree_view.Buf.Cursor:UpN(cur_y - scanlist[cur_y].owner)
-			select_line()
-		end
+	if cur_y > 0 then
+		-- Jump to its parent (the ownership)
+		tree_view.Buf.Cursor:UpN(cur_y - scanlist[cur_y].owner)
+		select_line()
 	end
 end
 
 function try_open_at_cursor()
 	if CurView() ~= tree_view or scanlist_is_empty() then
-		do
-			return
-		end
+		return
 	end
 
 	try_open_at_y(tree_view.Buf.Cursor.Loc.Y)
@@ -1158,9 +1135,14 @@ function preCursorRight(view)
 	end
 end
 
+-- Workaround for tab getting inserted into opened files
+-- Ref https://github.com/zyedidia/micro/issues/992
+local tab_pressed = false
+
 -- Tab
 function preIndentSelection(view)
 	if view == tree_view then
+		tab_pressed = true
 		-- Open the file
 		-- Using tab instead of enter, since enter won't work with Readonly
 		try_open_at_y(tree_view.Buf.Cursor.Loc.Y)
@@ -1169,6 +1151,14 @@ function preIndentSelection(view)
 	end
 end
 
+-- Workaround for tab getting inserted into opened files
+-- Ref https://github.com/zyedidia/micro/issues/992
+function preInsertTab(view)
+	if tab_pressed then
+		tab_pressed = false
+		return false
+	end
+end
 -- CtrlL
 function onJumpLine(view)
 	-- Highlight the line after jumping to it
@@ -1295,10 +1285,6 @@ function preDeleteWordLeft(view)
 end
 
 function preDeleteWordRight(view)
-	return false_if_tree(view)
-end
-
-function preIndentTab(view)
 	return false_if_tree(view)
 end
 
