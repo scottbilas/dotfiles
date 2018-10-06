@@ -19,7 +19,7 @@ pip install -r requirements.txt -r test_requirements.txt
 
 testing:
 
-`pytest --pylint --pylint-rcfile=setup.cfg`
+`python -m pytest --pylint --pylint-rcfile=setup.cfg`
 
 === guidance
 
