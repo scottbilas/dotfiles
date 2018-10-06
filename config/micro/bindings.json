@@ -1,7 +1,32 @@
 {
+    // movement
+	"CtrlUp": "ScrollUp",
+	"CtrlDown": "ScrollDown",
 	"CtrlLeft": "WordLeft",
 	"CtrlRight": "WordRight",
+	"Ctrl-G": "JumpLine",
+
+    // selection
+	"CtrlShiftHome": "SelectToStart",
+	"CtrlShiftEnd": "SelectToEnd",
 	"CtrlShiftLeft": "SelectWordLeft",
 	"CtrlShiftRight": "SelectWordRight",
-	"CtrlD": "SpawnMultiCursor"
+
+    // multi-cursor
+	"Ctrl-D": "SpawnMultiCursor",
+	"Ctrl-K": "SkipMultiCursor",
+	"Esc": "Escape,RemoveAllMultiCursors,ClearStatus",
+
+    // window mgmt
+	"Alt-h": "HSplit",
+	"Alt-v": "VSplit",
+	"Alt-[": "PreviousSplit",
+	"Alt-]": "NextSplit",
+
+    // commands
+	"Ctrl-W": "Quit",
+	"Alt-q": "QuitAll",
+	"Ctrl-P": "command-edit:fzf ",
+	"Ctrl-B": "command:tree",
+	"Alt-e": "ShellMode",
 }
