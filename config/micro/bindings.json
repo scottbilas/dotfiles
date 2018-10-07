@@ -1,32 +1,42 @@
 {
     // movement
-	"CtrlUp": "ScrollUp",
-	"CtrlDown": "ScrollDown",
-	"CtrlLeft": "WordLeft",
-	"CtrlRight": "WordRight",
-	"Ctrl-G": "JumpLine",
+    "CtrlUp": "ScrollUp",
+    "CtrlDown": "ScrollDown",
+    "CtrlLeft": "WordLeft",
+    "CtrlRight": "WordRight",
+    "Ctrl-G": "JumpLine",
 
     // selection
-	"CtrlShiftHome": "SelectToStart",
-	"CtrlShiftEnd": "SelectToEnd",
-	"CtrlShiftLeft": "SelectWordLeft",
-	"CtrlShiftRight": "SelectWordRight",
+    "CtrlShiftHome": "SelectToStart",
+    "CtrlShiftEnd": "SelectToEnd",
+    "CtrlShiftLeft": "SelectWordLeft",
+    "CtrlShiftRight": "SelectWordRight",
 
     // multi-cursor
-	"Ctrl-D": "SpawnMultiCursor",
-	"Ctrl-K": "SkipMultiCursor",
-	"Esc": "Escape,RemoveAllMultiCursors,ClearStatus",
+    "Ctrl-D": "SpawnMultiCursor",
+    "Ctrl-K": "SkipMultiCursor",
+    "Esc": "Escape,RemoveAllMultiCursors,ClearStatus",
 
     // window mgmt
-	"Alt-h": "HSplit",
-	"Alt-v": "VSplit",
-	"Alt-[": "PreviousSplit",
-	"Alt-]": "NextSplit",
+    "Alt-h": "HSplit",
+    "Alt-v": "VSplit",
+    "Alt-[": "PreviousSplit",
+    "Alt-]": "NextSplit",
 
     // commands
-	"Ctrl-W": "Quit",
-	"Alt-q": "QuitAll",
-	"Ctrl-P": "command-edit:fzf ",
-	"Ctrl-B": "command:tree",
-	"Alt-e": "ShellMode",
+    "Ctrl-W": "Quit",
+    "Alt-q": "QuitAll",
+    "Alt-p": "command:fzf",
+    "Alt-e": "ShellMode",
+
+    // important: check for a default binding that would be rebound and include
+    // it in the new binding.
+
+    // tree
+    "Ctrl-B": "filemanager.toggle_tree",
+    "Enter": "InsertNewline,filemanager.try_open_at_cursor",
+    "F2": "command-edit:rename ",
+    "Alt-N": "command-edit:touch ",
+    "Home": "StartOfLine,filemanager.goto_parent_dir",
+    "Ctrl-T": "AddTab,filemanager.toggle_tree,NextSplit", // TODO: would be nice to close that pane too, but micro doesnt do this reliably
 }

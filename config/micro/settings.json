@@ -12,7 +12,7 @@
     "filemanager-compressparent": true,
     "filemanager-foldersfirst": true,
     "filemanager-showdotfiles": true,
-    "filemanager-showignored": true,
+    "filemanager-showignored": false,
     "fishfmt": false,
     "ftoptions": true,
     "hidehelp": true,

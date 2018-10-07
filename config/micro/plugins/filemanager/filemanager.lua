@@ -82,12 +82,9 @@ local function is_dir(path)
 	end
 end
 
--- Runs the command and returns the readout/printout
-local function get_popen_readout(cmd)
-	local process = io.popen(cmd)
-	local readout = process:read("*a")
-	process:close()
-	return readout
+local function trim(s) -- this is #11 from http://lua-users.org/wiki/StringTrim
+   local n = s:find"%S"
+   return n and s:match(".*%S", n) or ""
 end
 
 -- Returns a list of files (in the target dir) that are ignored by the VCS system (if exists)
@@ -95,12 +92,9 @@ end
 local function get_ignored_files(tar_dir)
 	-- True/false if the target dir returns a non-fatal error when checked with 'git status'
 	local function has_git()
-		-- io.popen readout returns an empty string if it fails
-		if get_popen_readout('git -C "' .. tar_dir .. '" status') == "" then
-			return false
-		else
-			return true
-		end
+		local output, err = RunShellCommand('git  -C "' .. tar_dir .. '" rev-parse --is-inside-work-tree')
+--		return output:match("^true\s*$")
+		return trim(output) == "true"
 	end
 	local readout_results = {}
 	-- TODO: Support more than just Git, such as Mercurial or SVN
