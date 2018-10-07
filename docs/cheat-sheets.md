@@ -15,8 +15,11 @@ Open, close drawer: rt, lt
 Create window:      C
 Select window:      0-9
 Rename window:      ,
+List windows:       w
+Kill window:        &
 Select pane:        hjkl
 Select last pane:   ;
+Kill pane:          x
 Resize by 5:        HJKL
 Split h, v (/full): -_, |\
 Swap pane:          {}
