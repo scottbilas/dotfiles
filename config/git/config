@@ -40,6 +40,10 @@
     algorithm = histogram
     renames = copies
     mnemonicprefix = true
+    tool = vimdiff3
+
+[difftool "vimdiff3"]
+;    path = nvim
 
 [icdiff]
     options = --highlight --line-numbers
@@ -49,6 +53,10 @@
 
 [merge]
     stat = true
+    tool = vimdiff3
+
+[mergetool "vimdiff3"]
+;    path = nvim
 
 [push]
     default = simple
