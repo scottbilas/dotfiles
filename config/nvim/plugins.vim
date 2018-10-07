@@ -80,9 +80,8 @@ endif
 " === Python ===
 
 if g:plugins_loading == 1
-    Plug 'numirias/vim-pytest'
+    Plug 'alfredodeza/pytest.vim'                   " py.test support
     Plug 'klen/python-mode'                         " Python mode (docs, refactor, lints...)
-    Plug 'hynek/vim-python-pep8-indent'
     Plug 'mitsuhiko/vim-python-combined'
     Plug 'jmcantrell/vim-virtualenv'
 endif
@@ -90,6 +89,8 @@ endif
     " === Appearance ===
 
 if g:plugins_loading == 1
+    Plug 'xolox/vim-misc'                           " Support for vim-session"
+    Plug 'xolox/vim-session'                        " Nicer session mamagement
     Plug 'flazz/vim-colorschemes'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'

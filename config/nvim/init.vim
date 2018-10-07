@@ -92,7 +92,7 @@ nnoremap <space> za
 " Show column guides
 if (exists('+colorcolumn'))
     set colorcolumn=120
-    highlight ColorColumn ctermbg=darkgray
+    highlight ColorColumn ctermbg=black
 endif
 
 " === Scrolling ===
@@ -106,6 +106,15 @@ set sidescroll=1
 set ignorecase
 set smartcase
 set infercase
+
+" === Menuing ===
+
+" from https://unix.stackexchange.com/a/57911/273715
+set wildmenu
+set wildmode=full
+source $VIMRUNTIME/menu.vim
+set wildcharm=<C-Z>
+map <F10> :emenu <C-Z>
 
 " === Other ===
 
