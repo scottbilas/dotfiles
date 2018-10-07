@@ -20,7 +20,7 @@ def fatal_paperspace(error):
 
 def run_paperspace(args):
     result = subprocess.run(['paperspace'] + args, stdout=subprocess.PIPE)
-    parsed = json.loads(result.stdout)
+    parsed = json.loads(result.stdout)[0]
     error = parsed['error']
     if error:
         fatal_paperspace(error)
