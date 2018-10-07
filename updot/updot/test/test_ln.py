@@ -152,7 +152,7 @@ def test__tracked_link_exists_with_different_target__updates(caplog, fs, links_d
     assert entry['target'] == target_moved
 
 
-def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, fs, links_db):
+def test__untracked_link_exists_with_different_target__returns_mismatch(caplog, fs, links_db):  # pylint: disable=unused-argument
     """Symlink already exists, but is not managed and is pointing somewhere unexpected"""
 
     caplog.set_level(logging.DEBUG)

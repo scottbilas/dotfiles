@@ -10,7 +10,7 @@ if os.name == 'nt':
     def _fixed_nt_realpath(path):
         """Return the absolute version of a path with symlinks resolved."""
 
-        from nt import _getfinalpathname
+        from nt import _getfinalpathname # pylint: disable=import-error
         from ntpath import normpath
 
         if path: # Empty path must return current working directory.
@@ -18,7 +18,7 @@ if os.name == 'nt':
                 path = _getfinalpathname(path)
                 if str(path[:4]) == '\\\\?\\':
                     path = path[4:]  # remove the \\?\
-            except WindowsError:
+            except WindowsError: # pylint: disable=undefined-variable
                 pass # Bad path - return unchanged.
         elif isinstance(path, bytes):
             path = os.getcwdb()

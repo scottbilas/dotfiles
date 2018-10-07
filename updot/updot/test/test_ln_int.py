@@ -1,15 +1,25 @@
 # this file contains high level integration tests for `ln`
 
-import pytest
-from pytest import raises
+import os
 
-from testutils import HOME, expand
+import pytest
+
+from testutils import expand
 from testutils import links_db # pylint: disable=unused-import
-from updot import exceptions, platform
+from updot import platform
 from updot.links import ln
 
+# pylint: disable=redefined-outer-name, invalid-name
 
-def test__basic_integration_scenario__succeeds(links_db):
+
+# TODO: this is temporary until we get mkdir in updot
+def mkdir(fs, path):
+    fs.create_dir(expand(path).exp)
+
+
+def test__basic_integration_scenario__succeeds(links_db):  # pylint: disable=unused-argument
+
+    # pylint: disable=bad-whitespace
 
     #|
 
