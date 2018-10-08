@@ -28,6 +28,7 @@
     "Alt-q": "QuitAll",
     "Alt-p": "command:fzf",
     "Alt-e": "ShellMode",
+    "Alt-g": "UnbindKey",
 
     // important: check for a default binding that would be rebound and include
     // it in the new binding.
