@@ -11,15 +11,17 @@ function fzf()
         if err ~= nil then
             messenger:Error(err)
         else
-            local strings = import("strings")
-            CurView():Open(strings.TrimSpace(output))
+            fzfOutput(output)
         end
     end
 end
 
 function fzfOutput(output)
     local strings = import("strings")
-    CurView():Open(strings.TrimSpace(output))
+    output = strings.TrimSpace(output)
+    if output ~= "" then
+        CurView():Open(output)
+    end
 end
 
 MakeCommand("fzf", "fzf.fzf", 0)
