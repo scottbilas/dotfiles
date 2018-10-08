@@ -7,7 +7,9 @@ export VISUAL='micro'
 export PAGER='less'
 export GOPATH="$HOME/go"
 export GIT_SUBREPO_ROOT="$HOME/.config/git/git-subrepo"
-export MANPATH="$HOME/~/extern/dasht/man:$MANPATH"
+
+# needed if dasht not installed via a package mamager
+export MANPATH="$HOME/extern/dasht/man:$MANPATH"
 
 # termux's elinks does not like ~/.config; something seems wrong
 export ELINKS_CONFDIR='.config/elinks'
