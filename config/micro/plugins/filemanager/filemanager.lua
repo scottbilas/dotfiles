@@ -82,26 +82,20 @@ local function is_dir(path)
 	end
 end
 
-local function trim(s) -- this is #11 from http://lua-users.org/wiki/StringTrim
-   local n = s:find"%S"
-   return n and s:match(".*%S", n) or ""
-end
-
 -- Returns a list of files (in the target dir) that are ignored by the VCS system (if exists)
 -- aka this returns a list of gitignored files (but for whatever VCS is found)
 local function get_ignored_files(tar_dir)
 	-- True/false if the target dir returns a non-fatal error when checked with 'git status'
 	local function has_git()
-		local output, err = RunShellCommand('git  -C "' .. tar_dir .. '" rev-parse --is-inside-work-tree')
---		return output:match("^true\s*$")
-		return trim(output) == "true"
+		local git_rp_results = RunShellCommand('git  -C "' .. tar_dir .. '" rev-parse --is-inside-work-tree')
+		return git_rp_results:match("^true%s*$")
 	end
 	local readout_results = {}
 	-- TODO: Support more than just Git, such as Mercurial or SVN
 	if has_git() then
 		-- If the dir is a git dir, get all ignored in the dir
 		local git_ls_results =
-			get_popen_readout('git -C "' .. tar_dir .. '" ls-files . --ignored --exclude-standard --others --directory')
+			RunShellCommand('git -C "' .. tar_dir .. '" ls-files . --ignored --exclude-standard --others --directory')
 		-- Cut off the newline that is at the end of each result
 		for split_results in string.gmatch(git_ls_results, "([^\r\n]+)") do
 			-- git ls-files adds a trailing slash if it's a dir, so we remove it (if it is one)
