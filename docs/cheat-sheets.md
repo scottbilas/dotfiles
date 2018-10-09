@@ -32,6 +32,12 @@ Select layout:      alt-1-5
 Chooser:            w
 
 # copypaste
-Copy:      <p>[ <beg> C-space <end> C-w
-Paste:     <p>]
-Rectangle: R
+Copy:          <p>[ <beg> space <end> enter
+Paste:         <p>]
+Rectangle:     v
+Select line:   V
+Top line:      H
+Middle line:   M
+Abort:         q
+Clear select:  esc
+Toggle select: space
