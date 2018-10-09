@@ -11,6 +11,8 @@
     "CtrlShiftEnd": "SelectToEnd",
     "CtrlShiftLeft": "SelectWordLeft",
     "CtrlShiftRight": "SelectWordRight",
+    //"ShiftPageUp": "SelectPageUp",  ...grrr...pageup/dn cant be combined with anything..
+    //"ShiftPageDown": "SelectPageDown",
 
     // multi-cursor
     "Ctrl-D": "SpawnMultiCursor",
@@ -37,7 +39,8 @@
     "Ctrl-B": "filemanager.toggle_tree",
     "Enter": "InsertNewline,filemanager.try_open_at_cursor",
     "F2": "command-edit:rename ",
-    "Alt-N": "command-edit:touch ",
+    "Alt-n": "command-edit:touch ",
+    "Alt-N": "command-edit:mkdir ",
     "Home": "StartOfLine,filemanager.goto_parent_dir",
-    "Ctrl-T": "AddTab,filemanager.toggle_tree,NextSplit", // TODO: would be nice to close that pane too, but micro doesnt do this reliably
+    "Alt-b": "AddTab,filemanager.toggle_tree,NextSplit", // TODO: would be nice to close that pane too, but micro doesnt do this reliably
 }

@@ -5,6 +5,7 @@ alias ll='ls -AgGhF $@'
 
 alias ncdu='ncdu --color dark $@'
 
+alias m='micro'
 alias r='ranger'
 
 alias tigs='tig status'
