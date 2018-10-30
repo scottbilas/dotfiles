@@ -1,6 +1,9 @@
 BatchMode yes
 Compression yes
 Protocol 2
+#LogLevel DEBUG3
+
+Include ~/dotfiles/private/ssh/config-unity
 
 Host *
     IdentityFile ~/dotfiles/private/ssh/id_rsa
@@ -8,20 +11,11 @@ Host *
     StrictHostKeyChecking no
 
     # speed up multiple identical connects with multiplexing
-    ControlMaster auto
-    ControlPath ~/.cache/ssh/mux/%C
+    #ControlMaster auto
+    #ControlPath ~/.cache/ssh/mux/%C
+    #TODO ^^ does not work on windows, figure out how to disable there
 
 Host github.com
     HostName github.com
     IdentityFile ~/dotfiles/private/ssh/github_rsa
     User git
-#   LogLevel DEBUG3
-
-Host gitlab.internal.unity3d.com
-    HostName gitlab.internal.unity3d.com
-    IdentityFile ~/dotfiles/private/ssh/gitlab_rsa
-    User git
-
-Host hgcf.hq.unity3d.com
-    HostName hgcf.hq.unity3d.com
-    IdentityFile ~/dotfiles/private/ssh/hgcf_rsa
