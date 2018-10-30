@@ -1,5 +1,6 @@
 {
     "breadcrumbs.enabled": true,
+    "C_Cpp.default.compilerPath": "clang",
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
@@ -32,8 +33,6 @@
         "untracked",
         "xplat"
     ],
-    "debug.hideActionBar": true,            // use vscode-statusbar-debugger extension until they improve this toolbar's ui
-    "editor.autoClosingBrackets": false,    // https://stackoverflow.com/questions/33236399/visual-studio-code-disable-quote-wrapping-text-selection
     "editor.codeLens": false,
     "editor.cursorBlinking": "phase",
     "editor.dragAndDrop": true,
