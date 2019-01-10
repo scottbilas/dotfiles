@@ -8,6 +8,8 @@
     st = status
     co = checkout
 
+    fclone = clone --recurse --jobs 7
+
     puff = pull --ff-only
     pufr = pull --ff-only --rebase
     out  = !git fetch && git log FETCH_HEAD..
