@@ -1,4 +1,7 @@
-; adapted from https://autohotkey.com/board/topic/51959-using-capslock-as-another-modifier-key/
+; emulate term
+^[::Send {Esc}
+
+; below is adapted from https://autohotkey.com/board/topic/51959-using-capslock-as-another-modifier-key/
 
 $*Capslock::
 Gui, 99:+ToolWindow
