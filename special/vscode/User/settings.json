@@ -1,4 +1,7 @@
 {
+    "[markdown]": {
+        "editor.tabSize": 2
+    },
     "breadcrumbs.enabled": true,
     "C_Cpp.default.compilerPath": "clang",
     "cSpell.allowCompoundWords": true,
@@ -8,24 +11,27 @@
         "\\W[Rr]'(?=\\w)" // raw format string prefixes
     ],
     "cSpell.userWords": [
-        "Bilas's",
         "Bilas",
-        "cygwin",
-        "devs",
-        "dll's",
-        "dotfiles",
-        "executables",
-        "fatals",
-        "funcs",
-        "icase",
+        "Bilas's",
         "IDE's",
-        "katana",
-        "minimap",
-        "mkdir",
         "POSIX",
         "REPO",
         "Resilio",
         "Shouldly",
+        "coord",
+        "cygwin",
+        "devs",
+        "dll's",
+        "dotfiles",
+        "dups",
+        "executables",
+        "fatals",
+        "ffwd",
+        "funcs",
+        "icase",
+        "katana",
+        "minimap",
+        "mkdir",
         "submodules",
         "termux",
         "transcode",
@@ -33,9 +39,9 @@
         "untracked",
         "xplat"
     ],
-    "editor.codeLens": false,
     "editor.cursorBlinking": "phase",
     "editor.dragAndDrop": true,
+    "editor.foldingStrategy": "indentation",
     "editor.fontFamily": "FuraCode Nerd Font",
     "editor.fontLigatures": true,
     "editor.fontSize": 12,
@@ -78,9 +84,11 @@
         "hgrc-*": "ini",
         "config": "ini",
         "config-*": "ini",
+        "*.linq": "csharp",
         ".pylintrc": "ini",
         "*.asmdef": "json",
-        "*.vssettings": "xml"
+        "*.vssettings": "xml",
+        "*.txt": "plaintext"
     },
     "files.autoSave": "off",
     "files.exclude": {
@@ -115,7 +123,12 @@
         "suppressShowKeyBindingsNotice": true,
         "suppressUpdateNotice": true
     },
-    "gitlens.historyExplorer.enabled": true,
+    "gitProjectManager.baseProjectsFolders": [
+        "c:/work",
+        "c:/proj",
+        "d:/work",
+        "d:/proj"
+    ],
     "logFileHighlighter.customPatterns": [
         {
             "pattern": "error",
@@ -124,7 +137,7 @@
     ],
     "problems.decorations.enabled": true,
     "search.smartCase": true,
-    "search.useRipgrep": true,
+    "search.usePCRE2": true,
     "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
@@ -137,14 +150,14 @@
             "overviewRulerColor": "yellow"
         }
     ],
+    "vsicons.dontShowNewVersionMessage": true,
     "window.menuBarVisibility": "default",
     "window.smoothScrollingWorkaround": true,
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}${appName}",
     "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
-    "workbench.colorTheme": "Mirage",
+    "workbench.colorTheme": "Default High Contrast",
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
-    "vsicons.dontShowNewVersionMessage": true,
 }
