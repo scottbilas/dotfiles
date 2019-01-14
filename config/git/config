@@ -10,8 +10,10 @@
 
     fclone = clone --recurse --jobs 7
 
-    puff = pull --ff-only
-    pufr = pull --ff-only --rebase
+    pf = pull --ff-only
+    pfr = pull --ff-only --rebase
+    pfrs = pull --ff-only --rebase --autostash
+
     out  = !git fetch && git log FETCH_HEAD..
     in   = !git fetch && git log ..FETCH_HEAD
 
