@@ -14,11 +14,11 @@
 [difftool]
     prompt = false
 [difftool "bc"]
-    path = C:/Program Files/Beyond Compare 4/BComp.exe
+    path = c:/users/scott/scoop/apps/beyondcompare/current/BComp.exe
 
 [merge]
     tool = bc
 [mergetool "bc"]
-    path = C:/Program Files/Beyond Compare 4/BComp.exe
+    path = c:/users/scott/scoop/apps/beyondcompare/current/BComp.exe
 [credential]
 	helper = manager
