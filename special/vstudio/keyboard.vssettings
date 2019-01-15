@@ -16,9 +16,12 @@
                     <Scope Name="VC Accelerator Editor" ID="{EB56D0B5-BEE7-4D0C-8BE6-88A8ED256695}"/>
                 </ScopeDefinitions>
                 <UserShortcuts>
+                    <RemoveShortcut Command="Edit.GoToFile" Scope="Global">Ctrl+Shift+T</RemoveShortcut>
                     <RemoveShortcut Command="Edit.ExpandSelection" Scope="Text Editor">Ctrl+W</RemoveShortcut>
                     <RemoveShortcut Command="Edit.MakeLowercase" Scope="Text Editor">Ctrl+U</RemoveShortcut>
                     <RemoveShortcut Command="Edit.NextKeyTyped" Scope="VC Accelerator Editor">Ctrl+W</RemoveShortcut>
+                    <RemoveShortcut Command="Edit.WordNextExtendColumn" Scope="Text Editor">Ctrl+Shift+Alt+Right Arrow</RemoveShortcut>
+                    <RemoveShortcut Command="Edit.WordPreviousExtendColumn" Scope="Text Editor">Ctrl+Shift+Alt+Left Arrow</RemoveShortcut>
                     <RemoveShortcut Command="EditorContextMenus.CodeWindow.EditLocalFile" Scope="Difference Viewer">Ctrl+Shift+P</RemoveShortcut>
                     <RemoveShortcut Command="ReSharper.ReSharper_LocateInSolutionOrAssemblyExplorer" Scope="Text Editor">Shift+Alt+L</RemoveShortcut>
                     <RemoveShortcut Command="Tools.Playbackmacro" Scope="Text Editor">Ctrl+Shift+P</RemoveShortcut>
@@ -48,12 +51,17 @@
                     <Shortcut Command="ReSharper.ReSharper_UnitTestRunSolution" Scope="Global">Ctrl+U, L</Shortcut>
                     <Shortcut Command="ReSharper.ReSharper_UnitTestSessionRepeatPreviousRun" Scope="Global">Ctrl+U, Ctrl+U</Shortcut>
                     <Shortcut Command="ReSharper.ReSharper_UnitTestSessionRepeatPreviousRun" Scope="Global">Ctrl+U, U</Shortcut>
+                    <Shortcut Command="SelectNextOccurrence.SelectAllOccurrences" Scope="Text Editor">Ctrl+K, Ctrl+A</Shortcut>
+                    <Shortcut Command="SelectNextOccurrence.SelectNextOccurrence" Scope="Text Editor">Ctrl+D</Shortcut>
+                    <Shortcut Command="SelectNextOccurrence.SkipOccurrence" Scope="Text Editor">Ctrl+K, Ctrl+D</Shortcut>
                     <Shortcut Command="View.Backward" Scope="Global">Alt+Left Arrow</Shortcut>
                     <Shortcut Command="View.NavigateBackward" Scope="Text Editor">Alt+Left Arrow</Shortcut>
                     <Shortcut Command="View.NavigateForward" Scope="Text Editor">Alt+Right Arrow</Shortcut>
                     <Shortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Ctrl+P</Shortcut>
                     <Shortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Shift+Alt+O</Shortcut>
+                    <Shortcut Command="VisualAssist.ResetEditorZoom" Scope="Text Editor">Ctrl+0</Shortcut>
                     <Shortcut Command="Window.ActivateQuickLaunch" Scope="Global">Ctrl+Shift+P</Shortcut>
+                    <Shortcut Command="Window.CloseDocumentWindow" Scope="Global">Ctrl+F4</Shortcut>
                     <Shortcut Command="Window.CloseDocumentWindow" Scope="Global">Ctrl+W</Shortcut>
                 </UserShortcuts>
             </KeyboardShortcuts>
