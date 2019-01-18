@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../Common/WindowsPowerShell"
+		}
+	],
+	"settings": {}
+}
