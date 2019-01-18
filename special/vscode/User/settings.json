@@ -161,7 +161,6 @@
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}",
     "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
-    "workbench.colorTheme": "Monolivia",
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
