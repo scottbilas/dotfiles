@@ -14,3 +14,9 @@
 [submodule "config/fzf/fzf"]
 	path = config/fzf/fzf
 	url = https://github.com/junegunn/fzf
+[submodule "config/posh/modules/posh-git"]
+	path = config/posh/modules/posh-git
+	url = https://github.com/dahlbyk/posh-git
+[submodule "config/posh/modules/PSColor"]
+	path = config/posh/modules/PSColor
+	url = https://github.com/Davlind/PSColor.git
