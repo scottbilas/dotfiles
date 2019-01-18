@@ -20,3 +20,6 @@
 [submodule "config/posh/modules/PSColor"]
 	path = config/posh/modules/PSColor
 	url = https://github.com/Davlind/PSColor.git
+[submodule "config/posh/modules/Get-ChildItemColor"]
+	path = config/posh/modules/Get-ChildItemColor
+	url = https://github.com/joonro/Get-ChildItemColor.git
