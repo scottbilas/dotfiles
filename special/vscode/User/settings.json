@@ -138,6 +138,7 @@
             "foreground": "red"
         }
     ],
+    "powershell.integratedConsole.showOnStartup": false,
     "problems.decorations.enabled": true,
     "search.smartCase": true,
     "search.usePCRE2": true,
