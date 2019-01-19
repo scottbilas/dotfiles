@@ -130,5 +130,10 @@
         "key": "ctrl+shift+alt+right",
         "command": "-cursorColumnSelectRight",
         "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.terminal.clear",
+        "when": "terminalFocus"
     }
 ]
