@@ -1,10 +1,10 @@
 # these aliases only cause problems
-remove-item alias:curl -force -ea silent
-remove-item alias:wget -force -ea silent
-remove-item alias:diff -force -ea silent
+del alias:curl -fo -ea silent
+del alias:wget -fo -ea silent
+del alias:diff -fo -ea silent
 
 # we never want to use `more` as a pager (and some things use it by default, like `help`)
 set-alias more less
 
-set-alias l get-childitemcolorformatwide
-function ll { get-childitemcolor $args -force }
+function l { dir $args | fw -a }
+function ll { dir -fo $args }
