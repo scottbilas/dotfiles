@@ -6,5 +6,5 @@ del alias:diff -fo -ea silent
 # we never want to use `more` as a pager (and some things use it by default, like `help`)
 set-alias more less
 
-function l { dir $args | fw -a }
+function l { get-childitemcolorformatwide $args }
 function ll { dir -fo $args }
