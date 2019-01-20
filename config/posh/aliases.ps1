@@ -1,3 +1,5 @@
+#set-strictmode -version latest
+
 # these aliases only cause problems
 del alias:curl -fo -ea silent
 del alias:wget -fo -ea silent
@@ -8,3 +10,4 @@ set-alias more less
 
 function l { get-childitemcolorformatwide $args }
 function ll { dir -fo $args }
+function ~ { cd ~ }
