@@ -20,9 +20,9 @@
 [submodule "config/posh/modules/PSColor"]
 	path = config/posh/modules/PSColor
 	url = git@github.com:scottbilas/PSColor.git
-[submodule ".\\config\\posh\\modules\\oh-my-posh"]
-	path = .\\config\\posh\\modules\\oh-my-posh
+[submodule "config/posh/modules/oh-my-posh"]
+	path = config/posh/modules/oh-my-posh
 	url = https://github.com/JanDeDobbeleer/oh-my-posh.git
-[submodule ".\\config\\conemu\\ConEmu-Color-Themes"]
-	path = .\\config\\conemu\\ConEmu-Color-Themes
+[submodule "config/conemu/ConEmu-Color-Themes"]
+	path = config/conemu/ConEmu-Color-Themes
 	url = https://github.com/joonro/ConEmu-Color-Themes.git
