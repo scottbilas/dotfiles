@@ -76,7 +76,7 @@ $sl.PromptSymbols.SegmentForwardSymbol = [char]::ConvertFromUtf32(0xE0B0)
 $sl.PromptSymbols.StartSymbol = ''
 
 $sl.Colors.GitForegroundColor = 'Black'
-$sl.Colors.GitLocalChangesColor = 'Red'
+$sl.Colors.GitLocalChangesColor = 'DarkYellow'
 $sl.Colors.PromptBackgroundColor = 'Blue'
 $sl.Colors.PromptForegroundColor = 'Black'
 $sl.Colors.PromptHighlightColor = 'DarkBlue'
