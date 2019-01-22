@@ -26,3 +26,6 @@
 [submodule "config/conemu/ConEmu-Color-Themes"]
 	path = config/conemu/ConEmu-Color-Themes
 	url = https://github.com/joonro/ConEmu-Color-Themes.git
+[submodule "config/posh/modules/git-status-cache-posh-client"]
+	path = config/posh/modules/git-status-cache-posh-client
+	url = https://github.com/cmarcusreid/git-status-cache-posh-client.git
