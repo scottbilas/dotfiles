@@ -5,7 +5,7 @@ function install-nerd-fonts {
     sudo scoop install (dir ~\scoop\buckets\nerd-fonts\*.json | %{ $_.name.replace('.json', '') })
 }
 
-// from https://stackoverflow.com/a/422529/14582
+# from https://stackoverflow.com/a/422529/14582
 Function Parse-IniFile ($file) {
     $ini = @{}
 
