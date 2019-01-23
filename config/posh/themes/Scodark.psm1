@@ -53,6 +53,9 @@ function Write-Theme {
                 $themeInfo.vcinfo = "$([char]0xf296) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
             }
         }
+        elseif ($status.hgdir) {
+            $themeInfo.vcinfo = $themeInfo.vcinfo.replace($sl.GitSymbols.BranchSymbol, [char]0xf223)
+        }
         $lastColor = $themeInfo.BackgroundColor
         $prompt += Write-Prompt -Object $($sl.PromptSymbols.SegmentForwardSymbol) -ForegroundColor $sl.Colors.PromptBackgroundColor -BackgroundColor $lastColor
         $prompt += Write-Prompt -Object " $($themeInfo.VcInfo) " -BackgroundColor $lastColor -ForegroundColor $sl.Colors.GitForegroundColor
@@ -71,7 +74,7 @@ function Write-Theme {
     $rightSide = $rightSide
 
     $prompt += Set-CursorForRightBlockWrite -textLength ($rightSide.Length)
-    $prompt += Write-Prompt $rightSide -ForegroundColor 'Blue'
+    $prompt += Write-Prompt $rightSide -ForegroundColor 'White'
 
     $prompt += Set-Newline
 
@@ -115,7 +118,11 @@ $sl.Colors.WithBackgroundColor = 'Magenta'
 $sl.Colors.WithForegroundColor = 'DarkRed'
 
 $sl.GitSymbols.BranchIdenticalStatusToSymbol = $GitPromptSettings.BranchIdenticalStatusSymbol.Text
+$sl.GitSymbols.BranchSymbol = [char]0xe725
 $sl.GitSymbols.BranchUntrackedSymbol = '?'
+
+$GitPromptSettings.DefaultPromptBeforeSuffix.Text = '`n'
+$GitPromptSettings.EnableStashStatus = $true
 
 $GitPromptSettings.WindowTitle = {
     param($GitStatus, $IsAdmin)
