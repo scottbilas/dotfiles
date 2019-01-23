@@ -70,7 +70,7 @@ function Write-Theme {
     }
     $rightSide = $rightSide
 
-    $prompt += Set-CursorForRightBlockWrite -textLength ($rightSide.Length - 1)
+    $prompt += Set-CursorForRightBlockWrite -textLength ($rightSide.Length)
     $prompt += Write-Prompt $rightSide -ForegroundColor 'Blue'
 
     $prompt += Set-Newline
