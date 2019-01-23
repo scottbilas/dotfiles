@@ -11,3 +11,9 @@ set-alias more less
 function l { get-childitemcolorformatwide $args }
 function ll { dir -fo $args }
 function ~ { cd ~ }
+
+function theme {
+    $theme = (split-path -leaf $ThemeSettings.CurrentThemeLocation).replace('.psm1', '')
+    write-host "Reloading $theme..."
+    set-theme $theme
+}
