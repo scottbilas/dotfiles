@@ -12,21 +12,14 @@ function Write-Theme {
     $lastColor = $sl.Colors.PromptBackgroundColor
     $prompt = Write-Prompt -Object $sl.PromptSymbols.StartSymbol -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
 
-    #check the last command state and indicate if failed
-    If ($lastCommandFailed) {
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.FailedCommandSymbol) " -ForegroundColor $sl.Colors.CommandFailedIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-    }
-
-    #check for elevated prompt
-    If (Test-Administrator) {
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.ElevatedSymbol) " -ForegroundColor $sl.Colors.AdminIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
-    }
-
     $user = [System.Environment]::UserName
     $computer = [System.Environment]::MachineName.tolower()
     $path = Get-FullPath -dir $pwd
     if (Test-NotDefaultUser($user)) {
         $prompt += Write-Prompt -Object "$user@$computer " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+    }
+    else {
+        $prompt += Write-Prompt -Object "$computer " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
     }
 
     if (Test-VirtualEnv) {
@@ -44,6 +37,16 @@ function Write-Theme {
     $status = Get-VCSStatus
     if ($status) {
         $themeInfo = Get-VcsInfo -status ($status)
+        if ($status.gitdir) {
+            $gitconfig = parse-inifile (join-path $status.gitdir 'config')
+            $originurl = $gitconfig.'remote "origin"'.url
+            if ($originurl | ss github) {
+                $themeInfo.vcinfo = "$([char]0xf113) $($themeInfo.vcinfo)"
+            }
+            elseif ($originurl | ss gitlab) {
+                $themeInfo.vcinfo = "$([char]0xf296) $($themeInfo.vcinfo)"
+            }
+        }
         $lastColor = $themeInfo.BackgroundColor
         $prompt += Write-Prompt -Object $($sl.PromptSymbols.SegmentForwardSymbol) -ForegroundColor $sl.Colors.PromptBackgroundColor -BackgroundColor $lastColor
         $prompt += Write-Prompt -Object " $($themeInfo.VcInfo) " -BackgroundColor $lastColor -ForegroundColor $sl.Colors.GitForegroundColor
@@ -52,13 +55,29 @@ function Write-Theme {
     # Writes the postfix to the prompt
     $prompt += Write-Prompt -Object $sl.PromptSymbols.SegmentForwardSymbol -ForegroundColor $lastColor
 
-    $timeStamp = Get-Date -UFormat %R
-    $timestamp = "[$timeStamp]"
+    $rightSide = "$($sl.PromptSymbols.SegmentSeparatorBackwardSymbol) $([char]0xf64f) {0}" -f (Get-Date -UFormat %R)
 
-    $prompt += Set-CursorForRightBlockWrite -textLength ($timestamp.Length + 1)
-    $prompt += Write-Prompt $timeStamp -ForegroundColor $sl.Colors.PromptForegroundColor
+    $drive = (split-path $pwd -qualifier).replace(':','')
+    if ((get-psdrive $drive).provider.name -eq 'FileSystem') {
+        $freespace = (free) / 1GB
+        $rightSide = ("$($sl.PromptSymbols.SegmentSeparatorBackwardSymbol) $([char]0xf7c9) {0:0.0}GB " -f $freespace) + $rightSide
+    }
+    $rightSide = $rightSide
+
+    $prompt += Set-CursorForRightBlockWrite -textLength ($rightSide.Length - 1)
+    $prompt += Write-Prompt $rightSide -ForegroundColor 'Blue'
 
     $prompt += Set-Newline
+
+    #check the last command state and indicate if failed
+    If ($lastCommandFailed) {
+        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.FailedCommandSymbol) " -ForegroundColor $sl.Colors.CommandFailedIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+    }
+
+    #check for elevated prompt
+    If (Test-Administrator) {
+        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.ElevatedSymbol) " -ForegroundColor $sl.Colors.AdminIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+    }
 
     if ($with) {
         $prompt += Write-Prompt -Object "$($with.ToUpper()) " -BackgroundColor $sl.Colors.WithBackgroundColor -ForegroundColor $sl.Colors.WithForegroundColor
@@ -72,7 +91,10 @@ $sl = $global:ThemeSettings #local settings
 
 $sl.PromptSymbols.FailedCommandSymbol = [char]0xe009
 $sl.PromptSymbols.PromptIndicator = [char]0xfbad
-$sl.PromptSymbols.SegmentForwardSymbol = [char]::ConvertFromUtf32(0xE0B0)
+$sl.PromptSymbols.SegmentForwardSymbol = [char]0xe0b0
+$sl.PromptSymbols.SegmentSeparatorForwardSymbol = [char]0xe0b1
+$sl.PromptSymbols.SegmentBackwardSymbol = [char]0xe0b2
+$sl.PromptSymbols.SegmentSeparatorBackwardSymbol = [char]0xe0b3
 $sl.PromptSymbols.StartSymbol = ''
 
 $sl.Colors.GitForegroundColor = 'Black'
@@ -88,6 +110,11 @@ $sl.Colors.WithForegroundColor = 'DarkRed'
 
 $sl.GitSymbols.BranchIdenticalStatusToSymbol = $GitPromptSettings.BranchIdenticalStatusSymbol.Text
 $sl.GitSymbols.BranchUntrackedSymbol = '?'
+
+$GitPromptSettings.WindowTitle = {
+    param($GitStatus, $IsAdmin)
+    "$(if ($IsAdmin) {'Admin: '})$(if ($GitStatus) {"$($GitStatus.RepoName) [$($GitStatus.Branch)]"} else {Get-PromptPath})"
+}
 
 # oh-my-posh will override these so set them back
 
