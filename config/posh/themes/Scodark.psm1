@@ -32,6 +32,12 @@ function Write-Theme {
     }
 
     # Writes the drive portion
+    if ($path -eq '~') {
+        $path = "$([char]0xf015)"
+    }
+    if ($path.startswith('~\')) {
+        $path = "$([char]0xf015) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($path.substring(2))"
+    }
     $prompt += Write-Prompt -Object "$path " -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
 
     $status = Get-VCSStatus
@@ -41,10 +47,10 @@ function Write-Theme {
             $gitconfig = parse-inifile (join-path $status.gitdir 'config')
             $originurl = $gitconfig.'remote "origin"'.url
             if ($originurl | ss github) {
-                $themeInfo.vcinfo = "$([char]0xf113) $($themeInfo.vcinfo)"
+                $themeInfo.vcinfo = "$([char]0xf113) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
             }
             elseif ($originurl | ss gitlab) {
-                $themeInfo.vcinfo = "$([char]0xf296) $($themeInfo.vcinfo)"
+                $themeInfo.vcinfo = "$([char]0xf296) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
             }
         }
         $lastColor = $themeInfo.BackgroundColor
