@@ -19,3 +19,8 @@ function theme {
     write-host "Reloading $theme..."
     set-theme $theme
 }
+
+function gk($repo = $null) {
+    if (!$repo) { $repo = (pwd) }
+    & $env:localappdata\gitkraken\update.exe --processStart gitkraken.exe --process-start-args="-p $repo"
+}
