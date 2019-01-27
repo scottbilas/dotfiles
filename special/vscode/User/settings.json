@@ -20,6 +20,7 @@
         "Shouldly",
         "coord",
         "cygwin",
+        "datas",
         "devs",
         "dll's",
         "dotfiles",
@@ -28,6 +29,7 @@
         "fatals",
         "ffwd",
         "funcs",
+        "globbing",
         "icase",
         "katana",
         "minimap",
@@ -36,6 +38,7 @@
         "termux",
         "transcode",
         "uncrustify",
+        "unexpanded",
         "untracked",
         "xplat"
     ],
@@ -124,8 +127,10 @@
     "gitlens.advanced.messages": {
         "suppressResultsExplorerNotice": true,
         "suppressShowKeyBindingsNotice": true,
-        "suppressUpdateNotice": true
+        "suppressUpdateNotice": true,
+        "suppressWelcomeNotice": false
     },
+    "gitlens.keymap": "chorded",
     "gitProjectManager.baseProjectsFolders": [
         "c:/work",
         "c:/proj",
