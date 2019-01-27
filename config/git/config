@@ -12,6 +12,7 @@
     c = commit
     s = status
     d = diff
+    f = fetch
 
     p = pull --ff-only
     pullrs = pull --rebase --autostash
