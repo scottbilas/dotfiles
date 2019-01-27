@@ -10,31 +10,27 @@
     fclone = clone --recurse --jobs 7
 
     c = commit
-    s = status
     d = diff
     f = fetch
+    h = help
+    i = incoming
+    o = outgoing
+    s = status
 
     p = pull --ff-only
     pullrs = pull --rebase --autostash
 
-    out  = !git fetch && git log FETCH_HEAD..
-    in   = !git fetch && git log ..FETCH_HEAD
+    outgoing = !git fetch && git lg FETCH_HEAD..
+    incoming = !git fetch && git lg ..FETCH_HEAD
 
     diffbc = difftool --dir-diff
 
     # from https://stackoverflow.com/a/34467298
-    lg = !"git lg1"
-    lg1 = !"git lg1-specific --all"
-    lg2 = !"git lg2-specific --all"
-    lg3 = !"git lg3-specific --all"
-    lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %ae%C(reset)%C(auto)%d%C(reset)'
-    lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
-    lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+    l = !"git log --graph --pretty='%C(auto)%d%Creset %s%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'"
+    ll = !"git log --graph --stat='100,0,20' --pretty='___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'"
 
-    h = help
-
-    #say = "!f() { msg=${1-Hello World}; echo $msg;  }; f"
-    #test = !env
+    # easily get into git environment for testing
+    sh = !sh
 
 [core]
     autocrlf = false
