@@ -150,11 +150,16 @@ $sl.Colors.WithForegroundColor = 'DarkRed'
 $sl.GitSymbols.BranchIdenticalStatusToSymbol = $GitPromptSettings.BranchIdenticalStatusSymbol.Text
 $sl.GitSymbols.BranchSymbol = [char]0xe725
 $sl.GitSymbols.BranchUntrackedSymbol = '?'
+$sl.GitSymbols.LocalWorkingStatusSymbol = [char]0xfbc2
 $sl.GitSymbols.AfterStashSymbol = [char]0xf105
 $sl.GitSymbols.BeforeStashSymbol = [char]0xf104
+$sl.GitSymbols.BranchAheadStatusSymbol = [char]0xf55c
+$sl.GitSymbols.BranchBehindStatusSymbol = [char]0xf544
 
 $GitPromptSettings.DefaultPromptBeforeSuffix.Text = '`n'
 $GitPromptSettings.EnableStashStatus = $true
+$GitPromptSettings.ShowStatusWhenZero = $false
+$GitPromptSettings.FileModifiedText = [char]0xfc23
 
 $GitPromptSettings.WindowTitle = {
     param($GitStatus, $IsAdmin)
