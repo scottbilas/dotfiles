@@ -150,6 +150,8 @@ $sl.Colors.WithForegroundColor = 'DarkRed'
 $sl.GitSymbols.BranchIdenticalStatusToSymbol = $GitPromptSettings.BranchIdenticalStatusSymbol.Text
 $sl.GitSymbols.BranchSymbol = [char]0xe725
 $sl.GitSymbols.BranchUntrackedSymbol = '?'
+$sl.GitSymbols.AfterStashSymbol = [char]0xf105
+$sl.GitSymbols.BeforeStashSymbol = [char]0xf104
 
 $GitPromptSettings.DefaultPromptBeforeSuffix.Text = '`n'
 $GitPromptSettings.EnableStashStatus = $true
