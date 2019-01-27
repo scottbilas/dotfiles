@@ -1,5 +1,10 @@
 #requires -Version 2 -Modules posh-git
 
+Set-PSReadlineOption -AddToHistoryHandler {
+    $script:LastCommandStart = get-date;
+    $true
+}
+
 # this is copy-paste-adapted from the `paradox` theme
 function Write-Theme {
     param(
@@ -9,11 +14,15 @@ function Write-Theme {
         $with
     )
 
+    $now = get-date
+
     $lastColor = $sl.Colors.PromptBackgroundColor
     $prompt = Write-Prompt -Object $sl.PromptSymbols.StartSymbol -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
 
     $user = [System.Environment]::UserName
     $computer = [System.Environment]::MachineName.tolower()
+    $computer += " $([char]0xf17a)"
+
     $path = Get-FullPath -dir $pwd
     if (Test-NotDefaultUser($user)) {
         $prompt += Write-Prompt -Object "$user@$computer " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
@@ -71,9 +80,30 @@ function Write-Theme {
         $freespace = (free) / 1GB
         $rightSide = ("$($sl.PromptSymbols.SegmentSeparatorBackwardSymbol) $([char]0xf7c9) {0:0.0}GB " -f $freespace) + $rightSide
     }
-    $rightSide = $rightSide
 
-    $prompt += Set-CursorForRightBlockWrite -textLength ($rightSide.Length)
+    $delay = ""
+    if ($script:LastCommandStart) {
+
+        $elapsed = $now - $script:LastCommandStart
+        $script:LastCommandStart = $null
+
+        if ($elapsed.TotalSeconds -gt 0.5) {
+            if ($elapsed.TotalHours -ge 1) {
+                $text = '{0}h{1:mm}m' -f $elapsed.hours, $elapsed
+            }
+            elseif ($elapsed.TotalMinutes -ge 1) {
+                $text = '{0}m{1:ss}s' -f $elapsed.minutes, $elapsed
+            }
+            else {
+                $text = $elapsed.totalseconds.tostring('0.00s')
+            }
+
+            $delay = "$($sl.PromptSymbols.SegmentSeparatorBackwardSymbol) $([char]0xfa1e)$text "
+        }
+    }
+
+    $prompt += Set-CursorForRightBlockWrite -textLength ($delay.Length + $rightSide.Length)
+    $prompt += Write-Prompt $delay -ForegroundColor 'Yellow'
     $prompt += Write-Prompt $rightSide -ForegroundColor 'White'
 
     $prompt += Set-Newline
