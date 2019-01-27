@@ -5,10 +5,13 @@
     unstage = reset HEAD --
     last = log -1 HEAD
 
-    st = status
     co = checkout
 
     fclone = clone --recurse --jobs 7
+
+    c = commit
+    s = status
+    d = diff
 
     p = pull --ff-only
     pullrs = pull --rebase --autostash
