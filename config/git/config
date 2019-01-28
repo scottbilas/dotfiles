@@ -25,7 +25,8 @@
 
     diffbc = difftool --dir-diff
 
-    # from https://stackoverflow.com/a/34467298
+    t = !"git l --max-count=15"
+    t2 = !"git l --max-count=30"
     l = !"git log --graph --pretty='%C(auto)%d%Creset %s%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'"
     ll = !"git log --graph --stat='100,0,20' --stat-graph-width=20 --pretty='___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'"
 
