@@ -5,6 +5,7 @@ alias ll='ls -AgGhF $@'
 
 alias ncdu='ncdu --color dark $@'
 
+alias g='git'
 alias m='micro'
 alias r='ranger'
 
