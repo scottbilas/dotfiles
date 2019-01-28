@@ -24,11 +24,19 @@ function Write-Theme {
     $computer += " $([char]0xf17a)"
 
     $path = Get-FullPath -dir $pwd
+
+    $whoisFgColor = $sl.Colors.SessionInfoForegroundColor
+    $whoisBgColor = $sl.Colors.SessionInfoBackgroundColor
+
+    if (test-path env:SSH_CONNECTION) {
+        $whoisFgColor = 'red'
+    }
+
     if (Test-NotDefaultUser($user)) {
-        $prompt += Write-Prompt -Object "$user@$computer " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+        $prompt += Write-Prompt -Object "$user@$computer " -ForegroundColor $whoisFgColor -BackgroundColor $whoisBgColor
     }
     else {
-        $prompt += Write-Prompt -Object "$computer " -ForegroundColor $sl.Colors.SessionInfoForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+        $prompt += Write-Prompt -Object "$computer " -ForegroundColor $whoisFgColor -BackgroundColor $whoisBgColor
     }
 
     if (Test-VirtualEnv) {
