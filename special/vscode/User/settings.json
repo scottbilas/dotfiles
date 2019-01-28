@@ -2,6 +2,12 @@
     "[markdown]": {
         "editor.tabSize": 2
     },
+    "bracket-pair-colorizer-2.colors": [ // roughly matching indentRainbow.colors
+        "#A4A456",
+        "#72A472",
+        "#A472A4",
+        "#569898"
+    ],
     "breadcrumbs.enabled": true,
     "C_Cpp.default.compilerPath": "clang",
     "cSpell.allowCompoundWords": true,
@@ -45,6 +51,7 @@
     "editor.cursorBlinking": "phase",
     "editor.cursorSmoothCaretAnimation": true,
     "eppz-code.disableAnalytics": true,
+    "editor.codeLens": false,
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
     "editor.fontFamily": "FuraCode NF",
@@ -164,7 +171,7 @@
     "window.newWindowDimensions": "inherit",
     "window.restoreFullscreen": true,
     "window.restoreWindows": "all",
-    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}${separator}",
+    "window.title": "${rootName}${separator}${dirty}${activeEditorMedium}${separator}",
     "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
     "workbench.iconTheme": "vscode-icons",
