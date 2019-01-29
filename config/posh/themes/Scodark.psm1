@@ -2,6 +2,7 @@
 
 Set-PSReadlineOption -AddToHistoryHandler {
     $script:LastCommandStart = get-date;
+    Update-ZLocation $pwd
     $true
 }
 
