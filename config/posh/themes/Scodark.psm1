@@ -91,6 +91,7 @@ function Write-Theme {
     }
 
     $delay = ""
+    $delayLength = 0
     if ($script:LastCommandStart) {
 
         $elapsed = $now - $script:LastCommandStart
@@ -108,10 +109,11 @@ function Write-Theme {
             }
 
             $delay = "$($sl.PromptSymbols.SegmentSeparatorBackwardSymbol) $([char]0xfa1e)$text "
+            $delayLength = $delay.Length + 1
         }
     }
 
-    $prompt += Set-CursorForRightBlockWrite -textLength ($delay.Length + $rightSide.Length)
+    $prompt += Set-CursorForRightBlockWrite -textLength ($delayLength + $rightSide.Length)
     $prompt += Write-Prompt $delay -ForegroundColor 'Yellow'
     $prompt += Write-Prompt $rightSide -ForegroundColor 'White'
 
