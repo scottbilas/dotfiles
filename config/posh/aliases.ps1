@@ -1,5 +1,10 @@
 #set-strictmode -version latest
 
+function realias {
+    write-host 'Reloading aliases...'
+    . "$($ProfileVars.ProfileRoot)\aliases.ps1"
+}
+
 # these aliases only cause problems
 del alias:curl -fo -ea silent
 del alias:wget -fo -ea silent
@@ -24,3 +29,9 @@ function gk($repo = $null) {
     if (!$repo) { $repo = (pwd) }
     & $env:localappdata\gitkraken\update.exe --processStart gitkraken.exe --process-start-args="-p $repo"
 }
+
+function up { cd .. }
+function upp { cd ../.. }
+function uppp { cd ../../.. }
+function upppp { cd ../../../.. }
+
