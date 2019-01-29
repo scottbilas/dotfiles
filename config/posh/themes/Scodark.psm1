@@ -134,6 +134,8 @@ function Write-Theme {
     $prompt
 }
 
+# IMPORTANT: this is all assuming the "One Dark" theme (via https://github.com/lukesampson/concfg)
+
 $sl = $global:ThemeSettings #local settings
 
 $sl.PromptSymbols.FailedCommandSymbol = [char]0xe009
@@ -193,3 +195,14 @@ $PSColor.File = @{
 # actually custom for our theme
 $PSColor.File.Hidden.Color = 'DarkBlue'
 $PSColor.File.Directory.Color = 'Gray'
+
+# powershell color improvements to match our theme
+$Host.PrivateData.ProgressBackgroundColor = 'DarkGray'
+$Host.PrivateData.ProgressForegroundColor = 'Yellow'
+$Host.PrivateData.ErrorForegroundColor = 'Magenta'
+
+# figure out how to modify LESS, or use .less to tune this color (which is unreadable by default in one-dark)
+if (test-path env:LESS) {
+    throw "Unexpected LESS"
+}
+$env:LESS="-Ds13"
