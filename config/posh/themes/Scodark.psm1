@@ -205,4 +205,5 @@ $Host.PrivateData.ErrorForegroundColor = 'Magenta'
 if (test-path env:LESS) {
     throw "Unexpected LESS"
 }
-$env:LESS="-Ds13"
+#### interferes with git's `less` which doesn't support -D - find another way
+#$env:LESS="-Ds13"
