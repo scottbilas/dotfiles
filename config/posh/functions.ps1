@@ -28,3 +28,118 @@ Function Parse-IniFile ($file) {
     }
     $ini
 }
+
+# derived from https://stackoverflow.com/a/54273949/14582
+#
+# proxy originally generated via:
+# [management.automation.proxycommand]::create((new management.automation.commandmetadata(get-command select-object))) | oascii proxy.psm1
+function s1 {
+    [CmdletBinding(DefaultParameterSetName='DefaultParameter', HelpUri='https://go.microsoft.com/fwlink/?LinkID=113387', RemotingCapability='None')]
+    param(
+        [Parameter(ValueFromPipeline=$true)]
+        [psobject]
+        ${InputObject},
+
+        [Parameter(ParameterSetName='DefaultParameter', Position=0)]
+        [System.Object[]]
+        ${Property},
+
+        [Parameter(ParameterSetName='DefaultParameter')]
+        [string[]]
+        ${ExcludeProperty},
+
+        [Parameter(ParameterSetName='DefaultParameter')]
+        [string]
+        ${ExpandProperty},
+
+        [switch]
+        ${Unique},
+
+        [Parameter(ParameterSetName='DefaultParameter')]
+        [ValidateRange(0, 2147483647)]
+        [int]
+        ${Skip},
+
+        [Parameter(ParameterSetName='IndexParameter')]
+        [ValidateRange(0, 2147483647)]
+        [int[]]
+        ${Index})
+
+    begin
+    {
+        $outBuffer = $null
+        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer))
+        {
+            $PSBoundParameters['OutBuffer'] = 1
+        }
+        $PSBoundParameters.Add('First', '1')
+        $PSBoundParameters.Add('Wait', $true)
+        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand('Microsoft.PowerShell.Utility\Select-Object', [System.Management.Automation.CommandTypes]::Cmdlet)
+        $scriptCmd = {& $wrappedCmd @PSBoundParameters }
+        $steppablePipeline = $scriptCmd.GetSteppablePipeline($myInvocation.CommandOrigin)
+        $steppablePipeline.Begin($PSCmdlet)
+    }
+
+    process { $steppablePipeline.Process($_) }
+    end { $steppablePipeline.End() }
+
+    <#
+    .ForwardHelpTargetName Microsoft.PowerShell.Utility\Select-Object
+    .ForwardHelpCategory Cmdlet
+    #>
+}
+function s10 {
+    [CmdletBinding(DefaultParameterSetName='DefaultParameter', HelpUri='https://go.microsoft.com/fwlink/?LinkID=113387', RemotingCapability='None')]
+    param(
+        [Parameter(ValueFromPipeline=$true)]
+        [psobject]
+        ${InputObject},
+
+        [Parameter(ParameterSetName='DefaultParameter', Position=0)]
+        [System.Object[]]
+        ${Property},
+
+        [Parameter(ParameterSetName='DefaultParameter')]
+        [string[]]
+        ${ExcludeProperty},
+
+        [Parameter(ParameterSetName='DefaultParameter')]
+        [string]
+        ${ExpandProperty},
+
+        [switch]
+        ${Unique},
+
+        [Parameter(ParameterSetName='DefaultParameter')]
+        [ValidateRange(0, 2147483647)]
+        [int]
+        ${Skip},
+
+        [Parameter(ParameterSetName='IndexParameter')]
+        [ValidateRange(0, 2147483647)]
+        [int[]]
+        ${Index})
+
+    begin
+    {
+        $outBuffer = $null
+        if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer))
+        {
+            $PSBoundParameters['OutBuffer'] = 1
+        }
+        $PSBoundParameters.Add('First', '10')
+        $PSBoundParameters.Add('Wait', $true)
+        $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand('Microsoft.PowerShell.Utility\Select-Object', [System.Management.Automation.CommandTypes]::Cmdlet)
+        $scriptCmd = {& $wrappedCmd @PSBoundParameters }
+        $steppablePipeline = $scriptCmd.GetSteppablePipeline($myInvocation.CommandOrigin)
+        $steppablePipeline.Begin($PSCmdlet)
+    }
+
+    process { $steppablePipeline.Process($_) }
+    end { $steppablePipeline.End() }
+
+    <#
+    .ForwardHelpTargetName Microsoft.PowerShell.Utility\Select-Object
+    .ForwardHelpCategory Cmdlet
+    #>
+}
