@@ -80,6 +80,12 @@
 
 #   TODO: move this stuff to ~/.config/tig/config
 
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
 [user]
 	name = Scott Bilas
     # https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/
