@@ -6,8 +6,7 @@
     last = log -1 HEAD
 
     co = checkout
-
-    fclone = clone --recurse --jobs 7
+    fc = clone --recurse --jobs 7
 
     c = commit
     d = diff
@@ -20,15 +19,15 @@
     p = pull --ff-only
     pullrs = pull --rebase --autostash
 
-    outgoing = !git fetch && git lg FETCH_HEAD..
-    incoming = !git fetch && git lg ..FETCH_HEAD
+    outgoing = !git fetch && git l FETCH_HEAD..
+    incoming = !git fetch && git l ..FETCH_HEAD
 
     diffbc = difftool --dir-diff
 
-    t = !"git l --max-count=15"
-    t2 = !"git l --max-count=30"
-    l = !"git log --graph --pretty='%C(auto)%d%Creset %s%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'"
-    ll = !"git log --graph --stat='100,0,20' --stat-graph-width=20 --pretty='___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'"
+    t = l --max-count=15
+    t2 = l --max-count=30
+    l = log --graph --pretty='%C(auto)%d%Creset %s%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'
+    ll = log --graph --stat='100,0,20' --stat-graph-width=20 --pretty='___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'
 
     # easily get into git environment for testing
     sh = !sh
