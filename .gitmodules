@@ -29,3 +29,6 @@
 [submodule "config/posh/modules/git-status-cache-posh-client"]
 	path = config/posh/modules/git-status-cache-posh-client
 	url = https://github.com/cmarcusreid/git-status-cache-posh-client.git
+[submodule "config/posh/modules/ZLocation"]
+	path = config/posh/modules/ZLocation
+	url = https://github.com/vors/ZLocation.git
