@@ -152,6 +152,7 @@
     ],
     "powershell.integratedConsole.showOnStartup": false,
     "problems.decorations.enabled": true,
+    "search.location": "panel",
     "search.smartCase": true,
     "search.usePCRE2": true,
     "shellformat.flag": "-i 4 -s",

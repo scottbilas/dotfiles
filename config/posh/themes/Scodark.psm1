@@ -165,7 +165,7 @@ $sl.Colors.WithForegroundColor = 'DarkRed'
 
 $sl.GitSymbols.BranchIdenticalStatusToSymbol = $GitPromptSettings.BranchIdenticalStatusSymbol.Text
 $sl.GitSymbols.BranchSymbol = [char]0xe725
-$sl.GitSymbols.BranchUntrackedSymbol = '?'
+$sl.GitSymbols.BranchUntrackedSymbol = [char]0xfb8e
 $sl.GitSymbols.LocalWorkingStatusSymbol = [char]0xfbc2
 $sl.GitSymbols.AfterStashSymbol = [char]0xf105
 $sl.GitSymbols.BeforeStashSymbol = [char]0xf104
