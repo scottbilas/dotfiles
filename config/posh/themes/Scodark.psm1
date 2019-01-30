@@ -62,13 +62,16 @@ function Write-Theme {
     if ($status) {
         $themeInfo = Get-VcsInfo -status ($status)
         if ($status.gitdir) {
-            $gitconfig = parse-inifile (join-path $status.gitdir 'config')
-            $originurl = $gitconfig.'remote "origin"'.url
-            if ($originurl | ss github) {
-                $themeInfo.vcinfo = "$([char]0xf113) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
-            }
-            elseif ($originurl | ss gitlab) {
-                $themeInfo.vcinfo = "$([char]0xf296) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
+            $configpath = join-path $status.gitdir 'config'
+            if (test-path $configpath) {
+                $gitconfig = parse-inifile $configpath
+                $originurl = $gitconfig.'remote "origin"'.url
+                if ($originurl | ss github) {
+                    $themeInfo.vcinfo = "$([char]0xf113) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
+                }
+                elseif ($originurl | ss gitlab) {
+                    $themeInfo.vcinfo = "$([char]0xf296) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
+                }
             }
         }
         elseif ($status.hgdir) {
