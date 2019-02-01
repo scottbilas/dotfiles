@@ -15,10 +15,26 @@ function Write-Theme {
         $with
     )
 
-    $now = get-date
-
-    $lastColor = $sl.Colors.PromptBackgroundColor
     $prompt = Write-Prompt -Object $sl.PromptSymbols.StartSymbol -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
+
+    $first = $true
+    function Write-Segment($text, $fgcolor, $bgcolor) {
+        $out = ""
+        if (!$first) {
+            if ($lastBgColor -ne $bgcolor) {
+                $out += Write-Prompt $sl.PromptSymbols.SegmentForwardSymbol -ForegroundColor $lastBgColor -BackgroundColor $bgcolor
+            }
+            else {
+                $out += Write-Prompt $sl.PromptSymbols.SegmentSeparatorForwardSymbol -ForegroundColor $fgcolor -BackgroundColor $bgcolor
+            }
+        }
+        set-variable -scope 1 lastBgColor $bgcolor
+        set-variable -scope 1 first $false
+        $out += Write-Prompt $text -ForegroundColor $fgcolor -BackgroundColor $bgcolor
+        return $out
+    }
+
+    $now = get-date
 
     $user = [System.Environment]::UserName
     $computer = [System.Environment]::MachineName.tolower()
@@ -34,29 +50,23 @@ function Write-Theme {
     }
 
     if (Test-NotDefaultUser($user)) {
-        $prompt += Write-Prompt -Object "$user@$computer " -ForegroundColor $whoisFgColor -BackgroundColor $whoisBgColor
+        $prompt += Write-Segment "$user@$computer " $whoisFgColor $whoisBgColor
     }
     else {
-        $prompt += Write-Prompt -Object "$computer " -ForegroundColor $whoisFgColor -BackgroundColor $whoisBgColor
+        $prompt += Write-Segment "$computer " $whoisFgColor $whoisBgColor
     }
+
+    # Write the drive portion
+
+    if ($path.startswith('~')) {
+        $prompt += write-segment " $([char]0xf015) " $sl.Colors.PromptForegroundColor $sl.Colors.PromptBackgroundColor
+        $path = $path -replace '^~[/\\]', ''
+    }
+    $prompt += write-segment " $path " $sl.Colors.PromptForegroundColor $sl.Colors.PromptBackgroundColor
 
     if (Test-VirtualEnv) {
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.VirtualEnvBackgroundColor
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.VirtualEnvSymbol) $(Get-VirtualEnvName) " -ForegroundColor $sl.Colors.VirtualEnvForegroundColor -BackgroundColor $sl.Colors.VirtualEnvBackgroundColor
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.VirtualEnvBackgroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
+        $prompt += write-segment " $($sl.PromptSymbols.VirtualEnvSymbol) $(Get-VirtualEnvName) " $sl.Colors.VirtualEnvForegroundColor $sl.Colors.VirtualEnvBackgroundColor
     }
-    else {
-        $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol) " -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
-    }
-
-    # Writes the drive portion
-    if ($path -eq '~') {
-        $path = "$([char]0xf015)"
-    }
-    if ($path.startswith('~\')) {
-        $path = "$([char]0xf015) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($path.substring(2))"
-    }
-    $prompt += Write-Prompt -Object "$path " -ForegroundColor $sl.Colors.PromptForegroundColor -BackgroundColor $sl.Colors.PromptBackgroundColor
 
     $status = Get-VCSStatus
     if ($status) {
@@ -67,23 +77,22 @@ function Write-Theme {
                 $gitconfig = parse-inifile $configpath
                 $originurl = $gitconfig.'remote "origin"'.url
                 if ($originurl | ss github) {
-                    $themeInfo.vcinfo = "$([char]0xf113) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
+                    $prompt += write-segment " $([char]0xf113) " $sl.Colors.GitForegroundColor $themeInfo.BackgroundColor
                 }
                 elseif ($originurl | ss gitlab) {
-                    $themeInfo.vcinfo = "$([char]0xf296) $($sl.PromptSymbols.SegmentSeparatorForwardSymbol) $($themeInfo.vcinfo)"
+                    $prompt += write-segment " $([char]0xf296) " $sl.Colors.GitForegroundColor $themeInfo.BackgroundColor
                 }
             }
         }
         elseif ($status.hgdir) {
             $themeInfo.vcinfo = $themeInfo.vcinfo.replace($sl.GitSymbols.BranchSymbol, [char]0xf223)
         }
-        $lastColor = $themeInfo.BackgroundColor
-        $prompt += Write-Prompt -Object $($sl.PromptSymbols.SegmentForwardSymbol) -ForegroundColor $sl.Colors.PromptBackgroundColor -BackgroundColor $lastColor
-        $prompt += Write-Prompt -Object " $($themeInfo.VcInfo) " -BackgroundColor $lastColor -ForegroundColor $sl.Colors.GitForegroundColor
+
+        $prompt += write-segment " $($themeInfo.VcInfo) " $sl.Colors.GitForegroundColor $themeInfo.BackgroundColor
     }
 
-    # Writes the postfix to the prompt
-    $prompt += Write-Prompt -Object $sl.PromptSymbols.SegmentForwardSymbol -ForegroundColor $lastColor
+    # close left bar
+    $prompt += write-segment ""
 
     $rightSide = "$($sl.PromptSymbols.SegmentSeparatorBackwardSymbol) $([char]0xf64f) {0}" -f (Get-Date -UFormat %R)
 
@@ -161,12 +170,12 @@ $sl.Colors.PromptBackgroundColor = '#61afef'
 $sl.Colors.PromptForegroundColor = 'Black'
 $sl.Colors.PromptHighlightColor = 'DarkBlue'
 $sl.Colors.PromptSymbolColor = '#abb2bf'
-$sl.Colors.VirtualEnvBackgroundColor = 'Yellow'
+$sl.Colors.VirtualEnvBackgroundColor = '#d000d0'
 $sl.Colors.VirtualEnvForegroundColor = 'Black'
 $sl.Colors.WithBackgroundColor = 'Magenta'
 $sl.Colors.WithForegroundColor = 'DarkRed'
 $sl.Colors.SshSessionInfoForegroundColor = 'Red'
-$sl.Colors.DelayForegroundColor = 'DarkYellow'
+$sl.Colors.DelayForegroundColor = 'DarkOrange'
 
 $sl.GitSymbols.BranchIdenticalStatusToSymbol = $GitPromptSettings.BranchIdenticalStatusSymbol.Text
 $sl.GitSymbols.BranchSymbol = [char]0xe725
@@ -208,8 +217,9 @@ $Host.PrivateData.ProgressForegroundColor = 'Yellow'
 $Host.PrivateData.ErrorForegroundColor = 'Magenta'
 
 # figure out how to modify LESS, or use .less to tune this color (which is unreadable by default in one-dark)
-if (test-path env:LESS) {
-    throw "Unexpected LESS"
+$lessopts = '--tabs=4 -RFXi'
+#$lessopts = '--tabs=4 -RFXi -Ds13'  << -D is only a windows option, gives annoying warning when running less through git
+if ($env:LESS -and ($env:LESS -ne $lessopts)) {
+    write-error "Unexpected LESS"
 }
-#### interferes with git's `less` which doesn't support -D - find another way
-#$env:LESS="-Ds13"
+$env:LESS=$lessopts
