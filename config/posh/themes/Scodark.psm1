@@ -30,7 +30,7 @@ function Write-Theme {
     $whoisBgColor = $sl.Colors.SessionInfoBackgroundColor
 
     if (test-path env:SSH_CONNECTION) {
-        $whoisFgColor = 'red'
+        $whoisFgColor = $sl.Colors.SshSessionInfoForegroundColor
     }
 
     if (Test-NotDefaultUser($user)) {
@@ -117,8 +117,8 @@ function Write-Theme {
     }
 
     $prompt += Set-CursorForRightBlockWrite -textLength ($delayLength + $rightSide.Length)
-    $prompt += Write-Prompt $delay -ForegroundColor 'Yellow'
-    $prompt += Write-Prompt $rightSide -ForegroundColor 'White'
+    $prompt += Write-Prompt $delay -ForegroundColor $sl.Colors.DelayForegroundColor
+    $prompt += Write-Prompt $rightSide -ForegroundColor $sl.Colors.SessionInfoForegroundColor
 
     $prompt += Set-Newline
 
@@ -138,6 +138,8 @@ function Write-Theme {
     $prompt += Write-Prompt -Object ($sl.PromptSymbols.PromptIndicator) -ForegroundColor $sl.Colors.PromptSymbolColor
     $prompt += ' '
     $prompt
+
+    $Host.UI.RawUI.WindowTitle = (format-ellipsis $pwd.path 30)
 }
 
 # IMPORTANT: this is all assuming the "One Dark" theme (via https://github.com/lukesampson/concfg)
@@ -153,15 +155,17 @@ $sl.PromptSymbols.SegmentSeparatorBackwardSymbol = [char]0xe0b3
 $sl.PromptSymbols.StartSymbol = ''
 
 $sl.Colors.GitForegroundColor = 'Black'
-$sl.Colors.GitLocalChangesColor = [ConsoleColor]::DarkYellow
-$sl.Colors.PromptBackgroundColor = 'Blue'
+$sl.Colors.GitLocalChangesColor = '#d19a66'
+$sl.Colors.PromptBackgroundColor = '#61afef'
 $sl.Colors.PromptForegroundColor = 'Black'
 $sl.Colors.PromptHighlightColor = 'DarkBlue'
-$sl.Colors.PromptSymbolColor = 'White'
+$sl.Colors.PromptSymbolColor = '#abb2bf'
 $sl.Colors.VirtualEnvBackgroundColor = 'Yellow'
 $sl.Colors.VirtualEnvForegroundColor = 'Black'
 $sl.Colors.WithBackgroundColor = 'Magenta'
 $sl.Colors.WithForegroundColor = 'DarkRed'
+$sl.Colors.SshSessionInfoForegroundColor = 'Red'
+$sl.Colors.DelayForegroundColor = 'DarkYellow'
 
 $sl.GitSymbols.BranchIdenticalStatusToSymbol = $GitPromptSettings.BranchIdenticalStatusSymbol.Text
 $sl.GitSymbols.BranchSymbol = [char]0xe725
@@ -176,11 +180,6 @@ $GitPromptSettings.DefaultPromptBeforeSuffix.Text = '`n'
 $GitPromptSettings.EnableStashStatus = $true
 $GitPromptSettings.ShowStatusWhenZero = $false
 $GitPromptSettings.FileModifiedText = [char]0xfc23
-
-$GitPromptSettings.WindowTitle = {
-    param($GitStatus, $IsAdmin)
-    "$(if ($IsAdmin) {'Admin: '})$(if ($GitStatus) {"$($GitStatus.RepoName) [$($GitStatus.Branch)]"} else {Get-PromptPath})"
-}
 
 # oh-my-posh will override these so set them back
 
