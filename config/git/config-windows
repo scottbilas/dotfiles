@@ -10,7 +10,6 @@
 
 [core]
     hideDotFiles = false
-    pager = less
     editor = subl --new-window --wait
 
 [diff]

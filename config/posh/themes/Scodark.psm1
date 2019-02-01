@@ -154,6 +154,7 @@ $sl.PromptSymbols.SegmentBackwardSymbol = [char]0xe0b2
 $sl.PromptSymbols.SegmentSeparatorBackwardSymbol = [char]0xe0b3
 $sl.PromptSymbols.StartSymbol = ''
 
+$sl.Colors.CommandFailedIconForegroundColor = '#c00000'
 $sl.Colors.GitForegroundColor = 'Black'
 $sl.Colors.GitLocalChangesColor = '#d19a66'
 $sl.Colors.PromptBackgroundColor = '#61afef'
