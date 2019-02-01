@@ -19,10 +19,10 @@
 	url = https://github.com/dahlbyk/posh-git
 [submodule "config/posh/modules/PSColor"]
 	path = config/posh/modules/PSColor
-	url = github.com:scottbilas/PSColor.git
+	url = git@github.com:scottbilas/PSColor.git
 [submodule "config/posh/modules/oh-my-posh"]
 	path = config/posh/modules/oh-my-posh
-	url = github.com:scottbilas/oh-my-posh.git
+	url = git@github.com:scottbilas/oh-my-posh.git
 [submodule "config/conemu/ConEmu-Color-Themes"]
 	path = config/conemu/ConEmu-Color-Themes
 	url = https://github.com/joonro/ConEmu-Color-Themes.git
@@ -31,7 +31,10 @@
 	url = https://github.com/cmarcusreid/git-status-cache-posh-client.git
 [submodule "config/posh/modules/ZLocation"]
 	path = config/posh/modules/ZLocation
-	url = github.com:scottbilas/ZLocation.git
+	url = git@github.com:scottbilas/ZLocation.git
 [submodule "config/posh/modules/PsEllipsisModule"]
 	path = config/posh/modules/PsEllipsisModule
 	url = https://github.com/KillyMXI/PsEllipsisModule.git
+[submodule "scripts/icdiff"]
+	path = scripts/icdiff
+	url = git@github.com:scottbilas/icdiff.git
