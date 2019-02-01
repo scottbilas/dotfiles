@@ -19,6 +19,9 @@ function l { get-childitemcolorformatwide $args }
 function ll { dir -fo $args }
 function ~ { cd ~ }
 
+del alias:cls -fo -ea silent
+function cls { "$([char]0x1b)c$([char]0x1b)[9999H" }
+
 function theme {
     $theme = (split-path -leaf $ThemeSettings.CurrentThemeLocation).replace('.psm1', '')
     write-host "Reloading $theme..."
