@@ -29,6 +29,18 @@ Function Parse-IniFile ($file) {
     $ini
 }
 
+function Get-GitHub-Token {
+    (parse-inifile ~/dotfiles/Private/keys/scott.toml).
+        "'GitHub Personal Access Tokens'".
+        'hub-cli'.
+        replace("'","")
+}
+
+# scoop install hub busybox
+function hub {
+    env "GITHUB_TOKEN=$(Get-GitHub-Token)" hub @ARGS
+}
+
 # derived from https://stackoverflow.com/a/54273949/14582
 #
 # proxy originally generated via:
