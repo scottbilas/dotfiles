@@ -34,13 +34,13 @@ mkdir('~/.ssh')
 #^^ this gets bad permissions on termux, so use a cp() or sync() instead
 mkdir('~/.cache/ssh/mux')
 
-ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')   # tmux refuses to support xdg (https://github.com/tmux/tmux/issues/142) TODO: switch to alias and use `-f`
 ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py', if_app='python')    # pdbpp uses fancycompleter which hard codes ~/<configname> and doesn't do xdg
 ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')   # lots of XDG arguments at https://github.com/zeit/hyper/issues/137
 
 if platform.POSIX:
     touch('~/.hushlogin')
     ln('~/dotfiles/special/zsh/zshenv', '~/.zshenv') # http://zsh.org/mla/workers/2013/msg00692.html
+    ln('~/.config/tmux/tmux.conf', '~/.tmux.conf', if_app='tmux')   # tmux refuses to support xdg (https://github.com/tmux/tmux/issues/142) TODO: switch to alias and use `-f`
     PROJ = '~/proj'
     # TODO ^ WORK = ~/work
 
@@ -54,11 +54,6 @@ if platform.TERMUX:
 if platform.WSL:
     ln('/mnt/c', '/c')
     PROJ = '/c/proj'
-
-if platform.CYGWIN:
-    ln('~/dotfiles/special/cygwin/profile', '~/.profile')
-    ln('~/dotfiles/special/cygwin/minttyrc', '~/.minttyrc')
-    ln('/cygdrive/c', '/c')
 
 if platform.WINDOWS:
     APPDATA = environ["APPDATA"]
@@ -119,7 +114,7 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # visual studio keyboard settings
 
-# sync scoop, choco, cyg-get, apt-get, npm, gem, pip
+# sync scoop, choco, apt-get, npm, gem, pip
 
 # parts of mc.ini and elinks configs that make sense to share
 
@@ -133,6 +128,7 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 # ln -s ~/.local/share/fzf/bin/fzf ~/bin/fzf
 
 # tmux plugin manager and updates
+# note: need to <prefix>I (and then wait a while) for TPM to do initial setup
 ## we only need the initial tpm clone. after that, it will take care of
 ## updating its own repo. for now using a submodule, but in future would
 ## be better to just have updot ensure we have it in .local/share/tmux/plugins/tpm and after that completely leave unmanaged.
