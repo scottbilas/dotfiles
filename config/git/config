@@ -41,8 +41,8 @@
     excludesfile = ~/.config/git/ignore
 
     # TODO: `--pattern` is problematic, gives errors when pattern not found (like when no diffs in output), and either way prevents exit on non-filled-screen.
-    #pager = perl ~/dotfiles/scripts/diff-so-fancy | less --pattern '^(Date|added|deleted|modified):'
-    pager = perl ~/dotfiles/scripts/diff-so-fancy | less
+    #pager = perl ~/dotfiles/scripts/diff-so-fancy/diff-so-fancy | less --pattern '^(Date|added|deleted|modified):'
+    pager = perl ~/dotfiles/scripts/diff-so-fancy/diff-so-fancy | less
 
 [credential]
     modalprompt = false
