@@ -66,9 +66,9 @@
     "editor.renderIndentGuides": false,
     "editor.roundedSelection": true,
     "editor.rulers": [
-        //80,
+        80,
         100,
-        //120
+        120
     ],
     "editor.smoothScrolling": true,
     "editor.tokenColorCustomizations": {
@@ -175,6 +175,9 @@
     "window.title": "${rootName}${separator}${dirty}${activeEditorMedium}${separator}",
     "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#242424"
+    },
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
