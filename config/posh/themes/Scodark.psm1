@@ -217,9 +217,4 @@ $Host.PrivateData.ProgressForegroundColor = 'Yellow'
 $Host.PrivateData.ErrorForegroundColor = 'Magenta'
 
 # figure out how to modify LESS, or use .less to tune this color (which is unreadable by default in one-dark)
-$lessopts = '--tabs=4 -RFXi'
-#$lessopts = '--tabs=4 -RFXi -Ds13'  << -D is only a windows option, gives annoying warning when running less through git
-if ($env:LESS -and ($env:LESS -ne $lessopts)) {
-    write-error "Unexpected LESS"
-}
-$env:LESS=$lessopts
+#$env:LESS += ' -Ds13'
