@@ -13,6 +13,7 @@
     ],
     "breadcrumbs.enabled": true,
     "C_Cpp.default.compilerPath": "clang",
+    "csharp.referencesCodeLens.enabled": false,
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
@@ -53,8 +54,6 @@
     ],
     "editor.cursorBlinking": "phase",
     "editor.cursorSmoothCaretAnimation": true,
-    "eppz-code.disableAnalytics": true,
-    "editor.codeLens": false,
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
     "editor.fontFamily": "FuraCode NF",
@@ -74,6 +73,8 @@
         120
     ],
     "editor.smoothScrolling": true,
+    "editor.snippetSuggestions": "bottom",
+    "editor.suggestOnTriggerCharacters": false,
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
