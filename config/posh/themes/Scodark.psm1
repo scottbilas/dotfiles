@@ -98,7 +98,7 @@ function Write-Theme {
 
     $drive = (split-path $pwd -qualifier).replace(':','')
     if ((get-psdrive $drive).provider.name -eq 'FileSystem') {
-        $freespace = (free) / 1GB
+        $freespace = (Get-CurrentDriveFreeSpace) / 1GB
         $rightSide = ("$($sl.PromptSymbols.SegmentSeparatorBackwardSymbol) $([char]0xf7c9) {0:0.0}GB " -f $freespace) + $rightSide
     }
 
