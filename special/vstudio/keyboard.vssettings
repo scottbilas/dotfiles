@@ -20,11 +20,23 @@
                     <RemoveShortcut Command="Edit.MakeLowercase" Scope="Text Editor">Ctrl+U</RemoveShortcut>
                     <RemoveShortcut Command="Edit.NextKeyTyped" Scope="VC Accelerator Editor">Ctrl+W</RemoveShortcut>
                     <RemoveShortcut Command="Edit.SelectCurrentWord" Scope="Text Editor">Ctrl+W</RemoveShortcut>
+                    <RemoveShortcut Command="Edit.SelectToLastGoBack" Scope="Text Editor">Ctrl+=</RemoveShortcut>
                     <RemoveShortcut Command="EditorContextMenus.CodeWindow.EditLocalFile" Scope="Difference Viewer">Ctrl+Shift+P</RemoveShortcut>
+                    <RemoveShortcut Command="File.OpenWebSite" Scope="Global">Shift+Alt+O</RemoveShortcut>
+                    <RemoveShortcut Command="File.Print" Scope="Global">Ctrl+P</RemoveShortcut>
                     <RemoveShortcut Command="ReSharper.ReSharper_LocateInSolutionOrAssemblyExplorer" Scope="Text Editor">Shift+Alt+L</RemoveShortcut>
+                    <RemoveShortcut Command="Tools.Playbackmacro" Scope="Text Editor">Ctrl+Shift+P</RemoveShortcut>
                     <RemoveShortcut Command="View.NavigateBackward" Scope="Global">Ctrl+-</RemoveShortcut>
                     <RemoveShortcut Command="View.NavigateForward" Scope="Global">Ctrl+Shift+-</RemoveShortcut>
+                    <RemoveShortcut Command="View.Notifications" Scope="Global">Ctrl+W, Ctrl+N</RemoveShortcut>
+                    <RemoveShortcut Command="View.Notifications" Scope="Global">Ctrl+W, N</RemoveShortcut>
+                    <RemoveShortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Ctrl+P</RemoveShortcut>
+                    <RemoveShortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Global">Shift+Alt+O</RemoveShortcut>
+                    <RemoveShortcut Command="VisualAssist.OpenFileInSolutionDialog" Scope="Text Editor">Shift+Alt+O</RemoveShortcut>
+                    <RemoveShortcut Command="VisualAssist.ResetEditorZoom" Scope="Text Editor">Ctrl+0</RemoveShortcut>
+                    <RemoveShortcut Command="Window.CloseDocumentWindow" Scope="Global">Ctrl+W, W</RemoveShortcut>
                     <RemoveShortcut Command="Window.CloseDocumentWindow" Scope="Text Editor">Ctrl+W</RemoveShortcut>
+                    <Shortcut Command="Edit.SelectAll" Scope="Text Editor">Ctrl+A, Ctrl+A</Shortcut>
                     <Shortcut Command="ReSharper_AltEnter" Scope="Text Editor">Alt+Enter</Shortcut>
                     <Shortcut Command="ReSharper.ReSharper_GotoBase" Scope="Text Editor">Alt+Home</Shortcut>
                     <Shortcut Command="ReSharper.ReSharper_GotoInheritors" Scope="Text Editor">Alt+End</Shortcut>
@@ -65,6 +77,8 @@
                     <Shortcut Command="Window.NewVerticalTabGroup" Scope="Global">Ctrl+W, Shift+\</Shortcut>
                     <Shortcut Command="Window.SplitWindowVertically" Scope="Global">Ctrl+A, \</Shortcut>
                     <Shortcut Command="Window.SplitWindowVertically" Scope="Global">Ctrl+A, Shift+\</Shortcut>
+                    <Shortcut Command="View.ZoomIn" Scope="Global">Ctrl+=</Shortcut>
+                    <Shortcut Command="View.ZoomOut" Scope="Global">Ctrl+-</Shortcut>
                 </UserShortcuts>
             </KeyboardShortcuts>
         </Category>
