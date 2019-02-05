@@ -8,6 +8,9 @@
         "#A472A4",
         "#569898"
     ],
+    "bracket-pair-colorizer-2.excludedLanguages": [
+        "t4",
+    ],
     "breadcrumbs.enabled": true,
     "C_Cpp.default.compilerPath": "clang",
     "cSpell.allowCompoundWords": true,
@@ -167,6 +170,9 @@
             "overviewRulerColor": "yellow"
         }
     ],
+    "ttProcessor": {
+        "TTPath": "C:\\\"Program Files (x86)\"\\\"Microsoft Visual Studio\"\\2019\\Preview\\Common7\\IDE\\TextTransform.exe"
+    },
     "vsicons.dontShowNewVersionMessage": true,
     "window.menuBarVisibility": "toggle",
     "window.newWindowDimensions": "inherit",
