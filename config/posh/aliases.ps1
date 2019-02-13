@@ -3,6 +3,7 @@
 function realias {
     write-host 'Reloading aliases...'
     . "$($ProfileVars.ProfileRoot)\aliases.ps1"
+    . ~/.config/posh/aliases.ps1
 }
 
 function nuke-alias($name) {
