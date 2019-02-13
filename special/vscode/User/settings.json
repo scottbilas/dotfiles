@@ -2,6 +2,9 @@
     "[markdown]": {
         "editor.tabSize": 2
     },
+    "[powershell]": {
+        "editor.codeLens": false
+    },
     "bracket-pair-colorizer-2.colors": [ // roughly matching indentRainbow.colors
         "#A4A456",
         "#72A472",
@@ -27,6 +30,7 @@
         "POSIX",
         "REPO",
         "Resilio",
+        "Resizable",
         "Shouldly",
         "coord",
         "cygwin",
@@ -56,9 +60,10 @@
     "editor.cursorSmoothCaretAnimation": true,
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
-    "editor.fontFamily": "FuraCode NF",
+    "editor.fontFamily": "LiterationMono NF",
     "editor.fontLigatures": true,
     "editor.fontSize": 12,
+    "editor.lineHeight": 14,
     "editor.lineNumbers": "off",
     "editor.matchBrackets": false,
     "editor.minimap.enabled": true,
