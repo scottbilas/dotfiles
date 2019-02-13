@@ -52,3 +52,6 @@ function upp { cd ../.. }
 function uppp { cd ../../.. }
 function upppp { cd ../../../.. }
 
+# disable for now.. what we want is the pager to show lines live as they come through, and when more than a full page is received,
+# go into full screen less mode (and continue grepping in background)
+#function rg { & (which rg) $args |less }
