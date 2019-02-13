@@ -19,6 +19,7 @@ __pycache__
 *_p.c
 *.1.tlog
 *.aps
+*.backup
 *.bak
 *.bak.meta
 *.cache
@@ -48,6 +49,7 @@ __pycache__
 *.VC.db
 *.VC.db-*
 *.VC.opendb
+*.vscdb
 *.vspscc
 *Resources.resources
 build.force
