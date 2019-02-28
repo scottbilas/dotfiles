@@ -153,6 +153,9 @@
         "d:/work",
         "d:/proj"
     ],
+    "indentRainbow.excludedLanguages": [
+        "t4",
+    ],
     "logFileHighlighter.customPatterns": [
         {
             "pattern": "error",
@@ -195,4 +198,5 @@
     "workbench.startupEditor": "newUntitledFile",
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.lineHeight": 0,
+    "workbench.statusBar.feedback.visible": false,
 }
