@@ -112,7 +112,8 @@
         ".pylintrc": "ini",
         "*.asmdef": "json",
         "*.vssettings": "xml",
-        "*.txt": "plaintext"
+        "*.txt": "plaintext",
+        "*.unity": "yaml",
     },
     "files.autoSave": "off",
     "files.exclude": {
@@ -172,6 +173,8 @@
     "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.lineHeight": 0,
     "terminal.integrated.scrollback": 10000,
     "todohighlight.keywords": [
         {
@@ -196,7 +199,6 @@
     "workbench.iconTheme": "vscode-icons",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
-    "terminal.integrated.fontSize": 12,
-    "terminal.integrated.lineHeight": 0,
     "workbench.statusBar.feedback.visible": false,
+    "workbench.useExperimentalGridLayout": true,
 }
