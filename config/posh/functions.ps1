@@ -41,6 +41,25 @@ function hub {
     env "GITHUB_TOKEN=$(Get-GitHub-Token)" hub @ARGS
 }
 
+# derived from https://github.com/not-an-aardvark/git-delete-squashed
+function Git-PurgeMergedUpstreamBranches($master = $null) {
+    if (!$master) {
+        # from https://stackoverflow.com/a/1418022/14582
+        $master = git rev-parse --abbrev-ref HEAD
+    }
+    foreach ($branch in (git for-each-ref refs/heads/ "--format=%(refname:short)")) {
+        write-host -nonew "processing $branch..."
+        $mergeBase = git merge-base $master $branch
+        $status = (git cherry $master (git commit-tree (git rev-parse "$branch^{tree}") -p $mergeBase -m _))[0]
+        write-host $status
+
+        if ($status -eq '-') {
+            write-host -nonew '   '
+            git branch -D $branch
+        }
+    }
+}
+
 # derived from https://stackoverflow.com/a/54273949/14582
 #
 # proxy originally generated via:
