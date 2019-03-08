@@ -142,3 +142,6 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 # vim
 # curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # ^^ windows: make sure the ~ is expanded, or make new 'curl' command that does it
+
+# windows
+# add-env-var PATH 'c:\users\scott\scoop\apps\git\current\mingw64\bin' << required for sshd git

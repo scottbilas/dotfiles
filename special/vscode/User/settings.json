@@ -26,6 +26,7 @@
     "cSpell.userWords": [
         "Bilas",
         "Bilas's",
+        "blittable",
         "IDE's",
         "POSIX",
         "REPO",
@@ -48,6 +49,7 @@
         "katana",
         "minimap",
         "mkdir",
+        "struct",
         "submodules",
         "termux",
         "transcode",
@@ -179,8 +181,7 @@
             "overviewRulerColor": "yellow"
         }
     ],
-    //"ttProcessor.TTPath": "C:\\Users\\scott\\.dotnet\\tools\\t4.exe",
-    "ttProcessor.TTPath": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Preview\\Common7\\IDE\\TextTransform.exe\"",
+    "ttProcessor.TTPath": "C:\\Users\\scott\\.dotnet\\tools\\t4.exe",
     "vsicons.dontShowNewVersionMessage": true,
     "window.menuBarVisibility": "toggle",
     "window.newWindowDimensions": "inherit",
