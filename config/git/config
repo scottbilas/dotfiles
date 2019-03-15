@@ -36,7 +36,8 @@
     sh = !sh
 
 [core]
-    autocrlf = false
+    eol = lf
+    autocrlf = input
     editor = micro
     excludesfile = ~/.config/git/ignore
 
@@ -78,19 +79,19 @@
     default = simple
 
 [color]
-	ui = true
+    ui = true
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
 [color "diff"]
-	meta = yellow
-	frag = magenta
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+    meta = yellow
+    frag = magenta
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
 
 [tig]
     horizontal-scroll = 10
@@ -107,12 +108,12 @@
 #   TODO: move this stuff to ~/.config/tig/config
 
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
 
 [user]
-	name = Scott Bilas
+    name = Scott Bilas
     # https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/
-	useConfigOnly = true
+    useConfigOnly = true
