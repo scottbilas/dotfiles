@@ -1,5 +1,19 @@
 #set-strictmode -version latest
 
+function reprofile {
+    if ($myInvocation.InvocationName -ne '.') {
+        throw 'You forgot to dot-source this (`. reprofile` <enter>)'
+    }
+
+    write-host 'Reloading aliases...'
+    . "$($ProfileVars.ProfileRoot)\aliases.ps1"
+    . ~/.config/posh/aliases.ps1
+
+    write-host 'Reloading functions...'
+    . "$($ProfileVars.ProfileRoot)\functions.ps1"
+    . ~/.config/posh/functions.ps1
+}
+
 function install-nerd-fonts {
     scoop bucket add nerd-fonts
     sudo scoop install (dir ~\scoop\buckets\nerd-fonts\*.json | %{ $_.name.replace('.json', '') })

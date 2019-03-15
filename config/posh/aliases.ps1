@@ -1,11 +1,5 @@
 #set-strictmode -version latest
 
-function realias {
-    write-host 'Reloading aliases...'
-    . "$($ProfileVars.ProfileRoot)\aliases.ps1"
-    . ~/.config/posh/aliases.ps1
-}
-
 function nuke-alias($name) {
     # remove from every scope
     # https://stackoverflow.com/a/24743647/14582
