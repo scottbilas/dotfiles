@@ -34,6 +34,7 @@ __pycache__
 *.log
 *.mdb
 *.mdb.meta
+*.memsnap*
 *.ncb
 *.obj
 *.orig
