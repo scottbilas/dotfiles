@@ -188,3 +188,11 @@ function s10 {
     .ForwardHelpCategory Cmdlet
     #>
 }
+
+function Sysinternals-Register {
+    dir ~/scoop/apps/sysinternals/current/*.exe | %{ [io.path]::GetFileNameWithoutExtension($_) } | %{
+        write-host -nonew "$_ "
+        reg add HKCU\Software\Sysinternals\$_ /v EulaAccepted /t REG_DWORD /d 1 /f > $null
+    }
+    write-host
+}
