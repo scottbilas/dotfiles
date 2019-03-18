@@ -165,6 +165,8 @@
             "foreground": "red"
         }
     ],
+    //"powershell.developer.featureFlags": [ "PSReadLine" ],
+    // ^ cannot enable currently, breaks debugging for some reason (need to investigate)
     "powershell.integratedConsole.showOnStartup": false,
     "problems.decorations.enabled": true,
     "search.location": "panel",

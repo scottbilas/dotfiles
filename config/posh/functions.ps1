@@ -73,6 +73,7 @@ function Git-PurgeMergedUpstreamBranches($master = $null) {
         }
     }
 }
+# TODO: ^^^ this does not work for "rebase and merge" on github - still thinks old branch needs hang around
 
 # derived from https://stackoverflow.com/a/54273949/14582
 #
