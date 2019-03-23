@@ -17,7 +17,7 @@ nuke-alias rm
 # we never want to use `more` as a pager (and some things use it by default, like `help`)
 set-alias more less
 
-set-alias g git
+set-alias g hub
 
 function l { get-childitemcolorformatwide $args }
 function ll { dir -fo $args }
