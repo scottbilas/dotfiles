@@ -197,3 +197,22 @@ function Sysinternals-Register {
     }
     write-host
 }
+
+function Get-UnityFromProjectVersion($projectPath) {
+    $projectVersionPath = join-path $projectPath 'ProjectSettings/ProjectVersion.txt'
+    if (!(test-path $projectVersionPath)) {
+        throw "Unable to find $projectVersionPath"
+    }
+
+    $version = type $projectVersionPath | ?{ $_ -match 'm_EditorVersion: (\S+)' } | %{ $Matches[1] }
+    if (!$version) {
+        throw "Unable to extract version number from $projectVersionPath"
+    }
+    $version
+}
+
+function Install-UnityForProject($projectPath, $intoRoot = 'C:\builds\editor') {
+    $version = Get-UnityFromProjectVersion $projectPath
+    "Installing Unity $version into $intoRoot..."
+    $version | %{ unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait }
+}
