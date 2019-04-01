@@ -31,6 +31,7 @@
     ll = log --graph --stat='100,0,20' --stat-graph-width=20 --pretty='___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'
 
     patch = !git --no-pager diff --no-color
+    root = rev-parse --show-toplevel
 
     # easily get into git environment for testing
     sh = !sh
@@ -77,6 +78,10 @@
 
 [push]
     default = simple
+
+[submodule]
+    fetchJobs = 4
+    recurse = true
 
 [color]
     ui = true
