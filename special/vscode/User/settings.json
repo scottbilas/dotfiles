@@ -109,12 +109,13 @@
         "hgrc-*": "ini",
         "config": "ini",
         "config-*": "ini",
-        "*.linq": "csharp",
         ".pylintrc": "ini",
         "*.asmdef": "json",
-        "*.vssettings": "xml",
+        "*.linq": "csharp",
+        "*.ttinclude": "t4",
         "*.txt": "plaintext",
         "*.unity": "yaml",
+        "*.vssettings": "xml",
     },
     "files.autoSave": "off",
     "files.exclude": {
@@ -159,6 +160,9 @@
     ],
     "indentRainbow.excludedLanguages": [
         "t4",
+    ],
+    "json.schemas": [
+        { "fileMatch": [ "*.asmdef" ], "url": "http://json.schemastore.org/asmdef" }
     ],
     "logFileHighlighter.customPatterns": [
         {
