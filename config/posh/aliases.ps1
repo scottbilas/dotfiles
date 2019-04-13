@@ -19,7 +19,15 @@ set-alias more less
 
 set-alias g hub
 
-function l { get-childitemcolorformatwide $args }
+function l {
+    if ($ProfileVars.IsConsoleHost) {
+        get-childitemcolorformatwide $args
+    }
+    else {
+        ll
+    }
+}
+
 function ll { dir -fo $args }
 function ~ { cd ~ }
 
@@ -29,7 +37,14 @@ function free {gdr -psp 'FileSystem'}
 
 # this resets conemu to start printing ansi colors again (https://conemu.github.io/en/AnsiEscapeCodes.html#Example_3_scroll_console_to_bottom)
 nuke-alias cls
-function cls { "$([char]0x1b)c$([char]0x1b)[9999H" }
+function cls {
+    if ($ProfileVars.IsConEmu) {
+        "$([char]0x1b)c$([char]0x1b)[9999H"
+    }
+    else {
+        clear-host
+    }
+}
 
 function theme {
     $theme = (split-path -leaf $ThemeSettings.CurrentThemeLocation).replace('.psm1', '')
