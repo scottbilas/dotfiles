@@ -74,6 +74,48 @@ function Git-PurgeMergedUpstreamBranches($master = $null) {
     }
 }
 # TODO: ^^^ this does not work for "rebase and merge" on github - still thinks old branch needs hang around
+# will `hub sync` do it instead?
+
+function Git-ConvertSubmoduleToSubtree($prefix, $conversionBranch = $null) {
+    if (!(test-path .git)) {
+        throw "Must be at git repo root"
+    }
+
+    $originalBranch = git rev-parse --abbrev-ref HEAD
+
+    $submodule = (Parse-IniFile .gitmodules)."submodule `"$prefix`""
+    if (!$submodule -or !$submodule.path -or !$submodule.url) {
+        throw "Unable to find valid submodule $prefix in .gitmodules"
+    }
+
+    if (!$conversionBranch) {
+        $conversionBranch = "subtree/$($prefix.replace('/', '_'))"
+    }
+
+    git rev-parse --verify $conversionBranch 2>&1 > $null
+    if ($LASTEXITCODE) {
+        git checkout -qb $conversionBranch
+    }
+    else {
+        git checkout -q $conversionBranch
+    }
+
+    # https://stackoverflow.com/a/21211232/14582
+    git submodule deinit -f $prefix
+    rm -rf .git/modules/$prefix
+    git rm -f $prefix
+    git commit -m "Removal of submodule $prefix in prep for conversion to subtree"
+
+    git -c submodule.recurse=false subtree add --squash -P $prefix $submodule.url (?? $submodule.branch master)
+
+    git checkout $originalBranch
+}
+
+function Git-ConvertAllSubmodulesToSubtrees {
+    git submodule status|%{ ($_ -split ' ')[2] } | %{
+        Git-ConvertSubmoduleToSubtree $_ 'subtree/all'
+    }
+}
 
 # derived from https://stackoverflow.com/a/54273949/14582
 #
