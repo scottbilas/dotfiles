@@ -33,6 +33,9 @@
     patch = !git --no-pager diff --no-color
     root = rev-parse --show-toplevel
 
+    curbranch = rev-parse --abbrev-ref HEAD
+    testbranch = rev-parse --verify
+
     # easily get into git environment for testing
     sh = !sh
 
