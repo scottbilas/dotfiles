@@ -16,7 +16,7 @@
 	url = https://github.com/junegunn/fzf
 [submodule "config/posh/modules/posh-git"]
 	path = config/posh/modules/posh-git
-	url = https://github.com/dahlbyk/posh-git
+	url = git@github.com:scottbilas/posh-git.git
 [submodule "config/posh/modules/PSColor"]
 	path = config/posh/modules/PSColor
 	url = git@github.com:scottbilas/PSColor.git
