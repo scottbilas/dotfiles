@@ -25,8 +25,9 @@
 
     diffbc = difftool --dir-diff
 
-    t = l --max-count=15
-    t2 = l --max-count=30
+    t = l0 --max-count=15
+    t2 = l0 --max-count=30
+    l0 = log --pretty='%C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h'
     l = log --graph --pretty='%<|(10) %C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h'
     ll = log --graph --stat='100,0,20' --stat-graph-width=20 --pretty='___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'
 
