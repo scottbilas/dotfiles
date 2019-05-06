@@ -114,6 +114,7 @@
         "*.linq": "csharp",
         "*.ttinclude": "t4",
         "*.txt": "plaintext",
+        "*.asset": "yaml",
         "*.unity": "yaml",
         "*.vssettings": "xml",
     },
@@ -145,6 +146,7 @@
         "**/.vs": true,
         "**/__pycache__": true
     },
+    "github.username": "scottbilas",
     "gitlens.advanced.messages": {
         "suppressResultsExplorerNotice": true,
         "suppressShowKeyBindingsNotice": true,
