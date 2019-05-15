@@ -140,5 +140,35 @@
         "key": "ctrl+shift+=",
         "command": "-codealignment.alignbystring",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+pagedown",
+        "command": "-scrollPageDown",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+pageup",
+        "command": "-scrollPageUp",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "alt+pagedown",
+        "command": "editor.action.marker.next",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+f8",
+        "command": "-editor.action.marker.next",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+pageup",
+        "command": "editor.action.marker.prev",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+alt+f8",
+        "command": "-editor.action.marker.prev",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]
