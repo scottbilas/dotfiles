@@ -38,6 +38,7 @@ __pycache__
 *.ncb
 *.obj
 *.orig
+*.orig.meta
 *.pyo
 *.res
 *.sbr

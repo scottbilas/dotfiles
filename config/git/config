@@ -25,7 +25,7 @@
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
 
-    diffdir = difftool --dir-diff
+    dd = difftool --dir-diff
 
     t = l0 --max-count=15
     t2 = l0 --max-count=30
@@ -38,6 +38,9 @@
 
     curbranch = rev-parse --abbrev-ref HEAD
     testbranch = rev-parse --verify
+
+    trash = !git add -A && git commit -m 'TRASH' && git reset --hard HEAD^
+    stp = stash push -u
 
     # easily get into git environment for testing
     sh = !sh
