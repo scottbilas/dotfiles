@@ -23,3 +23,10 @@ i::PgUp
 ,::PgDn
 BackSpace::Del
 #IfWinExist
+
+; work around accidental ctrl-shift-q in firefox
+$^+q::
+IfWinNotActive, ahk_exe firefox.exe
+{
+    Send ^+q ; this is not Firefox, so send the key again.
+}
