@@ -56,11 +56,11 @@ function hub {
 }
 
 # derived from https://github.com/not-an-aardvark/git-delete-squashed
-function Git-PurgeMergedUpstreamBranches($master = $null) {
-    if (!$master) {
-        # from https://stackoverflow.com/a/1418022/14582
-        $master = git rev-parse --abbrev-ref HEAD
-    }
+function Git-PurgeMergedUpstreamBranches($master = 'origin/master') {
+#    if (!$master) {
+#        # from https://stackoverflow.com/a/1418022/14582
+#        $master = git rev-parse --abbrev-ref HEAD
+#    }
     foreach ($branch in (git for-each-ref refs/heads/ "--format=%(refname:short)")) {
         write-host -nonew "processing $branch..."
         $mergeBase = git merge-base $master $branch
