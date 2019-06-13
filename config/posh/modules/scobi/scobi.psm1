@@ -1,3 +1,5 @@
+$buildsEditorRoot = 'C:\builds\editor'
+
 function Get-UnityFromProjectVersion($projectPath) {
     $projectVersionPath = join-path $projectPath 'ProjectSettings/ProjectVersion.txt'
     if (!(test-path $projectVersionPath)) {
@@ -11,7 +13,7 @@ function Get-UnityFromProjectVersion($projectPath) {
     $version
 }
 
-function Install-UnityForProject($projectPath, $intoRoot = 'C:\builds\editor') {
+function Install-UnityForProject($projectPath, $intoRoot = $buildsEditorRoot) {
     $version = Get-UnityFromProjectVersion $projectPath
     "Installing Unity $version into $intoRoot..."
     $version | %{ unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait }
@@ -19,7 +21,16 @@ function Install-UnityForProject($projectPath, $intoRoot = 'C:\builds\editor') {
 
 function Open-DevSpace($what = (pwd), [switch]$Rider, [switch]$VS, [switch]$Code, [switch]$Unity, [switch]$Gitkraken) {
 
+    if ($Unity) {
+        $version = Get-UnityFromProjectVersion $what
+        $unityPath = [io.path]::Combine($buildsEditorRoot, $version, "unity.exe")
+        if (!(test-path $unityPath)) {
+            # auto-install
+            throw "No Unity at $unityPath"
+        }
 
+        & $unitypath -projectPath $what
+    }
 
 
     # $what can be:
@@ -34,7 +45,7 @@ function Scobi-Do {
 }
 
 Export-ModuleMember Get-UnityFromProjectVersion
+Export-ModuleMember Open-DevSpace
 
 #Export-ModuleMember Open-UnityProject
-#Export-ModuleMember Open-DevSpace
 #Export-ModuleMember Scobi-Do
