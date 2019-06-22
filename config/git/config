@@ -5,6 +5,7 @@
     unstage = reset HEAD --
     last = log -1 HEAD
     wtl = worktree list
+    wta = worktree add --detach
 
     co = checkout
     fc = clone --recurse --jobs 7
@@ -20,7 +21,7 @@
     s  = status
 
     p = pull --ff-only
-    pullrs = pull --rebase --autostash
+    prs = pull --rebase --autostash
 
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
@@ -29,9 +30,10 @@
 
     t = l0 --max-count=15
     t2 = l0 --max-count=30
-    l0 = log --pretty='%C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h'
-    l = log --graph --pretty='%<|(10) %C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h'
-    ll = log --graph --stat='100,0,20' --stat-graph-width=20 --pretty='___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h'
+    l0 = log --pretty=shortlog
+    l = log --graph --pretty=shortlog-graph
+    ll = log --graph --stat='100,0,20' --stat-graph-width=20 --pretty=longlog
+    rl = reflog --pretty=reflog
 
     patch = !git --no-pager diff --no-color
     root = rev-parse --show-toplevel
@@ -44,6 +46,12 @@
 
     # easily get into git environment for testing
     sh = !sh
+
+[pretty]
+    reflog = %C(auto)%h %<|(20)%gd %C(blue)%cr%C(reset) %gs (%s)
+    shortlog = %C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
+    shortlog-graph = %<|(10) %C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
+    longlog = ___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h
 
 [core]
     eol = lf
