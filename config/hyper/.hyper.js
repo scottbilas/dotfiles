@@ -120,7 +120,7 @@ module.exports = {
           },
           jump_prefix: 'ctrl+alt', // completed with 1-9 digits
           permutation_modifier: 'shift', // Added to jump and navigation hotkeys for pane permutation
-          maximize: 'meta+enter'
+          maximize: 'ctrl+alt+z'
         },
         showIndicators: false, // Show pane number
         indicatorPrefix: '^⌥', // Will be completed with pane number
@@ -184,8 +184,8 @@ module.exports = {
       "tab:prev": "ctrl+shift+tab",
       "pane:next": "",
       "pane:prev": "",
-      "pane:splitVertical": "ctrl+shift+|",
-      "pane:splitHorizontal": "ctrl+shift+-",
+      "pane:splitVertical": "ctrl+alt+|",
+      "pane:splitHorizontal": "ctrl+alt+-",
       "pane:close": "ctrl+shift+w",
 
       "editor:undo": "ctrl+shift+z",
