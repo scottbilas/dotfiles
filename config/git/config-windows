@@ -19,16 +19,24 @@
 
 [diff]
     tool = bc
+    prompt = false
 [difftool]
     prompt = false
 [difftool "bc"]
 ; uncomment to detect env vars
 ;    cmd = "set"
-    cmd = c:/users/scott/scoop/apps/beyondcompare/current/BComp.exe -expandall -lefttitle=\"<$GIT_WORK_TREE> - left\" -righttitle=\"<$GIT_WORK_TREE> - right\" \"$LOCAL\" \"$REMOTE\"
+    cmd = ~/scoop/apps/beyondcompare/current/BComp.exe -expandall -lefttitle=\"<$GIT_WORK_TREE> - left\" -righttitle=\"<$GIT_WORK_TREE> - right\" \"$LOCAL\" \"$REMOTE\"
 
 [merge]
     tool = bc
+    prompt = false
 [mergetool "bc"]
-    path = c:/users/scott/scoop/apps/beyondcompare/current/BComp.exe
+    path = ~/scoop/apps/beyondcompare/current/BComp.exe
 [credential]
 	helper = manager
+
+[difftool "semantic"]
+    cmd = ~/appdata/local/semanticmerge/semanticmergetool.exe -s \"$LOCAL\" -d \"$REMOTE\"
+[mergetool "semantic"]
+    cmd = ~/appdata/local/semanticmerge/semanticmergetool.exe -s \"$REMOTE\" -d \"$LOCAL\" -b \"$BASE\" -r \"$MERGED\"
+    trustExitCode = true
