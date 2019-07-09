@@ -56,7 +56,7 @@ status.unknown = none
 [extensions]
 pager =
 [pager]
-attend = annotate, cat, diff, export, glog, help, log, status
+;attend = annotate, cat, diff, export, glog, help, log, status
 hg16mode = yes
 
 # EXTENSIONS
@@ -66,7 +66,7 @@ churn =
 convert =
 ;debugshell = ~/Work/proj/_external/hgdebugshell/debugshell.py
 ;discoverydetails = ~/Work/proj/_external/octobus-misc/hgext3rd/discoverydetails.py
-dynapath = ~/Work/proj/_external/dynapath/dynapath.py
+;dynapath = ~/Work/proj/_external/dynapath/dynapath.py
 eol =
 evolve = ~/Work/proj/_external/evolve/hgext3rd/evolve
 extdiff =
