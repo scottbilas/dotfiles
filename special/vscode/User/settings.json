@@ -28,6 +28,7 @@
         "Behaviours",
         "Bilas",
         "Bilas's",
+        "Finalizers",
         "Fogbugz",
         "IDE's",
         "POSIX",
@@ -211,10 +212,9 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
     },
-    "workbench.iconTheme": "vscode-icons",
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
     "workbench.statusBar.feedback.visible": false,
-    "workbench.useExperimentalGridLayout": true,
+    "workbench.useExperimentalGridLayout": true
 }
