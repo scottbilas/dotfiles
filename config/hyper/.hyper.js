@@ -184,7 +184,7 @@ module.exports = {
       "tab:prev": "ctrl+shift+tab",
       "pane:next": "",
       "pane:prev": "",
-      "pane:splitVertical": "ctrl+alt+|",
+      "pane:splitVertical": "ctrl+alt+\\",
       "pane:splitHorizontal": "ctrl+alt+-",
       "pane:close": "ctrl+shift+w",
 
