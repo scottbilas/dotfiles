@@ -203,6 +203,7 @@
         }
     ],
     "ttProcessor.TTPath": "C:\\Users\\scott\\.dotnet\\tools\\t4.exe",
+    "vsicons.dontShowNewVersionMessage": true,
     "window.menuBarVisibility": "toggle",
     "window.newWindowDimensions": "inherit",
     "window.restoreFullscreen": true,

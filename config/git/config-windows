@@ -6,7 +6,6 @@
     h = "!f() { $SYSTEMROOT/System32/bash -c \"git help $1\"; }; f"
 
 # the rest of this file is overrides for windows
-# TODO: it's also overrides for cygwin, which shares home with windows. figure out how to split..because diff-so-fancy etc. is ok in cyggy (or implement diff-so-fancy in windows)
 
 [core]
     hideDotFiles = false
