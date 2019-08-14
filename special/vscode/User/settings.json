@@ -187,7 +187,6 @@
     "rewrap.wrappingColumn": 120,
     "search.location": "panel",
     "search.smartCase": true,
-    "search.usePCRE2": true,
     "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
