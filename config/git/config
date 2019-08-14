@@ -97,7 +97,7 @@
     default = simple
 
 [pull]
-    rebase = preserve
+    rebase = merges
 
 [submodule]
     fetchJobs = 4
