@@ -41,3 +41,6 @@
 [submodule "scripts/diff-so-fancy"]
 	path = scripts/diff-so-fancy
 	url = https://github.com/so-fancy/diff-so-fancy.git
+[submodule "config/posh/scripts/slack-dark-mode"]
+	path = config/posh/scripts/slack-dark-mode
+	url = https://github.com/LanikSJ/slack-dark-mode
