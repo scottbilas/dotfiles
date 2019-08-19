@@ -124,6 +124,9 @@
     new = green bold
     whitespace = red reverse
 
+[extensions]
+    worktreeConfig = true
+
 [tig]
     horizontal-scroll = 10
     ignore-case = smart-case
