@@ -125,6 +125,7 @@
     whitespace = red reverse
 
 [extensions]
+    # https://patchwork.kernel.org/patch/10765697/
     worktreeConfig = true
 
 [tig]

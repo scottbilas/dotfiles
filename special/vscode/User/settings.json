@@ -28,6 +28,7 @@
         "Behaviours",
         "Bilas",
         "Bilas's",
+        "Boids",
         "Finalizers",
         "Fogbugz",
         "IDE's",
@@ -71,9 +72,9 @@
     "editor.cursorSmoothCaretAnimation": true,
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
-    "editor.fontFamily": "LiterationMono NF",
+    "editor.fontFamily": "FuraCode NF",
     "editor.fontLigatures": true,
-    "editor.fontSize": 12,
+    "editor.fontSize": 11,
     "editor.lineHeight": 14,
     "editor.lineNumbers": "off",
     "editor.matchBrackets": false,
@@ -170,6 +171,12 @@
     ],
     "indentRainbow.excludedLanguages": [
         "t4",
+    ],
+    "indentRainbow.colors": [
+        "rgba(255,255,64,0.03)",
+        "rgba(127,255,127,0.03)",
+        "rgba(255,127,255,0.03)",
+        "rgba(79,236,236,0.03)"
     ],
     "json.schemas": [
         { "fileMatch": [ "*.asmdef" ], "url": "http://json.schemastore.org/asmdef" }
