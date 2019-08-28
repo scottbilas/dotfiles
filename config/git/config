@@ -6,6 +6,7 @@
     last = log -1 HEAD
     wt = worktree
     wtl = worktree list
+    # TODO: make this also go and do a `submodule update` on the new worktree
     wta = -c "submodule.recurse=" worktree add
 
     co = checkout
@@ -102,6 +103,9 @@
 
 [pull]
     rebase = merges
+
+[rebase]
+    autosquash = true
 
 [submodule]
     fetchJobs = 4
