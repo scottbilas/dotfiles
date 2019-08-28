@@ -1,0 +1,14 @@
+gui:
+  scrollHeight: 2
+  scrollPastBottom: true
+  theme:
+    activeBorderColor:
+      - green
+      - bold
+    inactiveBorderColor:
+      - white
+    optionsTextColor:
+      - blue
+update:
+  method: never
+reporting: 'off'
