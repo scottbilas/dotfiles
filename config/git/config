@@ -105,7 +105,9 @@
 
 [submodule]
     fetchJobs = 4
-    recurse = true
+    # this is convenient, but causes way too many problems
+    # (like `reset` or `checkout` ruining the .git:gitdir of the submodule when working with worktrees and extensions.worktreeConfig=true)
+    #recurse = true
 
 [color]
     ui = true
