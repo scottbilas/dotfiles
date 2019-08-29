@@ -5,6 +5,9 @@
     "[powershell]": {
         "editor.codeLens": false
     },
+    "[plaintext]": {
+        "editor.quickSuggestions": false // often annoying in a txt file - picks random stuff to be helpful, is too aggressive
+    },
     "bracket-pair-colorizer-2.colors": [ // roughly matching indentRainbow.colors
         "#A4A456",
         "#72A472",
