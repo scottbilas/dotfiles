@@ -114,6 +114,9 @@
     # (like `reset` or `checkout` ruining the .git:gitdir of the submodule when working with worktrees and extensions.worktreeConfig=true)
     #recurse = true
 
+[advice]
+    detachedHead = false
+
 [color]
     ui = true
 [color "branch"]

@@ -224,7 +224,5 @@
     },
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.statusBar.feedback.visible": false,
-    "workbench.useExperimentalGridLayout": true
+    "workbench.startupEditor": "newUntitledFile"
 }
