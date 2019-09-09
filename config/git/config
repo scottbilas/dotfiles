@@ -11,6 +11,7 @@
 
     co = checkout
     fc = clone --recurse --jobs 7
+    ss = stash show -p
 
     b  = branch -vv
     c  = commit
