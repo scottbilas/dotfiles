@@ -30,6 +30,7 @@
     incoming = !git fetch && git l ..FETCH_HEAD
 
     dd = difftool --dir-diff
+    sui = submodule update --init
 
     t = l0 --max-count=15
     t2 = l0 --max-count=30
