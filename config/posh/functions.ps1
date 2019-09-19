@@ -12,6 +12,9 @@ function reprofile {
     write-host 'Reloading functions...'
     . "$($ProfileVars.ProfileRoot)\functions.ps1"
     . ~/.config/posh/functions.ps1
+
+    write-host 'Reloading scobi module...'
+    import-module -Force ~/.config/posh/modules/scobi/scobi.psm1 -wa:SilentlyContinue
 }
 
 function install-nerd-fonts {

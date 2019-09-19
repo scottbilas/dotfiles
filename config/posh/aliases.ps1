@@ -19,6 +19,8 @@ set-alias more less
 
 set-alias g hub
 
+set-alias unity Run-UnityForProject
+
 function l {
     if ($ProfileVars.IsConsoleHost) {
         get-childitemcolorformatwide $args

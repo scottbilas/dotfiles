@@ -19,6 +19,28 @@ function Install-UnityForProject($projectPath, $intoRoot = $buildsEditorRoot) {
     $version | %{ unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait }
 }
 
+function Get-UnityForProject($projectPath) {
+    $version = Get-UnityFromProjectVersion $projectPath
+    "$buildsEditorRoot\$version\unity.exe"
+}
+
+function Run-UnityForProject($projectPath = $null) {
+    if ($null -eq $projectPath)
+    {
+        $paths = dir -r -filter:ProjectSettings | % parent
+        if ($paths.length -eq 1) {
+            $projectPath = $paths[0]
+        }
+        else {
+            "Found projects..."
+            $paths | %{ "   $($_.name)"}
+            return
+        }
+    }
+
+    & (Get-UnityForProject $projectPath) -projectPath $projectPath
+}
+
 function Open-DevSpace($what = (pwd), [switch]$Rider, [switch]$VS, [switch]$Code, [switch]$Unity, [switch]$Gitkraken) {
 
     if ($Unity) {
@@ -45,7 +67,8 @@ function Scobi-Do {
 }
 
 Export-ModuleMember Get-UnityFromProjectVersion
-Export-ModuleMember Open-DevSpace
+Export-ModuleMember Run-UnityForProject
+#Export-ModuleMember Open-DevSpace
 
 #Export-ModuleMember Open-UnityProject
 #Export-ModuleMember Scobi-Do
