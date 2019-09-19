@@ -68,6 +68,7 @@ function Scobi-Do {
 
 Export-ModuleMember Get-UnityFromProjectVersion
 Export-ModuleMember Run-UnityForProject
+Export-ModuleMember Install-UnityForProject
 #Export-ModuleMember Open-DevSpace
 
 #Export-ModuleMember Open-UnityProject
