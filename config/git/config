@@ -4,10 +4,12 @@
 [alias]
     unstage = reset HEAD --
     last = log -1 HEAD
+
     wt = worktree
     wtl = worktree list
     # TODO: make this also go and do a `submodule update` on the new worktree
     wta = -c "submodule.recurse=" worktree add
+    wtz = !dir=$(git root) && git co origin/master -B "z/$(basename "$dir")" --no-track
 
     co = checkout
     fc = clone --recurse --jobs 7
@@ -23,6 +25,7 @@
     o  = outgoing
 
     # npm i -g @jpwilliams/gitree
+    #@TODO: would be nice to PR to gitree a '--collapse' option that flattens single-dir nodes
     s  = !gitree -m
     st = !gitree -mt
 
