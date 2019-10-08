@@ -21,7 +21,10 @@
     h  = help
     i  = incoming
     o  = outgoing
-    s  = status
+
+    # npm i -g @jpwilliams/gitree
+    s  = !gitree -m
+    st = !gitree -mt
 
     p = pull --ff-only
     prs = pull --rebase --autostash
