@@ -129,6 +129,7 @@
         "*.asset": "yaml",
         "*.unity": "yaml",
         "*.vssettings": "xml",
+        "*.buildsettings": "json"
     },
     "files.autoSave": "off",
     "files.exclude": {

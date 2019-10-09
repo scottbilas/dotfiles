@@ -16,7 +16,11 @@ function Get-UnityFromProjectVersion($projectPath) {
 function Install-UnityForProject($projectPath, $intoRoot = $buildsEditorRoot) {
     $version = Get-UnityFromProjectVersion $projectPath
     "Installing Unity $version into $intoRoot..."
-    $version | %{ unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait }
+    $version | %{
+        unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait
+        # nuke the stripped symbols so vs doesn't use by accident
+        del $intoRoot\$_\*.pdb
+    }
 }
 
 function Get-UnityForProject($projectPath) {
