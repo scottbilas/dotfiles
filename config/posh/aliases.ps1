@@ -13,6 +13,7 @@ nuke-alias curl
 nuke-alias wget
 nuke-alias diff
 nuke-alias rm
+nuke-alias set
 
 # we never want to use `more` as a pager (and some things use it by default, like `help`)
 set-alias more less
