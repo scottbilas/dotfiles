@@ -21,7 +21,7 @@ Select pane:        hjkl
 Select last pane:   ;
 Kill pane:          x
 Resize by 5:        HJKL
-Split h, v (/full): -_, |\
+Split h, v (/full): -_ , bar/backslash
 Swap pane:          {}
 Reload tmux.conf:   r
 Next, prev window:  np
@@ -32,8 +32,8 @@ Select layout:      alt-1-5
 Chooser:            w
 
 # copypaste
-Copy:          <p>[ <beg> space <end> enter
-Paste:         <p>]
+Copy:          {p}[ {beg} space {end} enter
+Paste:         {p}]
 Rectangle:     v
 Select line:   V
 Top line:      H
