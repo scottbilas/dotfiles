@@ -38,6 +38,3 @@
 [submodule "scripts/icdiff"]
 	path = scripts/icdiff
 	url = git@github.com:scottbilas/icdiff.git
-[submodule "config/posh/scripts/slack-dark-mode"]
-	path = config/posh/scripts/slack-dark-mode
-	url = https://github.com/LanikSJ/slack-dark-mode
