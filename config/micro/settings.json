@@ -4,7 +4,7 @@
     "autosave": false,
     "basename": true,
     "colorcolumn": 80,
-    "colorscheme": "zenburn",
+    "colorscheme": "gruvbox-tc",
     "cursorline": true,
     "eofnewline": true,
     "fastdirty": true,
