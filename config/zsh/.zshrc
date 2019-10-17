@@ -7,4 +7,4 @@ fi
 HISTFILE="$HOME/.local/share/zsh/history"
 setopt NO_SHARE_HISTORY # keep history unique between sessions
 
-source ~/.config/zsh/aliases
+source ~/.config/zsh/zaliases
