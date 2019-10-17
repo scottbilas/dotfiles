@@ -8,6 +8,7 @@ export PAGER='less'
 export GOPATH="$HOME/go"
 export GIT_SUBREPO_ROOT="$HOME/.config/git/git-subrepo"
 export FZF_DEFAULT_OPTS="--tabstop=4 --preview='head -$LINES {}' --preview-window=right:40% --bind 'alt-p:toggle-preview'"
+export MICRO_TRUECOLOR=1
 
 # needed if dasht not installed via a package mamager
 export MANPATH="$HOME/extern/dasht/man:$MANPATH"
