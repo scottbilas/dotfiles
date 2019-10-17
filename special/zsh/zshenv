@@ -1,4 +1,4 @@
 # ln -s ~/dotfiles/special/zsh/zshenv ~/.zshenv
 
 export ZDOTDIR=$HOME/.config/zsh
-source $ZDOTDIR/.zshenv
+source $ZDOTDIR/.zprezto/runcoms/zshenv
