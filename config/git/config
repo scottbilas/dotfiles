@@ -18,16 +18,18 @@
     b  = branch -vv
     c  = commit
     d  = diff
-    d2 = icdiff
     f  = fetch
     h  = help
     i  = incoming
     o  = outgoing
 
+    # pip install icdiff
+    d2 = icdiff
+
     # npm i -g @jpwilliams/gitree
     #@TODO: would be nice to PR to gitree a '--collapse' option that flattens single-dir nodes
     s  = !gitree -m
-    st = !gitree -mt
+    st = status
 
     p = pull --ff-only
     prs = pull --rebase --autostash
@@ -66,12 +68,10 @@
 [core]
     eol = lf
     autocrlf = input
-    editor = micro
     excludesfile = ~/.config/git/ignore
 
     # TODO: `--pattern` is problematic, gives errors when pattern not found (like when no diffs in output), and either way prevents exit on non-filled-screen.
     #pager = perl ~/dotfiles/scripts/diff-so-fancy/diff-so-fancy | less --pattern '^(Date|added|deleted|modified):'
-    pager = perl ~/dotfiles/scripts/diff-so-fancy/diff-so-fancy | less
 
 [credential]
     modalprompt = false
