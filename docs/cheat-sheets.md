@@ -1,53 +1,56 @@
 # TERMUX: Ctrl+Alt+
 
-New session:        C
-Rename session:     R
-Next, prev session: N/dn, P/up
-Select session:     1-9
-Paste from OS:      V
-Show menu:          M
-Select URL:         U
-Adjust font size:   +-
-Open, close drawer: rt, lt
+New session         C
+Rename session      R
+Next, prev session  N/dn, P/up
+Select session      1-9
+Paste from OS       V
+Show menu           M
+Select URL          U
+Adjust font size    +-
+Open, close drawer  rt, lt
 
 # TMUX: prefix+
 
 *Windows*
 
-Create window:      C
-Select window:      0-9
-Rename window:      ,
-List windows:       w
-Kill window:        &
-Next, prev window:  np
-Move windowpos l/r: <>
-Promote pane->wnd:  !
+Create window       C
+Select window       0-9
+Rename window       ,
+List windows        w
+Kill window         &
+Next, prev window   np
+Move windowpos l/r  <>
+Promote pane->wnd   !
 
 *Panes*
 
-Select pane:        hjkl (; = last)
-Select last pane:   ;
-Kill pane:          x
-Resize by 5:        HJKL
-Split h, v (/full): -_ , bar/backslash
-Swap pane:          {}
-Next layout:        space
-Select layout:      alt-1-5
+Select pane         hjkl (; = last)
+Select last pane    ;
+Kill pane           x
+Resize by 5         HJKL
+Split h, v (/full)  -_ , bar/backslash
+Swap pane           {}
+Next layout         space
+Select layout       alt-1-5
 
 *Copypasta*
 
-Copy:               [ {begin} space {end} enter
-Toggle select:      space
-Rectangle:          v
-Select line:        V
-Go to top, middle   H, M
-Abort:              q
-Clear select:       esc
-Paste:              ]
+Copy                [ {begin} space {end} enter
+Toggle select       space
+Rectangle           v
+Select line         V
+Top/mid/bottom      H, M, L
+Abort               q
+Clear select        esc
+Paste               ]
 
 *Misc*
 
-Reload tmux.conf:   r
+Session list        s
+Name session        $
+Reload tmux.conf    r
+Update plugins      I
 
 # Micro
 
