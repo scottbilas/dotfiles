@@ -77,6 +77,5 @@ Quit                alt-q
 Toggle explorer     ^b
 Rename file         f2
 Open in pane        enter
-Open in tab         alt-b
 New file            alt-n
 New dir             alt-N
