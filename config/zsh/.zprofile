@@ -11,6 +11,7 @@ export FZF_DEFAULT_OPTS="--tabstop=4 --preview='head -$LINES {}' --preview-windo
 export MICRO_TRUECOLOR=1
 
 # needed if dasht not installed via a package mamager
+#TODO: check exist dasht
 export MANPATH="$HOME/extern/dasht/man:$MANPATH"
 
 # termux's elinks does not like ~/.config; something seems wrong

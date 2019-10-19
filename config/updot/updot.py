@@ -122,6 +122,8 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # zprezto-update
 
+# dasht-docsets-update
+
 # fzf
 # git clone https://github.com/junegunn/fzf ~/.local/share/fzf
 # ~/.local/share/fzf/install --bin
