@@ -34,3 +34,6 @@
 [submodule "config/zsh/.zprezto"]
 	path = config/zsh/.zprezto
 	url = https://github.com/sorin-ionescu/prezto
+[submodule "config/bat/bat-extras"]
+	path = config/bat/bat-extras
+	url = https://github.com/eth-p/bat-extras
