@@ -1,13 +1,18 @@
 mkdir -p ~/.local/share/zsh
 
-# basics
+## ENVIRONMENT
+
+# general
 
 export EDITOR='micro'
 export VISUAL='micro'
 export PAGER='less'
+
+# tune apps and environments
+
 export GOPATH="$HOME/go"
-export GIT_SUBREPO_ROOT="$HOME/.config/git/git-subrepo"
-export FZF_DEFAULT_OPTS="--tabstop=4 --preview='head -$LINES {}' --preview-window=right:40% --bind 'alt-p:toggle-preview'"
+export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview 'bat --color=always {} | head -500'"
+export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 export MICRO_TRUECOLOR=1
 
 # needed if dasht not installed via a package mamager
