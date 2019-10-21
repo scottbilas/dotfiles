@@ -3,6 +3,7 @@ config/nvim/.netrwhist
 config/elinks/cookies
 config/elinks/*hist
 config/elinks/bookmarks.xbel
+config/jesseduffield/lazygit/state.yml
 config/micro/buffers
 config/zsh/.zcompdump*
 config/zsh/.zcompcache

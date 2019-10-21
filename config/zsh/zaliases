@@ -9,4 +9,5 @@ alias g='git'
 alias m='micro'
 alias r='ranger'
 
+alias lg='lazygit'
 alias tigs='tig status'
