@@ -30,7 +30,7 @@ Select last pane    ;
 Kill pane           x
 Resize by 5         HJKL
 Split h, v (/full)  -_ , bar/backslash
-Swap pane           {}
+Rotate pane l, r    {, }
 Next layout         space
 Select layout       alt-1-5
 
