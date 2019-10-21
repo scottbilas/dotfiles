@@ -11,3 +11,5 @@ alias r='ranger'
 
 alias lg='lazygit'
 alias tigs='tig status'
+
+alias brg=~/.config/bat/bat-extras/src/batgrep.sh
