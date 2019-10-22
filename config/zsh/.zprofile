@@ -19,6 +19,10 @@ export MICRO_TRUECOLOR=1
 #TODO: check exist dasht
 export MANPATH="$HOME/extern/dasht/man:$MANPATH"
 
+# move out of root, and folder must exist
+mkdir -p ~/.local/share/fasd
+export _FASD_DATA="$HOME/.local/share/fasd/data"
+
 # termux's elinks does not like ~/.config; something seems wrong
 export ELINKS_CONFDIR='.config/elinks'
 
