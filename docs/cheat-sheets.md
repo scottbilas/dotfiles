@@ -36,6 +36,7 @@ Select layout       alt-1-5
 
 *Copypasta*
 
+Extrakto            tab
 Copy                [ {begin} space {end} enter
 Toggle select       space
 Rectangle           v
