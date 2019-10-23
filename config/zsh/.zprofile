@@ -27,7 +27,6 @@ export _FASD_DATA="$HOME/.local/share/fasd/data"
 export ELINKS_CONFDIR='.config/elinks'
 
 # less
-
 export LESS='-F -g -i -M -R -w -X -z-4'
 
 # Set the Less input preprocessor.
@@ -35,6 +34,9 @@ export LESS='-F -g -i -M -R -w -X -z-4'
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+# fix unreadable background
+LS_COLORS+=':ow=01;33'
 
 # other
 
