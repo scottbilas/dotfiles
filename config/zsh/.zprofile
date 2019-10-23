@@ -12,6 +12,7 @@ export PAGER='less'
 
 export GOPATH="$HOME/go"
 export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview 'bat --color=always {} | head -500'"
+export FZF_DEFAULT_COMMAND="rg --hidden --files -g \!.git"
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 export MICRO_TRUECOLOR=1
 
