@@ -143,3 +143,7 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 
 # windows
 # add-env-var PATH 'c:\users\scott\scoop\apps\git\current\mingw64\bin' << required for sshd git
+
+# fix wsl to not add system path to debian path
+# https://github.com/microsoft/WSL/issues/1493#issuecomment-417639271
+# and https://github.com/microsoft/WSL/issues/1493#issuecomment-417690717
