@@ -41,6 +41,8 @@ LS_COLORS+=':ow=01;33'
 
 # other
 
+unsetopt AUTO_CD
+
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
 fi
