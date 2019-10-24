@@ -36,12 +36,10 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-# fix unreadable background
+# fix unreadable background on wsl
 LS_COLORS+=':ow=01;33'
 
 # other
-
-unsetopt AUTO_CD
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
@@ -84,3 +82,9 @@ path=(
   $GIT_SUBREPO_ROOT/lib
   ~/extern/dasht/bin
 )
+
+#####
+
+source ~/.config/zsh/.zprezto/init.zsh
+source ~/.config/zsh/.p10k.zsh
+source ~/.config/zsh/zaliases

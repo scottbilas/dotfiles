@@ -22,6 +22,12 @@ zstyle ':prezto:load' pmodule \
   'history-substring-search' \
   'prompt'
 
+# directory module
+unsetopt AUTO_CD
+
+# history module
+HISTFILE="$HOME/.local/share/zsh/history"
+setopt NO_SHARE_HISTORY # keep history unique between sessions
 
 # need this to avoid https://github.com/sorin-ionescu/prezto/issues/511
 zstyle ':prezto:module:completion:*' case-sensitive 'yes'
