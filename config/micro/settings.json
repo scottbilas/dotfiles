@@ -4,7 +4,7 @@
     "autosave": false,
     "basename": true,
     "colorcolumn": 80,
-    "colorscheme": "gruvbox-tc",
+    "colorscheme": "darcula",
     "cursorline": true,
     "eofnewline": true,
     "fastdirty": true,
