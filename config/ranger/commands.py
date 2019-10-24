@@ -28,6 +28,7 @@ class fzf_select(Command):
     def execute(self):
         import subprocess
         import os.path
+        # TODO: switch to ag (check zprofile)
         if self.quantifier:
             # match only directories
             command="find -L . \( -path '*/\.*' -o -fstype 'dev' -o -fstype 'proc' \) -prune \
