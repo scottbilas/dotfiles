@@ -1,5 +1,10 @@
 mkdir -p ~/.local/share/zsh
 
+# Enable Powerlevel10k instant prompt. Should stay at the top of this file.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ## ENVIRONMENT
 
 # general
@@ -88,3 +93,6 @@ path=(
 source ~/.config/zsh/.zprezto/init.zsh
 source ~/.config/zsh/.p10k.zsh
 source ~/.config/zsh/zaliases
+
+# Finalize Powerlevel10k instant prompt. Should stay at the bottom of this file.
+(( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
