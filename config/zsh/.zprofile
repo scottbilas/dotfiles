@@ -96,3 +96,7 @@ source ~/.config/zsh/zaliases
 
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of this file.
 #(( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
+
+# doesn't work for some reason
+# maybe because expecting zshrc? should just rename zprofile to zshrc..?
+typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=true
