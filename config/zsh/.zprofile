@@ -88,11 +88,12 @@ path=(
   ~/extern/dasht/bin
 )
 
+source ~/.config/zsh/zaliases
+
 #####
 
 source ~/.config/zsh/.zprezto/init.zsh
 source ~/.config/zsh/.p10k.zsh
-source ~/.config/zsh/zaliases
 
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of this file.
 #(( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
@@ -100,3 +101,13 @@ source ~/.config/zsh/zaliases
 # doesn't work for some reason
 # maybe because expecting zshrc? should just rename zprofile to zshrc..?
 typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=true
+
+#####
+
+source ~/.config/zsh/zplugin/zplugin.zsh
+
+ZPLGM[PLUGINS_DIR]="$HOME/.local/share/zplugin/plugins"
+ZPLGM[COMPLETIONS_DIR]="$HOME/.local/share/zplugin/completions"
+ZPLGM[ZCOMPDUMP_PATH]="$HOME/.local/share/zplugin/.zcompdump"
+
+#zplugin load wookayin/fzf-fasd
