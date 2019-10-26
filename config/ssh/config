@@ -3,7 +3,7 @@ Compression yes
 Protocol 2
 #LogLevel DEBUG3
 
-Include ~/dotfiles/private/ssh/config-unity
+Include ~/.ssh/config-unity
 
 Host *
     IdentityFile ~/dotfiles/private/ssh/id_rsa
