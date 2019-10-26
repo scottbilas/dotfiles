@@ -24,3 +24,5 @@ alias brg=~/.config/bat/bat-extras/src/batgrep.sh
 #alias sd='fasd -sid'     # interactive directory selection
 #alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d -i'
+
+alias pping=prettyping
