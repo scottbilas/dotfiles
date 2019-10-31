@@ -17,8 +17,9 @@ export PAGER='less'
 
 export GOPATH="$HOME/go"
 export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '(bat --color=always {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -500'"
-# apt install fd-find (may simply be 'fd' on other plats..need to review)
-export FZF_DEFAULT_COMMAND="fdfind --hidden -E .git"
+# debian: apt install fd-find
+# TODO on debian must access fd with fdfind. make them work together.
+export FZF_DEFAULT_COMMAND="fd --hidden -E .git"
 export FZF_TMUX=1
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 export MICRO_TRUECOLOR=1
