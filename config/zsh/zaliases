@@ -16,7 +16,6 @@ alias lg='lazygit'
 alias tigs='tig status'
 
 alias brg=~/.config/bat/bat-extras/src/batgrep.sh
-alias fd=fdfind
 alias pping=prettyping
 
 #alias a='fasd -a'        # any
