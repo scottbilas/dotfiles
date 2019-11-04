@@ -91,8 +91,6 @@ path=(
   ~/extern/dasht/bin
 )
 
-source ~/.config/zsh/zaliases
-
 #####
 
 source ~/.config/zsh/.zprezto/init.zsh
@@ -114,3 +112,17 @@ ZPLGM[COMPLETIONS_DIR]="$HOME/.local/share/zplugin/completions"
 ZPLGM[ZCOMPDUMP_PATH]="$HOME/.local/share/zplugin/.zcompdump"
 
 #zplugin load wookayin/fzf-fasd
+
+#### LAST
+
+# keep these last so they override any modules
+
+## OPTIONS
+
+unsetopt autocd
+unsetopt banghist
+unsetopt cdablevars
+
+## aliases
+
+source ~/.config/zsh/zaliases
