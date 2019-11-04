@@ -11,6 +11,7 @@
     "fileformat": "unix",
     "filemanager-compressparent": true,
     "filemanager-foldersfirst": true,
+    "filemanager-openonstart": false,
     "filemanager-showdotfiles": true,
     "filemanager-showignored": false,
     "fishfmt": false,
