@@ -2,6 +2,8 @@ alias realias='source ~/.config/zsh/zaliases'
 
 alias l='ls -ACF'
 alias ll='ls -AgGhF $@'
+alias mcd=mkdcd
+alias rd=rmdir
 
 alias ncdu='ncdu --color dark $@'
 
@@ -16,6 +18,7 @@ alias lg='lazygit'
 alias tigs='tig status'
 
 alias brg=~/.config/bat/bat-extras/src/batgrep.sh
+alias pping=prettyping
 
 #alias a='fasd -a'        # any
 #alias s='fasd -si'       # show / search / select
