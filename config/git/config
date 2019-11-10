@@ -122,6 +122,7 @@
     #recurse = true
 
 [advice]
+    statusHints = false
     detachedHead = false
 
 [color]
