@@ -18,7 +18,6 @@ publish = false
 [ui]
 editor = subl --wait --new-window
 ignore = ~/.config/git/ignore
-merge = beyondcompare4
 style = ~/unity-meta/Configs/Mercurial/unity-color.hgstyle
 
 

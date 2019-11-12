@@ -11,3 +11,15 @@ pager = less --quit-if-one-screen --raw-control-chars --tilde --quiet --ignore-c
 [ui]
 # don't use tortoise-plink
 ssh = ssh
+merge = bcomp
+
+[extdiff]
+cmd.bcomp = C:\Users\scott\scoop\apps\beyondcompare\current\BComp.exe
+opts.bcomp = /ro
+
+[merge-tools]
+bcomp.executable = C:\Users\scott\scoop\apps\beyondcompare\current\BComp.exe
+bcomp.args = $local $other $base $output
+bcomp.priority = 1
+bcomp.premerge = True
+bcomp.gui = True
