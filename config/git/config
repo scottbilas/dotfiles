@@ -22,8 +22,6 @@
     h  = help
     i  = incoming
     o  = outgoing
-
-    # pip install icdiff
     d2 = icdiff
 
     # npm i -g @jpwilliams/gitree
@@ -36,6 +34,7 @@
 
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
+    icdiff = "!f() { PATH=$PATH:~/dotfiles/scripts/icdiff; git icdiff; }; f"
 
     dd = difftool --dir-diff
     sui = submodule update --init
