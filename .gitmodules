@@ -40,3 +40,6 @@
 [submodule "scripts/icdiff"]
 	path = scripts/icdiff
 	url = git@github.com:scottbilas/icdiff.git
+[submodule "docs/nerd-font-cheatsheets"]
+	path = docs/nerd-font-cheatsheets
+	url = https://github.com/just3ws/nerd-font-cheatsheets.git
