@@ -75,7 +75,7 @@
     "editor.cursorSmoothCaretAnimation": true,
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
-    "editor.fontFamily": "Delugia Nerd Font",
+    "editor.fontFamily": "DelugiaCode NF",
     "editor.fontLigatures": true,
     "editor.fontSize": 11,
     "editor.lineHeight": 14,
