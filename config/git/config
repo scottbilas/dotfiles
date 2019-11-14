@@ -22,13 +22,8 @@
     h  = help
     i  = incoming
     o  = outgoing
-
-    # pip install icdiff
     d2 = icdiff
-
-    # npm i -g @jpwilliams/gitree
-    #@TODO: would be nice to PR to gitree a '--collapse' option that flattens single-dir nodes
-    s  = !gitree -m
+    s  = gitree -mcdn
     st = status
 
     p = pull --ff-only
@@ -36,6 +31,9 @@
 
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
+    icdiff = "!f() { PATH=$PATH:~/dotfiles/scripts/icdiff; git icdiff; }; f"
+    # `npm ci` from gitree folder
+    gitree = !node $HOME/.config/git/gitree/index.js
 
     dd = difftool --dir-diff
     sui = submodule update --init
@@ -61,8 +59,9 @@
 
 [pretty]
     reflog = %C(auto)%h %<|(20)%gd %C(blue)%cr%C(reset) %gs (%s)
-    shortlog = %C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
-    shortlog-graph = %<|(10) %C(auto)%d%Creset %<|(100,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
+    # TODO: base these on term width
+    shortlog = %C(auto)%d%Creset %<|(70,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
+    shortlog-graph = %<|(10) %C(auto)%d%Creset %<|(70,trunc)%s%C(bold cyan)%<(18,trunc)% ae %Cblue(%cr) %C(bold black)%h
     longlog = ___%n   \\%n%C(auto)%d%Creset %s%n%C(bold cyan)% ae %Cblue(%cr) %C(bold black)%h
 
 [core]

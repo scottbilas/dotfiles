@@ -12,7 +12,7 @@ module.exports = {
       fontSize: 13,
 
       // font family with optional fallbacks
-      fontFamily: '"Cascadia Code", "FuraCode NF", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+      fontFamily: '"DelugiaCode NF", "Cascadia Code", "FuraCode NF", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
       // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
       cursorColor: 'rgba(248,28,229,0.8)',

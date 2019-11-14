@@ -17,8 +17,7 @@ export PAGER='less'
 
 export GOPATH="$HOME/go"
 export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:toggle-preview' --preview '(bat --color=always {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -500'"
-# debian: apt install fd-find
-# TODO on debian must access fd with fdfind. make them work together.
+# debian: sudo apt install fd-find && sudo ln -s /usr/bin/fdfind /usr/local/bin/fd
 export FZF_DEFAULT_COMMAND="fd --hidden -E .git"
 export FZF_TMUX=1
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
@@ -44,7 +43,7 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-# fix unreadable background on wsl
+# fix unreadable background on wsl when doing tab-completion for dirs
 LS_COLORS+=':ow=01;33'
 
 # other
@@ -110,6 +109,9 @@ source ~/.config/zsh/zplugin/zplugin.zsh
 ZPLGM[PLUGINS_DIR]="$HOME/.local/share/zplugin/plugins"
 ZPLGM[COMPLETIONS_DIR]="$HOME/.local/share/zplugin/completions"
 ZPLGM[ZCOMPDUMP_PATH]="$HOME/.local/share/zplugin/.zcompdump"
+
+zplugin ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh"
+zplugin load trapd00r/LS_COLORS
 
 #zplugin load wookayin/fzf-fasd
 
