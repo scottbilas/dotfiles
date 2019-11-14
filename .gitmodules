@@ -43,3 +43,6 @@
 [submodule "docs/nerd-font-cheatsheets"]
 	path = docs/nerd-font-cheatsheets
 	url = https://github.com/just3ws/nerd-font-cheatsheets.git
+[submodule "config/git/gitree"]
+	path = config/git/gitree
+	url = git@github.com:scottbilas/gitree.git
