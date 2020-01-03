@@ -6,7 +6,8 @@ opts.diffbc = /c %HOME%/Documents/WindowsPowerShell/hgutils/hg-bcomp.cmd
 usercache = c:/proj/_hglargefiles
 
 [pager]
-pager = less --quit-if-one-screen --raw-control-chars --tilde --quiet --ignore-case --status-column --line-numbers --tabs=4
+# hg and scoop/apps/less do not like each other
+pager = %HOME%/scoop/apps/git/current/usr/bin/less.exe --quit-if-one-screen --raw-control-chars --tilde --quiet --ignore-case --status-column --line-numbers --tabs=4
 
 [ui]
 # don't use tortoise-plink
