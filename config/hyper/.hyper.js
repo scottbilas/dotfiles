@@ -91,7 +91,10 @@ module.exports = {
       shellArgs: [],
 
       // for environment variables
-      env: {},
+      env: {
+        // fzf doesn't like when we set TERM (hyper by default sets it to xterm-256color)
+        TERM: '',
+      },
 
       // set to false for no bell
       bell: 'SOUND',
