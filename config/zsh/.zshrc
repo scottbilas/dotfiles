@@ -22,6 +22,7 @@ export FZF_DEFAULT_COMMAND="fd --hidden -E .git"
 export FZF_TMUX=1
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 export MICRO_TRUECOLOR=1
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # needed if dasht not installed via a package mamager
 #TODO: check exist dasht
