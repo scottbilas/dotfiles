@@ -174,7 +174,7 @@ module.exports = {
       "window:minimize": "ctrl+shift+m",
 
       "window:close": [
-        "alt+f4"
+        // "alt+f4" (dislike)
       ],
 
       "tab:new": "ctrl+shift+t",
