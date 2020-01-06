@@ -93,7 +93,8 @@ module.exports = {
       // for environment variables
       env: {
         // fzf doesn't like when we set TERM (hyper by default sets it to xterm-256color)
-        TERM: '',
+        // TODO: git doesn't like it when we DON'T set it, and starts complaining with "WARNING: terminal is not fully functional" :/
+        //TERM: '',
       },
 
       // set to false for no bell
