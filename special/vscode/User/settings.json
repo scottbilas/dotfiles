@@ -8,6 +8,7 @@
     "[plaintext]": {
         "editor.quickSuggestions": false // often annoying in a txt file - picks random stuff to be helpful, is too aggressive
     },
+    "bashIde.explainshellEndpoint": "http://scobeast:5000",
     "bracket-pair-colorizer-2.colors": [ // roughly matching indentRainbow.colors
         "#A4A456",
         "#72A472",
@@ -111,6 +112,27 @@
                 "settings": {
                     "foreground": "#DDD"
                 }
+            },
+            {
+                "scope": "keyword.control.bats",
+                "settings": {
+                    "foreground": "#b33ce2",
+                    "fontStyle": "underline"
+                }
+            },
+            {
+                "scope": "support.function.bats",
+                "settings": {
+                    "foreground": "#d15353",
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": "support.variable.bats",
+                "settings": {
+                    "foreground": "#329432",
+                    "fontStyle": "italic"
+                }
             }
         ]
     },
@@ -198,6 +220,7 @@
     "rewrap.wrappingColumn": 120,
     "search.location": "panel",
     "search.smartCase": true,
+    "shellcheck.customArgs": [ "-x" ],
     "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
