@@ -8,7 +8,8 @@ gui:
     inactiveBorderColor:
       - white
     optionsTextColor:
-      - blue
+    - blue
+startuppopupversion: 1
 update:
   method: never
 reporting: 'off'

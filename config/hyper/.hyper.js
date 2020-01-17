@@ -91,7 +91,11 @@ module.exports = {
       shellArgs: [],
 
       // for environment variables
-      env: {},
+      env: {
+        // fzf doesn't like when we set TERM (hyper by default sets it to xterm-256color)
+        // TODO: git doesn't like it when we DON'T set it, and starts complaining with "WARNING: terminal is not fully functional" :/
+        //TERM: '',
+      },
 
       // set to false for no bell
       bell: 'SOUND',
@@ -171,7 +175,7 @@ module.exports = {
       "window:minimize": "ctrl+shift+m",
 
       "window:close": [
-        "alt+f4"
+        // "alt+f4" (dislike)
       ],
 
       "tab:new": "ctrl+shift+t",
