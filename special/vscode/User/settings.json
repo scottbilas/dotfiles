@@ -76,7 +76,7 @@
     "editor.cursorSmoothCaretAnimation": true,
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
-    "editor.fontFamily": "DelugiaCode NF",
+    "editor.fontFamily": "JetBrains Mono",
     "editor.fontLigatures": true,
     "editor.fontSize": 11,
     "editor.lineHeight": 14,
