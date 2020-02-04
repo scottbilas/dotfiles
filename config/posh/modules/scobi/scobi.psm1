@@ -29,7 +29,7 @@ function Install-Unity($version, [switch]$minimal, $intoRoot = $buildsEditorRoot
 
 function Install-UnityForProject($projectPath, [switch]$minimal, $intoRoot = $buildsEditorRoot) {
     $version = Get-UnityFromProjectVersion $projectPath
-    Install-Unity $version $minimal $intoRoot
+    Install-Unity -version $version -minimal:$minimal -intoroot $intoRoot
 }
 
 function Get-UnityForProject($projectPath) {
@@ -81,6 +81,7 @@ function Scobi-Do {
 
 Export-ModuleMember Get-UnityFromProjectVersion
 Export-ModuleMember Run-UnityForProject
+Export-ModuleMember Install-Unity
 Export-ModuleMember Install-UnityForProject
 #Export-ModuleMember Open-DevSpace
 
