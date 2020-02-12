@@ -13,14 +13,23 @@ function Get-UnityFromProjectVersion($projectPath) {
     $version
 }
 
-function Install-UnityForProject($projectPath, $intoRoot = $buildsEditorRoot) {
-    $version = Get-UnityFromProjectVersion $projectPath
+function Install-Unity($version, [switch]$minimal, $intoRoot = $buildsEditorRoot) {
     "Installing Unity $version into $intoRoot..."
     $version | %{
-        unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait
+        if ($minimal) {
+            unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor --wait
+        }
+        else {
+            unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait
+        }
         # nuke the stripped symbols so vs doesn't use by accident
         del $intoRoot\$_\*.pdb
     }
+}
+
+function Install-UnityForProject($projectPath, [switch]$minimal, $intoRoot = $buildsEditorRoot) {
+    $version = Get-UnityFromProjectVersion $projectPath
+    Install-Unity -version $version -minimal:$minimal -intoroot $intoRoot
 }
 
 function Get-UnityForProject($projectPath) {
@@ -72,6 +81,7 @@ function Scobi-Do {
 
 Export-ModuleMember Get-UnityFromProjectVersion
 Export-ModuleMember Run-UnityForProject
+Export-ModuleMember Install-Unity
 Export-ModuleMember Install-UnityForProject
 #Export-ModuleMember Open-DevSpace
 
