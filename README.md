@@ -182,7 +182,7 @@ popd
 
 # alternate: direct bin install of micro
 curl https://getmic.ro | bash
-mv micro ~/bin/
+mv micro ~/.local/bin/
 
 ```
 

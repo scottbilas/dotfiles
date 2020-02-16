@@ -6,6 +6,7 @@ alias mcd=mkdcd
 alias rd=rmdir
 
 alias ncdu='ncdu --color dark $@'
+if hash prettyping 2>/dev/null; then alias ping='prettyping'; fi
 
 alias g='git'
 alias m='micro'

@@ -22,7 +22,7 @@ def error(text):
 # clean junk
 rm('~/.bash_history')
 
-mkdir('~/bin')
+mkdir('~/.local/bin')
 mkdir('~/go/bin')
 env('GOPATH', '~/go')           # TODO: put in env.json or something. or possibly have env update and gen .ps1 and .sh files
 
@@ -127,7 +127,7 @@ ln(f'{PROJ}/unity-meta', '~/unity-meta')
 # fzf
 # git clone https://github.com/junegunn/fzf ~/.local/share/fzf
 # ~/.local/share/fzf/install --bin
-# ln -s ~/.local/share/fzf/bin/fzf ~/bin/fzf
+# ln -s ~/.local/share/fzf/bin/fzf ~/.local/bin/fzf
 
 # tmux plugin manager and updates
 # note: need to <prefix>I (and then wait a while) for TPM to do initial setup
