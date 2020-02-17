@@ -14,6 +14,10 @@ nuke-alias wget
 nuke-alias diff
 nuke-alias rm
 nuke-alias set
+nuke-alias sort
+
+# always use the installed sort
+set-alias sort (resolve-path ~\scoop\apps\git\current\usr\bin\sort.exe)
 
 # we never want to use `more` as a pager (and some things use it by default, like `help`)
 set-alias more less
