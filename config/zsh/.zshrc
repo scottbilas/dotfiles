@@ -1,4 +1,5 @@
 mkdir -p ~/.local/share/zsh
+mkdir -p ~/.local/bin
 
 # Enable Powerlevel10k instant prompt. Should stay at the top of this file.
 #if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -83,11 +84,8 @@ cdpath=(
 path=(
   /usr/local/{bin,sbin}
   $path
-  ~/bin
+  ~/.local/bin
   $GOPATH/bin
-
-  # TODO: symlink the commands for these instead
-  $GIT_SUBREPO_ROOT/lib
   ~/extern/dasht/bin
 )
 
@@ -95,6 +93,10 @@ path=(
 
 source ~/.config/zsh/.zprezto/init.zsh
 source ~/.config/zsh/.p10k.zsh
+[[ -d ~/.poetry ]] && source ~/.poetry/env
+#todo: check this works
+#fpath+=~/extern/dasht/etc/zsh/completions/
+
 
 # Finalize Powerlevel10k instant prompt. Should stay at the bottom of this file.
 #(( ! ${+functions[p10k-instant-prompt-finalize]} )) || p10k-instant-prompt-finalize
