@@ -225,7 +225,7 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.lineHeight": 0,
-    "terminal.integrated.rendererType": "dom"
+    "terminal.integrated.rendererType": "dom",
     "terminal.integrated.scrollback": 10000,
     "todohighlight.keywords": [
         {
