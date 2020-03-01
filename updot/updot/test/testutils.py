@@ -1,5 +1,4 @@
-import os, types
-import pytest
+import os, pytest, types
 
 from updot import _db, links
 
