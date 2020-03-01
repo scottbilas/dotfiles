@@ -4,7 +4,7 @@
     "CtrlDown": "ScrollDown",
     "CtrlLeft": "WordLeft",
     "CtrlRight": "WordRight",
-    "Ctrl-G": "JumpLine",
+//$    "Ctrl-G": "JumpLine",
 
     // selection
     "CtrlShiftHome": "SelectToStart",
@@ -13,6 +13,9 @@
     "CtrlShiftRight": "SelectWordRight",
     //"ShiftPageUp": "SelectPageUp",  ...grrr...pageup/dn cant be combined with anything..
     //"ShiftPageDown": "SelectPageDown",
+
+    // editing
+    "Alt-/": "lua:comment.comment",
 
     // multi-cursor
     "Ctrl-D": "SpawnMultiCursor",
@@ -30,17 +33,17 @@
     "Alt-q": "QuitAll",
     "Alt-p": "command:fzf",
     "Alt-e": "ShellMode",
-    "Alt-g": "UnbindKey",
+    "Alt-g": "None", // disable default
 
     // important: check for a default binding that would be rebound and include
     // it in the new binding.
 
     // tree
-    "Ctrl-B": "filemanager.toggle_tree",
-    "Enter": "InsertNewline,filemanager.try_open_at_cursor",
+//$    "Ctrl-B": "filemanager.toggle_tree",
+//$    "Enter": "InsertNewline,filemanager.try_open_at_cursor",
     "F2": "command-edit:rename ",
     "Alt-n": "command-edit:touch ",
     "Alt-N": "command-edit:mkdir ",
-    "Home": "StartOfLine,filemanager.goto_parent_dir",
-    "Alt-b": "AddTab,filemanager.toggle_tree,NextSplit", // TODO: would be nice to close that pane too, but micro doesnt do this reliably
+//$    "Home": "StartOfLine,filemanager.goto_parent_dir",
+//$    "Alt-b": "AddTab,filemanager.toggle_tree,NextSplit", // TODO: would be nice to close that pane too, but micro doesnt do this reliably
 }
