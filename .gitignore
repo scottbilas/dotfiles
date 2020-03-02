@@ -4,6 +4,7 @@ config/elinks/cookies
 config/elinks/*hist
 config/elinks/bookmarks.xbel
 config/jesseduffield/lazygit/state.yml
+config/micro/backups
 config/micro/buffers
 config/ranger/history
 config/scoop/config.json
