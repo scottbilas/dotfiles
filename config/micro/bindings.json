@@ -2,11 +2,10 @@
     // movement
     "CtrlUp": "ScrollUp",
     "CtrlDown": "ScrollDown",
-    "CtrlLeft": "WordLeft",
-    "CtrlRight": "WordRight",
-//$    "Ctrl-G": "JumpLine",
+    "Ctrl-G": "command-edit:goto ",
 
     // selection
+    "ShiftHome": "SelectToStartOfLine",
     "CtrlShiftHome": "SelectToStart",
     "CtrlShiftEnd": "SelectToEnd",
     "CtrlShiftLeft": "SelectWordLeft",
@@ -16,10 +15,12 @@
 
     // editing
     "Alt-/": "lua:comment.comment",
+    "Alt-d": "DuplicateLine",
 
     // multi-cursor
     "Ctrl-D": "SpawnMultiCursor",
     "Ctrl-K": "SkipMultiCursor",
+    "Alt-l": "SpawnMultiCursorSelect",
     "Esc": "Escape,RemoveAllMultiCursors,ClearStatus",
 
     // window mgmt
@@ -32,18 +33,15 @@
     "Ctrl-W": "Quit",
     "Alt-q": "QuitAll",
     "Alt-p": "command:fzf",
-    "Alt-e": "ShellMode",
+    "Alt-!": "ShellMode",
     "Alt-g": "None", // disable default
 
     // important: check for a default binding that would be rebound and include
     // it in the new binding.
 
     // tree
-//$    "Ctrl-B": "filemanager.toggle_tree",
-//$    "Enter": "InsertNewline,filemanager.try_open_at_cursor",
-    "F2": "command-edit:rename ",
-    "Alt-n": "command-edit:touch ",
-    "Alt-N": "command-edit:mkdir ",
-//$    "Home": "StartOfLine,filemanager.goto_parent_dir",
-//$    "Alt-b": "AddTab,filemanager.toggle_tree,NextSplit", // TODO: would be nice to close that pane too, but micro doesnt do this reliably
+    "Ctrl-B": "lua:filemanager.toggle_tree",  // toggle tree on current tab
+    "Alt-b": "AddTab,lua:filemanager.toggle_tree,NextSplit", // open new tab w/ file manager (TODO: would be nice to close that pane too, but micro doesnt do this reliably)
+    "Enter": "InsertNewline,lua:filemanager.try_open_at_cursor",
+    "Home": "StartOfLine,lua:filemanager.goto_parent_dir",
 }
