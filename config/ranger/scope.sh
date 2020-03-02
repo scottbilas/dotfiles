@@ -168,7 +168,6 @@ handle_mime() {
     case "${mimetype}" in
         # Text
         text/* | */xml)
-            # Syntax highlight
             if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
                 exit 2
             fi
@@ -186,6 +185,17 @@ handle_mime() {
             #highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
             #    --style="${HIGHLIGHT_STYLE}" --force -- "${FILE_PATH}" && exit 5
             #pygmentize -f "${pygmentize_format}" -O "style=${PYGMENTIZE_STYLE}" -- "${FILE_PATH}" && exit 5
+
+            exit 2;;
+
+        # JSON
+        */json)
+            if [[ "$( stat --printf='%s' -- "${FILE_PATH}" )" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
+                exit 2
+            fi
+
+            # special: print json as javascript (no default colorizer for json)
+            bat --color=always --language=javascript --style="plain,changes" "${FILE_PATH}" && { dump | trim; exit 5; }
 
             exit 2;;
 
