@@ -22,7 +22,8 @@ set-alias sort (resolve-path ~\scoop\apps\git\current\usr\bin\sort.exe)
 # we never want to use `more` as a pager (and some things use it by default, like `help`)
 set-alias more less
 
-set-alias g hub
+set-alias g git
+set-alias m micro
 
 set-alias unity Run-UnityForProject
 
@@ -68,6 +69,8 @@ function up { cd .. }
 function upp { cd ../.. }
 function uppp { cd ../../.. }
 function upppp { cd ../../../.. }
+function ov($what) { cd ../$what }
+
 
 # disable for now.. what we want is the pager to show lines live as they come through, and when more than a full page is received,
 # go into full screen less mode (and continue grepping in background)

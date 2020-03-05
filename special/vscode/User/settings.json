@@ -74,6 +74,8 @@
     ],
     "editor.cursorBlinking": "phase",
     "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorSurroundingLines": 5,
+    "editor.cursorSurroundingLinesStyle": "all",
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
     "editor.fontFamily": "DelugiaCode NF",
@@ -195,6 +197,8 @@
         "d:/work",
         "d:/proj"
     ],
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
     "indentRainbow.excludedLanguages": [
         "t4",
     ],
@@ -213,6 +217,11 @@
             "foreground": "red"
         }
     ],
+    "perforce.addOnFileCreate": true,
+    "perforce.annotate.enable": true,
+    "perforce.annotate.user": true,
+    "perforce.deleteOnFileDelete": true,
+    "perforce.editOnFileModified": true,
     //"powershell.developer.featureFlags": [ "PSReadLine" ],
     // ^ cannot enable currently, breaks debugging for some reason (need to investigate)
     "powershell.integratedConsole.showOnStartup": false,

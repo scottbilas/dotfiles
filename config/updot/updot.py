@@ -37,6 +37,10 @@ mkdir('~/.cache/ssh/mux')
 ln('~/.config/pdb/pdbrc.py', '~/.pdbrc.py', if_app='python')    # pdbpp uses fancycompleter which hard codes ~/<configname> and doesn't do xdg
 ln('~/.config/hyper/hyper.js', '~/.hyper.js', if_app='hyper')   # lots of XDG arguments at https://github.com/zeit/hyper/issues/137
 
+# env P4ALIASES=~/.config/p4/.p4aliases
+# env P4CONFIG=.p4config
+# env P4EDITOR=path/to/micro
+
 if platform.POSIX:
     touch('~/.hushlogin')
     ln('~/dotfiles/special/zsh/zshenv', '~/.zshenv') # http://zsh.org/mla/workers/2013/msg00692.html
