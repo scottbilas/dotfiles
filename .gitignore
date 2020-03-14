@@ -6,6 +6,7 @@ config/elinks/bookmarks.xbel
 config/jesseduffield/lazygit/state.yml
 config/micro/backups
 config/micro/buffers
+config/pudb/saved-breakpoints*
 config/ranger/history
 config/scoop/config.json
 config/zsh/.zcompdump*
