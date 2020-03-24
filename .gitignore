@@ -1,4 +1,6 @@
 config/configstore/
+config/gh/config.yml
+config/gh/state.yml
 config/nvim/.netrwhist
 config/elinks/cookies
 config/elinks/*hist
