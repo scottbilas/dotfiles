@@ -99,6 +99,9 @@
 [fetch]
     prune = true
 
+[log]
+    follow = true
+
 [merge]
     stat = true
     tool = vimdiff3
