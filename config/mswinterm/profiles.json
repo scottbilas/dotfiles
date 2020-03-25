@@ -1,4 +1,7 @@
-// setup: mklinkf -link "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\profiles.json -file ~\.config\mswinterm\profiles.json
+// setup:
+//   $l = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\profiles.json"
+//   del $l
+//   mklinkf -link $l -file '~\.config\mswinterm\profiles.json'
 // docs: https://aka.ms/terminal-documentation
 // defaults: hold "alt" while clicking on the "Settings" button
 
