@@ -16,6 +16,8 @@ config/zsh/.zcompcache
 special/lazygit/state.yml
 special/vscode/User/vsicons\.settings\.json
 special/vscode/User/workspaceStorage/
+
 private
 cache
+logs
 .hyper_plugins
