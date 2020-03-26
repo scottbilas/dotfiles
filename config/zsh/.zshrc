@@ -22,6 +22,7 @@ export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:to
 export FZF_DEFAULT_COMMAND="fd --hidden -E .git"
 export FZF_TMUX=1
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
+export WEECHAT_HOME="$HOME/.config/weechat"
 export MICRO_TRUECOLOR=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
