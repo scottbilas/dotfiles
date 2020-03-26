@@ -46,3 +46,6 @@
 [submodule "config/git/gitree"]
 	path = config/git/gitree
 	url = git@github.com:scottbilas/gitree.git
+[submodule "config/weechat/wee-slack"]
+	path = config/weechat/wee-slack
+	url = https://github.com/wee-slack/wee-slack
