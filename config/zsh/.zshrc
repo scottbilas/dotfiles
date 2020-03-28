@@ -108,16 +108,16 @@ typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=true
 
 #####
 
-source ~/.config/zsh/zplugin/zplugin.zsh
+source ~/.config/zsh/zinit/zinit.zsh
 
-ZPLGM[PLUGINS_DIR]="$HOME/.local/share/zplugin/plugins"
-ZPLGM[COMPLETIONS_DIR]="$HOME/.local/share/zplugin/completions"
-ZPLGM[ZCOMPDUMP_PATH]="$HOME/.local/share/zplugin/.zcompdump"
+ZINIT[PLUGINS_DIR]="$HOME/.local/share/zinit/plugins"
+ZINIT[COMPLETIONS_DIR]="$HOME/.local/share/zinit/completions"
+ZINIT[ZCOMPDUMP_PATH]="$HOME/.local/share/zinit/.zcompdump"
 
-zplugin ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh"
-zplugin load trapd00r/LS_COLORS
+zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh"
+zinit load trapd00r/LS_COLORS
 
-#zplugin load wookayin/fzf-fasd
+#zinit load wookayin/fzf-fasd
 
 #### LAST
 
