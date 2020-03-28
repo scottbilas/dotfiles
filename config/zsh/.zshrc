@@ -22,6 +22,7 @@ export FZF_DEFAULT_OPTS="--tabstop=4 --preview-window=right:60% --bind 'alt-p:to
 export FZF_DEFAULT_COMMAND="fd --hidden -E .git"
 export FZF_TMUX=1
 export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
+export WEECHAT_HOME="$HOME/.config/weechat"
 export MICRO_TRUECOLOR=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
@@ -107,16 +108,16 @@ typeset -g POWERLEVEL9K_DISABLE_INSTANT_PROMPT=true
 
 #####
 
-source ~/.config/zsh/zplugin/zplugin.zsh
+source ~/.config/zsh/zinit/zinit.zsh
 
-ZPLGM[PLUGINS_DIR]="$HOME/.local/share/zplugin/plugins"
-ZPLGM[COMPLETIONS_DIR]="$HOME/.local/share/zplugin/completions"
-ZPLGM[ZCOMPDUMP_PATH]="$HOME/.local/share/zplugin/.zcompdump"
+ZINIT[PLUGINS_DIR]="$HOME/.local/share/zinit/plugins"
+ZINIT[COMPLETIONS_DIR]="$HOME/.local/share/zinit/completions"
+ZINIT[ZCOMPDUMP_PATH]="$HOME/.local/share/zinit/.zcompdump"
 
-zplugin ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh"
-zplugin load trapd00r/LS_COLORS
+zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh"
+zinit load trapd00r/LS_COLORS
 
-#zplugin load wookayin/fzf-fasd
+#zinit load wookayin/fzf-fasd
 
 #### LAST
 
