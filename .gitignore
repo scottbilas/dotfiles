@@ -6,14 +6,17 @@ config/elinks/cookies
 config/elinks/*hist
 config/elinks/bookmarks.xbel
 config/jesseduffield/lazygit/state.yml
+config/jesseduffield/lazygit/*/
 config/micro/backups
 config/micro/buffers
 config/pudb/saved-breakpoints*
 config/ranger/history
 config/scoop/config.json
+config/weechat/themes/_backup.theme
+config/weechat/themes/_undo.theme
 config/zsh/.zcompdump*
 config/zsh/.zcompcache
-special/lazygit/state.yml
+config/zsh/.zinit
 special/vscode/User/vsicons\.settings\.json
 special/vscode/User/workspaceStorage/
 
@@ -21,3 +24,4 @@ private
 cache
 logs
 .hyper_plugins
+*.weechattmp
