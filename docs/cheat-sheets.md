@@ -22,6 +22,7 @@ Kill window         &
 Next, prev window   np
 Move windowpos l/r  <>
 Promote pane->wnd   !
+Renumber all        :movew -r
 
 *Panes*
 
