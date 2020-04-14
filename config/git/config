@@ -29,6 +29,7 @@
 
     p = pull --ff-only
     prs = pull --rebase --autostash
+    ppush = !git prs && git push
 
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
