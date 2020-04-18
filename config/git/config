@@ -29,6 +29,7 @@
 
     p = pull --ff-only
     prs = pull --rebase --autostash
+    ppush = !git prs && git push
 
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
@@ -69,6 +70,7 @@
     eol = lf
     autocrlf = input
     excludesfile = ~/.config/git/ignore
+    symlinks = true
 
     # TODO: `--pattern` is problematic, gives errors when pattern not found (like when no diffs in output), and either way prevents exit on non-filled-screen.
     #pager = perl ~/dotfiles/scripts/diff-so-fancy/diff-so-fancy | less --pattern '^(Date|added|deleted|modified):'

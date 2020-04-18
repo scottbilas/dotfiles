@@ -1,15 +1,41 @@
 $buildsEditorRoot = 'C:\builds\editor'
 
-function Get-UnityFromProjectVersion($projectPath) {
+function Get-UnityVersionFromProjectVersion($projectPath, [switch]$getHash) {
     $projectVersionPath = join-path $projectPath 'ProjectSettings/ProjectVersion.txt'
     if (!(test-path $projectVersionPath)) {
         throw "Unable to find $projectVersionPath"
     }
 
-    $version = type $projectVersionPath | ?{ $_ -match 'm_EditorVersion: (\S+)' } | %{ $Matches[1] }
+    if ($getHash) {
+        $version = type $projectVersionPath | ?{ $_ -match 'm_EditorVersionWithRevision: (\S+) \((\S+)\)' } | %{ $Matches[1], $Matches[2] }
+    }
+    else {
+        $version = type $projectVersionPath | ?{ $_ -match 'm_EditorVersion: (\S+)' } | %{ $Matches[1] }
+    }
+
     if (!$version) {
         throw "Unable to extract version number from $projectVersionPath"
     }
+
+    $version
+}
+
+function Get-UnityVersionFromExe($exePath, [switch]$getHash) {
+    if (!(test-path $exePath)) {
+        throw "No Unity found at $exePath"
+    }
+
+    if ($getHash) {
+        $version = (dir $exePath).versioninfo.comments -match '(\S+) \((\S+)\)' | %{ $Matches[1], $Matches[2] }
+    }
+    else {
+        $version = (dir $exePath).versioninfo.comments -match '\S+' | %{ $Matches[0] }
+    }
+
+    if (!$version) {
+        throw "Unity at $exePath has unexpected VERSIONINFO.Comments format"
+    }
+
     $version
 }
 
@@ -28,13 +54,60 @@ function Install-Unity($version, [switch]$minimal, $intoRoot = $buildsEditorRoot
 }
 
 function Install-UnityForProject($projectPath, [switch]$minimal, $intoRoot = $buildsEditorRoot) {
-    $version = Get-UnityFromProjectVersion $projectPath
+    $version = Get-UnityVersionFromProjectVersion $projectPath
     Install-Unity -version $version -minimal:$minimal -intoroot $intoRoot
 }
 
+function Get-UnityBuildConfig($exePath) {
+    # least awful option, given we don't store buildconfig in VERSIONINFO..just go by some kind of size threshold
+    # https://unity.slack.com/archives/C07B85AE5/p1586853975112200?thread_ts=1586852005.107100&cid=C07B85AE5
+
+    $filesize = (dir $exepath).length
+
+    if ($filesize -gt 100MB -and $filesize -lt 150MB) {
+        return 'release'
+    }
+    elseif ($filesize -gt 300MB -and $filesize -lt 400MB) {
+        return 'debug'
+    }
+
+    throw 'Unexpected size for Unity exe, need to revise bounds'
+}
+
 function Get-UnityForProject($projectPath) {
-    $version = Get-UnityFromProjectVersion $projectPath
-    "$buildsEditorRoot\$version\unity.exe"
+    $version, $hash = Get-UnityVersionFromProjectVersion -getHash $projectPath
+    $exePath = "$buildsEditorRoot\$version\unity.exe"
+
+    $exeVersion, $exeHash = Get-UnityVersionFromExe -getHash $exePath
+    if ($exeVersion -ne $version) {
+        throw "Unity at $exePath has version $exeVersion, but was expecting $version"
+    }
+
+    if ($exeHash -ne $hash) {
+        foreach ($base in 'D:\work\unity', 'D:\work\unity2') {
+            $customExe = join-path $base 'build\WindowsEditor\Unity.exe'
+            if (test-path $customExe) {
+                $customVersion, $customHash = Get-UnityVersionFromExe -getHash $customExe
+                if ($customVersion -eq $version -and $customHash -eq $hash) {
+                    write-warning "Substituting custom build found with matching version/hash $customVersion/$customHash ($customExe)"
+                    $exePath = $customExe
+                    $exeHash = $customHash
+                    break
+                }
+            }
+        }
+    }
+
+    if ($exeHash -ne $hash) {
+        write-warning "Found matching $exeVersion at $exePath, but unable to find exact hash $hash installed or in custom builds"
+    }
+
+    $buildConfig = get-unitybuildconfig $exePath
+    if ($buildConfig -ne 'release') {
+        write-warning "Running non-release build ($buildConfig) of Unity"
+    }
+
+    $exePath
 }
 
 function Run-UnityForProject($projectPath = $null) {
@@ -54,10 +127,11 @@ function Run-UnityForProject($projectPath = $null) {
     & (Get-UnityForProject $projectPath) -projectPath $projectPath
 }
 
+<# REDO THIS
 function Open-DevSpace($what = (pwd), [switch]$Rider, [switch]$VS, [switch]$Code, [switch]$Unity, [switch]$Gitkraken) {
 
     if ($Unity) {
-        $version = Get-UnityFromProjectVersion $what
+        $version = Get-UnityVersionFromProjectVersion $what
         $unityPath = [io.path]::Combine($buildsEditorRoot, $version, "unity.exe")
         if (!(test-path $unityPath)) {
             # auto-install
@@ -78,8 +152,11 @@ function Open-DevSpace($what = (pwd), [switch]$Rider, [switch]$VS, [switch]$Code
 
 function Scobi-Do {
 }
+#>
 
-Export-ModuleMember Get-UnityFromProjectVersion
+Export-ModuleMember Get-UnityVersionFromProjectVersion
+Export-ModuleMember Get-UnityVersionFromExe
+Export-ModuleMember Get-UnityForProject
 Export-ModuleMember Run-UnityForProject
 Export-ModuleMember Install-Unity
 Export-ModuleMember Install-UnityForProject

@@ -228,6 +228,7 @@
     "problems.decorations.enabled": true,
     "rewrap.wrappingColumn": 120,
     "search.smartCase": true,
+    "scm.defaultViewMode": "tree",
     "shellcheck.customArgs": [ "-x" ],
     "shellformat.flag": "-i 4 -s",
     "terminal.integrated.cursorBlinking": true,

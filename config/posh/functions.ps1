@@ -242,3 +242,13 @@ function Sysinternals-Register {
     }
     write-host
 }
+
+function Get-PSParentProcesses {
+    $first = $true
+    for ($id = $pid; $p = gwmi win32_process -filter "ProcessID = $id"; $id = $p.ParentProcessID) {
+        if ($p.processname -match '\b(pwsh|powershell)\b') {
+            if (!$first) { $p }
+            $first = $false
+        }
+    }
+}
