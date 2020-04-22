@@ -74,7 +74,7 @@ function Get-UnityBuildConfig($exePath) {
     throw 'Unexpected size for Unity exe, need to revise bounds'
 }
 
-function Get-UnityForProject($projectPath) {
+function Get-UnityForProject($projectPath, [switch]$skipCustomBuild) {
     $version, $hash = Get-UnityVersionFromProjectVersion -getHash $projectPath
     $exePath = "$buildsEditorRoot\$version\unity.exe"
 
@@ -83,7 +83,7 @@ function Get-UnityForProject($projectPath) {
         throw "Unity at $exePath has version $exeVersion, but was expecting $version"
     }
 
-    if ($exeHash -ne $hash) {
+    if (!$skipCustomBuild -and $exeHash -ne $hash) {
         foreach ($base in 'D:\work\unity', 'D:\work\unity2') {
             $customExe = join-path $base 'build\WindowsEditor\Unity.exe'
             if (test-path $customExe) {
@@ -110,7 +110,7 @@ function Get-UnityForProject($projectPath) {
     $exePath
 }
 
-function Run-UnityForProject($projectPath = $null) {
+function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [switch]$useGlobalLogPath) {
     if ($null -eq $projectPath)
     {
         $paths = dir -r -filter:ProjectSettings | % parent
@@ -124,7 +124,21 @@ function Run-UnityForProject($projectPath = $null) {
         }
     }
 
-    & (Get-UnityForProject $projectPath) -projectPath $projectPath
+    $extra = @()
+    if (!$useGlobalLogPath) {
+        $logPath = Join-Path (resolve-path $projectPath) Logs
+        $logFilename = Join-Path $logPath Editor.log
+        $logFile = Get-ChildItem $logFilename -ea:silent
+        if ($logFile) {
+            $target = Join-Path $logPath ("Editor_{0:yyyyMMdd_HHMMss}.log" -f $logFile.LastWriteTime)
+            Write-Verbose "Copying $logFile to $target"
+            Copy-Item $logFile $target @commonParams
+        }
+
+        $extra += '-logPath', $logFilename
+    }
+
+    & (Get-UnityForProject $projectPath -skipCustomBuild:$skipCustomBuild) -projectPath $projectPath $extra
 }
 
 <# REDO THIS
