@@ -132,11 +132,13 @@ function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [sw
         if ($logFile) {
             $target = Join-Path $logPath ("Editor_{0:yyyyMMdd_HHMMss}.log" -f $logFile.LastWriteTime)
             Write-Verbose "Copying $logFile to $target"
-            Copy-Item $logFile $target @commonParams
+            Copy-Item $logFile $target
         }
 
-        $extra += '-logPath', $logFilename
+        $extra += '-logFile', $logFilename
     }
+
+    # check to see if unity already running there
 
     & (Get-UnityForProject $projectPath -skipCustomBuild:$skipCustomBuild) -projectPath $projectPath $extra
 }
