@@ -21,12 +21,14 @@ List windows        w
 Kill window         &
 Next, prev window   np
 Move windowpos l/r  <>
-Promote pane->wnd   !
+Renumber all        :movew -r
 
 *Panes*
 
 Select pane         hjkl (; = last)
+Select pane by #    q (then 0)
 Select last pane    ;
+Promote pane->wnd   !
 Kill pane           x
 Resize by 5         HJKL
 Split h, v (/full)  -_ , bar/backslash
@@ -52,6 +54,7 @@ Session list        s
 Name session        $
 Reload tmux.conf    r
 Update plugins      I
+Save/resurrect      ctrl-s/r
 
 # Micro
 
