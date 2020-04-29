@@ -10,6 +10,7 @@ config/jesseduffield/lazygit/*/
 config/micro/backups
 config/micro/buffers
 config/pudb/saved-breakpoints*
+config/pudb/shell-history
 config/ranger/history
 config/scoop/config.json
 config/weechat/themes/_backup.theme
