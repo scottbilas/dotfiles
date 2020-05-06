@@ -1,0 +1,21 @@
+# this file is a global p4 config, which will be overridden per-var by p4config
+# files in the project folders.
+#
+# setup:
+#
+# p4 set P4ENVIRO="$(resolve-path ~/.config/p4/enviro)"
+#
+# note that once this is set, `p4 set` will start writing data directly into this file. this also
+# happens when accessing a depot via ssl - an entry like `P4_ssl:<hostname>:1666_CHARSET=none` will
+# show up in this file. to keep server names out of here, move the key/value to a REG_SZ in
+# `Computer\HKEY_CURRENT_USER\Software\Perforce\Environment`
+
+P4CONFIG=.p4config
+P4IGNORE=.p4ignore
+P4USER=scobi
+
+P4ALIASES=C:/Users/scott/.config/p4/aliases
+P4EDITOR=C:/Users/scott/scoop/shims/micro.exe
+P4DIFF=C:/Users/scott/scoop/apps/beyondcompare/current/BComp.exe
+P4MERGE=C:/Users/scott/scoop/apps/beyondcompare/current/BCompP4Merge.bat
+P4TICKETS=C:/Users/scott/AppData/Local/.p4tickets

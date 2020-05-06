@@ -2,6 +2,5 @@
 #
 # mklinkf ~/.config/p4/ignore <path/to/p4/root>/.p4ignore
 
-.git
-.gitignore
+.git*
 .history
