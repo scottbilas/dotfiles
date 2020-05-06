@@ -20,7 +20,6 @@
     ],
     "breadcrumbs.enabled": true,
     "C_Cpp.default.compilerPath": "clang",
-    "csharp.referencesCodeLens.enabled": false,
     "cSpell.allowCompoundWords": true,
     "cSpell.ignoreRegExpList": [
         "[./]\\w+",       // things that look like filenames/paths/extensions
@@ -78,12 +77,10 @@
     "editor.cursorSurroundingLinesStyle": "all",
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
-    "editor.fontFamily": "FuraCode NF",
+    "editor.fontFamily": "JetBrains Mono",
     "editor.fontLigatures": true,
     "editor.fontSize": 13,
-    "editor.lineHeight": 16,
     "editor.lineNumbers": "off",
-    "editor.matchBrackets": false,
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 40,
     "editor.mouseWheelScrollSensitivity": 1,
@@ -145,15 +142,17 @@
         "hgrc-*": "ini",
         "config": "ini",
         "config-*": "ini",
+        "ignore": "gitignore"
         ".pylintrc": "ini",
         "*.asmdef": "json",
+        "*.asset": "yaml",
+        "*.buildsettings": "json",
         "*.linq": "csharp",
+        "*.log": "log",
         "*.ttinclude": "t4",
         "*.txt": "plaintext",
-        "*.asset": "yaml",
         "*.unity": "yaml",
         "*.vssettings": "xml",
-        "*.buildsettings": "json"
     },
     "files.autoSave": "off",
     "files.exclude": {
@@ -214,12 +213,14 @@
     "logFileHighlighter.customPatterns": [
         {
             "pattern": "error",
-            "foreground": "red"
+            "foreground": "#b40000",
+        },
+        {
+            "pattern": ".*error.*",
+            "background": "#3b0000",
         }
     ],
     "perforce.addOnFileCreate": true,
-    "perforce.annotate.enable": true,
-    "perforce.annotate.user": true,
     "perforce.deleteOnFileDelete": true,
     "perforce.editOnFileModified": true,
     //"powershell.developer.featureFlags": [ "PSReadLine" ],
