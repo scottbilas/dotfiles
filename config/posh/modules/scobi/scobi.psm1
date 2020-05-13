@@ -1,3 +1,6 @@
+set-strictmode -version latest
+$ErrorActionPreference = 'stop'
+
 $buildsEditorRoot = 'C:\builds\editor'
 
 function Get-UnityVersionFromProjectVersion($projectPath, [switch]$getHash) {
@@ -125,6 +128,7 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
 }
 
 function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [switch]$forceCustomBuild, [switch]$useGlobalLogPath, [switch]$whatif) {
+
     if ($null -eq $projectPath)
     {
         $paths = dir -r -filter:ProjectSettings | % parent
