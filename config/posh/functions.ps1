@@ -255,7 +255,7 @@ function Get-PSParentProcesses {
 
 function P4-Kill-BOMs($path = '...') {
     p4n files $path |
-        ?{ $_.type -eq 'text' } |
+        ?{ $_.type -eq 'text' -and $_.action -ne 'delete' } |
         %{ (p4n where $_.depotFile).path } |
         %{
             $bytes = [io.file]::ReadAllBytes($_)
