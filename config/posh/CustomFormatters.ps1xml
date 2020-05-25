@@ -12,9 +12,20 @@
             <CustomEntry>
                 <CustomItem>
                     <ExpressionBinding>
-                        <ScriptBlock>
-                            $_.tostring()
-                        </ScriptBlock>
+                        <ScriptBlock><![CDATA[
+                            $info = "`n" + $_.invocationinfo.positionmessage
+                            $trace = $_.scriptstacktrace
+
+                            # stack is just noise if it's a command line typo
+                            if ($trace -ne 'at <ScriptBlock>, <No file>: line 1') {
+                                $info += "`n" + $trace
+                            }
+                            # and skip printing the position message entirely if adds no value
+                            elseif ($info.startswith("`nAt line:1 char:1")) {
+                                $info = ''
+                            }
+                            $_.tostring() + ($info -replace '(?m)^', '    ')
+                        ]]></ScriptBlock>
                     </ExpressionBinding>
                 </CustomItem>
             </CustomEntry>
