@@ -81,9 +81,15 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     $version, $hash = Get-UnityVersionFromProjectVersion -getHash $projectPath
     $exePath = "$buildsEditorRoot\$version\unity.exe"
 
-    $exeVersion, $exeHash = Get-UnityVersionFromExe -getHash $exePath
-    if ($exeVersion -ne $version) {
-        throw "Unity at $exePath has version $exeVersion, but was expecting $version"
+    $exeVersion, $exeHash = $null, $null
+    if (test-path $exePath) {
+        $exeVersion, $exeHash = Get-UnityVersionFromExe -getHash $exePath
+        if ($exeVersion -ne $version) {
+            throw "Unity at $exePath has version $exeVersion, but was expecting $version"
+        }
+    }
+    else {
+        $exePath = $null
     }
 
     if ($forceCustomBuild -and $skipCustomBuild) {
@@ -91,11 +97,13 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     }
 
     $forcingCustomHash = $false
+    $foundCustomBuilds = @()
     if ($forceCustomBuild -or (!$skipCustomBuild -and $exeHash -ne $hash)) {
         foreach ($base in 'D:\work\unity', 'D:\work\unity2') {
             $customExe = join-path $base 'build\WindowsEditor\Unity.exe'
             if (test-path $customExe) {
                 $customVersion, $customHash = Get-UnityVersionFromExe -getHash $customExe
+                $foundCustomBuilds += $customVersion
                 if ($customVersion -eq $version) {
                     if ($customHash -eq $hash) {
                         write-warning "Substituting custom build found with matching version/hash $customVersion/$customHash ($customExe)"
@@ -115,7 +123,11 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
         }
     }
 
-    if (!$forcingCustomHash -and ($exeHash -ne $hash)) {
+    if ($forceCustomBuild -and !$exePath) {
+        throw "Cannot find either standard or custom build for version $version (found custom builds: $foundCustomBuilds)"
+    }
+
+    if (!$forcingCustomHash -and $exePath -and ($exeHash -ne $hash)) {
         write-warning "Found matching $exeVersion at $exePath, but unable to find exact hash $hash installed or in custom builds"
     }
 
