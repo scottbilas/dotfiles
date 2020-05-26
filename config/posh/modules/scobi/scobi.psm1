@@ -74,7 +74,22 @@ function Get-UnityBuildConfig($exePath) {
         return 'debug'
     }
 
-    throw 'Unexpected size for Unity exe, need to revise bounds'
+    throw "Unexpected size of $exePath, need to revise bounds"
+}
+
+function Get-MonoBuildConfig($dllPath) {
+    # same as unity, no info in VERSIONINFO i can use
+
+    $filesize = (dir $dllPath).length
+
+    if ($filesize -gt 4MB -and $filesize -lt 6MB) {
+        return 'release'
+    }
+    elseif ($filesize -gt 9MB -and $filesize -lt 11MB) {
+        return 'debug'
+    }
+
+    throw "Unexpected size for $dllPath, need to revise bounds"
 }
 
 function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$forceCustomBuild) {
@@ -106,7 +121,7 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
                 $foundCustomBuilds += $customVersion
                 if ($customVersion -eq $version) {
                     if ($customHash -eq $hash) {
-                        write-warning "Substituting custom build found with matching version/hash $customVersion/$customHash ($customExe)"
+                        write-warning "Substituting custom build found matching $customVersion/$customHash ($customExe)"
                         $exePath = $customExe
                         $exeHash = $customHash
                         break
@@ -123,8 +138,13 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
         }
     }
 
-    if ($forceCustomBuild -and !$exePath) {
-        throw "Cannot find either standard or custom build for version $version (found custom builds: $foundCustomBuilds)"
+    if (!$exePath) {
+        if ($skipCustomBuild) {
+            throw "Cannot find standard build for version $version"
+        }
+        else {
+            throw "Cannot find either standard or custom build for version $version (found custom builds: $foundCustomBuilds)"
+        }
     }
 
     if (!$forcingCustomHash -and $exePath -and ($exeHash -ne $hash)) {
@@ -133,7 +153,13 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
 
     $buildConfig = get-unitybuildconfig $exePath
     if ($buildConfig -ne 'release') {
-        write-warning "Running non-release build ($buildConfig) of Unity"
+        write-warning "Unity: running non-release build ($buildConfig) of $(split-path $exePath)"
+    }
+
+    $monoPath = join-path (split-path $exePath) 'Data/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll'
+    $buildConfig = get-monobuildconfig $monoPath
+    if ($buildConfig -ne 'release') {
+        write-warning "Mono: running non-release build ($buildConfig) of $(split-path $monoPath)"
     }
 
     $exePath
