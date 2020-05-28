@@ -165,7 +165,7 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     $exePath
 }
 
-function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [switch]$forceCustomBuild, [switch]$useGlobalLogPath, [switch]$whatif) {
+function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [switch]$forceCustomBuild, [switch]$useGlobalLogPath, [switch]$upmlogs, [switch]$whatif) {
 
     if ($null -eq $projectPath)
     {
@@ -194,6 +194,11 @@ function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [sw
         }
 
         $extra += '-logFile', $logFilename
+    }
+
+    if ($upmlogs) {
+        write-warning "Turning on extra debug logging for UPM (%LOCALAPPDATA%\Unity\Editor\upm.log)"
+        $extra += '-enablePackageManagerTraces'
     }
 
     # TODO: check to see if a unity already running for that path. either activate if identical to the one we want (and command line we want)
