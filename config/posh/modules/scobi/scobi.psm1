@@ -153,13 +153,13 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
 
     $buildConfig = get-unitybuildconfig $exePath
     if ($buildConfig -ne 'release') {
-        write-warning "Unity: running non-release build ($buildConfig) of $(split-path $exePath)"
+        write-warning "Unity: running non-release build ($buildConfig) of $(split-path -leaf $exePath)"
     }
 
     $monoPath = join-path (split-path $exePath) 'Data/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll'
     $buildConfig = get-monobuildconfig $monoPath
     if ($buildConfig -ne 'release') {
-        write-warning "Mono: running non-release build ($buildConfig) of $(split-path $monoPath)"
+        write-warning "Mono: running non-release build ($buildConfig) of $(split-path -leaf $monoPath)"
     }
 
     $exePath
