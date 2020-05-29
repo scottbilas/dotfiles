@@ -209,12 +209,15 @@ function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [sw
     }
     else {
         $oldMixed = $Env:UNITY_MIXED_CALLSTACK
+        $oldExtLog = $Env:UNITY_EXT_LOGGING
         try {
             $Env:UNITY_MIXED_CALLSTACK = 1
+            $Env:UNITY_EXT_LOGGING = 1
             & (Get-UnityForProject $projectPath -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra
         }
         finally {
             $Env:UNITY_MIXED_CALLSTACK = $oldMixed
+            $Env:UNITY_EXT_LOGGING = $oldExtLog
         }
     }
 }
