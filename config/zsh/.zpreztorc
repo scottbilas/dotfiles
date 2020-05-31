@@ -34,7 +34,8 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 zstyle ':prezto:module:editor' ps-context 'yes'
 zstyle ':prezto:module:editor:info:completing' format '...'
 
-zstyle ':prezto:module:tmux:auto-start' local 'yes'
+# auto-start gives me a signal 35 from zsh, haven't looked into it
+#zstyle ':prezto:module:tmux:auto-start' local 'yes'
 zstyle ':prezto:module:tmux:session' name 'main'
 
 zstyle ':prezto:module:prompt' theme 'powerlevel10k'
