@@ -1,1 +1,12 @@
+# Setup:
+#
+# cp ~/dotfiles/special/ssh/config ~/.ssh/
+#
+# termux..
+#  cp ~/dotfiles/private/ssh/config-unity ~/.ssh/
+#
+# others..
+#  change first Include to `~/dotfiles/private/ssh/config-unity`
+
+Include config-unity
 Include ~/.config/ssh/config
