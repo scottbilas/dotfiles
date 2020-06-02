@@ -25,6 +25,7 @@ set-alias more less
 
 set-alias g git
 set-alias m micro
+set-alias lg lazygit
 
 set-alias unity Run-UnityForProject
 
