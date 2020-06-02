@@ -142,7 +142,7 @@
         "hgrc-*": "ini",
         "config": "ini",
         "config-*": "ini",
-        "ignore": "gitignore"
+        "ignore": "gitignore",
         ".pylintrc": "ini",
         "*.asmdef": "json",
         "*.asset": "yaml",
@@ -248,6 +248,7 @@
     ],
     "ttProcessor.TTPath": "C:\\Users\\scott\\.dotnet\\tools\\t4.exe",
     "vsicons.dontShowNewVersionMessage": true,
+    "window.autoDetectColorScheme": true,
     "window.menuBarVisibility": "toggle",
     "window.newWindowDimensions": "inherit",
     "window.restoreFullscreen": true,
@@ -257,6 +258,7 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
     },
+    "workbench.colorTheme": "Default Light+",
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile"
