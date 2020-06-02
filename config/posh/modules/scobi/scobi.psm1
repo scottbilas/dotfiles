@@ -114,9 +114,10 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     $forcingCustomHash = $false
     $foundCustomBuilds = @()
     if ($forceCustomBuild -or (!$skipCustomBuild -and $exeHash -ne $hash)) {
-        foreach ($base in 'D:\work\unity', 'D:\work\unity2') {
-            $customExe = join-path $base 'build\WindowsEditor\Unity.exe'
+        foreach ($base in 'D:\work\unity\build\WindowsEditor', 'D:\work\unity2\build\WindowsEditor', "$projectPath\..\Unity\Editor") {
+            $customExe = join-path $base 'Unity.exe'
             if (test-path $customExe) {
+                $customExe = resolve-path $customExe
                 $customVersion, $customHash = Get-UnityVersionFromExe -getHash $customExe
                 $foundCustomBuilds += $customVersion
                 if ($customVersion -eq $version) {
@@ -142,8 +143,11 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
         if ($skipCustomBuild) {
             throw "Cannot find standard build for version $version"
         }
-        else {
+        elseif ($foundCustomBuilds) {
             throw "Cannot find either standard or custom build for version $version (found custom builds: $foundCustomBuilds)"
+        }
+        else {
+            throw "Cannot find either standard or custom build for version $version"
         }
     }
 
