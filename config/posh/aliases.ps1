@@ -44,6 +44,7 @@ function ~ { cd ~ }
 # https://stackoverflow.com/a/1663623/14582
 
 function free {gdr -psp 'FileSystem'}
+function dotf {code (resolve-path ~/dotfiles/dotfiles.code-workspace)}
 
 # this resets conemu to start printing ansi colors again (https://conemu.github.io/en/AnsiEscapeCodes.html#Example_3_scroll_console_to_bottom)
 nuke-alias cls
