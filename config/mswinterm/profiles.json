@@ -26,7 +26,7 @@
     "profiles": {
         "defaults":
         {
-            "fontFace": "DelugiaCode NF",
+            "fontFace": "FuraCode NF",
             "fontSize": 10,
             "colorScheme": "One Half Dark"
         },
