@@ -253,6 +253,47 @@ function Scobi-Do {
 }
 #>
 
+#$path = '$env:APPDATA\UnityHub\logs\info-log.json'
+
+function Tail-Json($path, $timestampField = 'timestamp', [switch]$skipToEnd) {
+
+    $lastRead = 0
+    if ($skipToEnd) {
+        $lastRead = (dir $path -ea:continue).Length
+    }
+
+    for (;;) {
+        for (;;) {
+            try {
+                $len = (dir $path -ea:stop).Length
+                if ($len -ne $lastRead) {
+                    sleep -seconds 1
+                    if ((dir $path -ea:stop).Length -eq $len) {
+                        break;
+                    }
+                }
+            }
+            catch { $lastRead = 0 }
+            sleep -seconds 1
+        }
+
+        try {
+            $file = new io.filestream($path, 'open', 'read', 'readwrite,delete')
+            $file.seek($lastRead, 'begin') >$null
+            $reader = new io.streamreader($file)
+            for (;;) {
+                $json = $reader.readline()
+                $lastRead = $file.position
+                if (!$json) { break }
+                $json | convertfrom-json | %{ "$([datetime]($_.$timestampField)) $($_.message)" }
+            }
+        }
+        finally {
+            $file.dispose()
+        }
+    }
+}
+
 Export-ModuleMember Get-UnityVersionFromProjectVersion
 Export-ModuleMember Get-UnityVersionFromExe
 Export-ModuleMember Get-UnityForProject
@@ -263,3 +304,5 @@ Export-ModuleMember Install-UnityForProject
 
 #Export-ModuleMember Open-UnityProject
 #Export-ModuleMember Scobi-Do
+
+Export-ModuleMember Tail-Json
