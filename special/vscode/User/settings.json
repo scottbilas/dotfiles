@@ -71,6 +71,7 @@
         "untracked",
         "xplat"
     ],
+    "diffEditor.renderSideBySide": true,
     "editor.cursorBlinking": "phase",
     "editor.cursorSmoothCaretAnimation": true,
     "editor.cursorSurroundingLines": 5,
@@ -138,10 +139,10 @@
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
     "files.associations": {
-        "hgrc": "ini",
-        "hgrc-*": "ini",
-        "config": "ini",
         "config-*": "ini",
+        "config": "ini",
+        "hgrc-*": "ini",
+        "hgrc": "ini",
         "ignore": "gitignore",
         ".pylintrc": "ini",
         "*.asmdef": "json",
@@ -149,10 +150,13 @@
         "*.buildsettings": "json",
         "*.linq": "csharp",
         "*.log": "log",
+        "*.meta": "yaml",
+        "*.prefab": "yaml",
         "*.ttinclude": "t4",
         "*.txt": "plaintext",
         "*.unity": "yaml",
-        "*.vssettings": "xml",
+        "*.uxml": "xml",
+        "*.vssettings": "xml"
     },
     "files.autoSave": "off",
     "files.exclude": {
@@ -258,7 +262,6 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
     },
-    "workbench.colorTheme": "Default Light+",
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile"
