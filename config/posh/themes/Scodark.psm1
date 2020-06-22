@@ -40,7 +40,7 @@ function Write-Theme {
     $computer = [System.Environment]::MachineName.tolower()
     $computer += " $([char]0xf17a)"
 
-    $path = Get-FullPath -dir $pwd
+    $fullPath = $path = Get-FullPath -dir $pwd
 
     $whoisFgColor = $sl.Colors.SessionInfoForegroundColor
     $whoisBgColor = $sl.Colors.SessionInfoBackgroundColor
@@ -137,7 +137,8 @@ function Write-Theme {
     }
 
     #check for elevated prompt
-    If (Test-Administrator) {
+    $isAdmin = test-administrator
+    If ($isAdmin) {
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.ElevatedSymbol) " -ForegroundColor $sl.Colors.AdminIconForegroundColor -BackgroundColor $sl.Colors.SessionInfoBackgroundColor
     }
 
@@ -148,7 +149,25 @@ function Write-Theme {
     $prompt += ' '
     $prompt
 
-    $Host.UI.RawUI.WindowTitle = (format-ellipsis $pwd.path 30)
+    if ($status) {
+        # main: gitdir = <reponame>/.git
+        # worktree: gitdir = <main>/.git/worktrees/<reponame>
+        $repoName = $status.gitdir
+        if ((split-path -leaf $repoName) -eq '.git') {
+            $repoName = split-path $repoName
+        }
+        $repoName = split-path -leaf $repoName
+
+        $windowTitle = "$repoName [$($status.Branch)]"
+    }
+    else {
+        $windowTitle = format-ellipsis $fullPath 30
+    }
+
+    if ($isAdmin) {
+        $windowTitle = "$($sl.PromptSymbols.ElevatedSymbol) $windowTitle"
+    }
+    $Host.UI.RawUI.WindowTitle = $windowTitle
 }
 
 # IMPORTANT: this is all assuming the "One Dark" theme (via https://github.com/lukesampson/concfg)
