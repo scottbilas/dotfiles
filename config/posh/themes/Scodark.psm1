@@ -149,11 +149,20 @@ function Write-Theme {
     $prompt += ' '
     $prompt
 
-    if ($status) {
+    if ($status.gitdir) {
         # main: gitdir = <reponame>/.git
         # worktree: gitdir = <main>/.git/worktrees/<reponame>
         $repoName = $status.gitdir
         if ((split-path -leaf $repoName) -eq '.git') {
+            $repoName = split-path $repoName
+        }
+        $repoName = split-path -leaf $repoName
+
+        $windowTitle = "$repoName [$($status.Branch)]"
+    }
+    elseif ($status.hgdir) {
+        $repoName = $status.hgdir
+        if ((split-path -leaf $repoName) -eq '.hg') {
             $repoName = split-path $repoName
         }
         $repoName = split-path -leaf $repoName
