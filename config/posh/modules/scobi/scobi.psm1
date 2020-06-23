@@ -114,7 +114,8 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     $forcingCustomHash = $false
     $foundCustomBuilds = @()
     if ($forceCustomBuild -or (!$skipCustomBuild -and $exeHash -ne $hash)) {
-        foreach ($base in 'D:\work\unity\build\WindowsEditor', 'D:\work\unity2\build\WindowsEditor', "$projectPath\..\Unity\Editor") {
+        $built = 'c:', 'd:' | %{ dir "$_\work\unity*" } | ?{ $_ -match 'unity\d*$' } | %{ "$_\build\WindowsEditor" }
+        foreach ($base in $built, "$projectPath\..\Unity\Editor") {
             $customExe = join-path $base 'Unity.exe'
             if (test-path $customExe) {
                 $customExe = resolve-path $customExe
