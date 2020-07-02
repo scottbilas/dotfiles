@@ -1,4 +1,7 @@
 {
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
     "[markdown]": {
         "editor.tabSize": 2
     },
@@ -144,6 +147,7 @@
         "hgrc-*": "ini",
         "hgrc": "ini",
         "ignore": "gitignore",
+        ".hgignore": "gitignore",
         ".pylintrc": "ini",
         "*.asmdef": "json",
         "*.asset": "yaml",

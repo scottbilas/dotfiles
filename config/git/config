@@ -107,7 +107,7 @@
 [merge]
     stat = true
     tool = vimdiff3
-    renamelimit = 10000
+    renamelimit = 50000
 
 [mergetool "vimdiff3"]
 ;    path = nvim
