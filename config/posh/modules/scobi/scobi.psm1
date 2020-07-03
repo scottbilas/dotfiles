@@ -28,11 +28,17 @@ function Get-UnityVersionFromExe($exePath, [switch]$getHash) {
         throw "No Unity found at $exePath"
     }
 
-    if ($getHash) {
-        $version = (dir $exePath).versioninfo.comments -match '(\S+) \((\S+)\)' | %{ $Matches[1], $Matches[2] }
+    $comments = (dir $exePath).versioninfo.comments
+    if ($comments) {
+        if ($getHash) {
+            $version = $comments -match '(\S+) \((\S+)\)' | %{ $Matches[1], $Matches[2] }
+        }
+        else {
+            $version = $comments -match '\S+' | %{ $Matches[0] }
+        }
     }
     else {
-        $version = (dir $exePath).versioninfo.comments -match '\S+' | %{ $Matches[0] }
+        throw "Unity at $exePath has unexpected VERSIONINFO contents (missing 'Comments' field)"
     }
 
     if (!$version) {
@@ -92,63 +98,87 @@ function Get-MonoBuildConfig($dllPath) {
     throw "Unexpected size for $dllPath, need to revise bounds"
 }
 
-function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$forceCustomBuild) {
-    $version, $hash = Get-UnityVersionFromProjectVersion -getHash $projectPath
-    $exePath = "$buildsEditorRoot\$version\unity.exe"
+function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$forceCustomBuild, $customBuild = $null) {
 
-    $exeVersion, $exeHash = $null, $null
-    if (test-path $exePath) {
+    $version, $hash = Get-UnityVersionFromProjectVersion -getHash $projectPath
+    $forcingCustomHash = $false
+
+    if ($customBuild) {
+        if (!(test-path $customBuild)) {
+            throw "Cannot find custom build given '$customBuild'"
+        }
+        if ((split-path -leaf $customBuild) -ne 'unity.exe') {
+            $customBuild = join-path $customBuild 'unity.exe'
+            if (!(test-path $customBuild)) {
+                $customBuild = join-path $customBuild 'build/windowseditor/unity.exe'
+            }
+        }
+        $exePath = resolve-path $customBuild
+        if (!(test-path $exePath)) {
+            throw "Cannot find custom build given '$exePath'"
+        }
         $exeVersion, $exeHash = Get-UnityVersionFromExe -getHash $exePath
-        if ($exeVersion -ne $version) {
-            throw "Unity at $exePath has version $exeVersion, but was expecting $version"
+
+        if ($skipCustomBuild) {
+            throw "Wat you cannot give custom build and also skip it"
         }
     }
     else {
-        $exePath = $null
-    }
+        $exePath = "$buildsEditorRoot\$version\unity.exe"
 
-    if ($forceCustomBuild -and $skipCustomBuild) {
-        throw "Wat you cannot force and skip"
-    }
-
-    $forcingCustomHash = $false
-    $foundCustomBuilds = @()
-    if ($forceCustomBuild -or (!$skipCustomBuild -and $exeHash -ne $hash)) {
-        $built = 'c:', 'd:' | %{ dir "$_\work\unity*" -ea:silent } | ?{ $_ -match 'unity\d*$' } | %{ "$_\build\WindowsEditor" }
-        foreach ($base in $built + "$projectPath\..\Unity\Editor") {
-            $customExe = join-path $base 'Unity.exe'
-            if (test-path $customExe) {
-                $customExe = resolve-path $customExe
-                $customVersion, $customHash = Get-UnityVersionFromExe -getHash $customExe
-                $foundCustomBuilds += "$customVersion.$customHash"
-                if ($customVersion -eq $version) {
-                    if ($customHash -eq $hash) {
-                        write-warning "Substituting custom build found matching $customVersion/$customHash ($customExe)"
-                        $exePath = $customExe
-                        $exeHash = $customHash
-                        break
-                    }
-                    elseif ($forceCustomBuild) {
-                        write-warning "(forceCustomBuild=true) Substituting custom build found with same version but different hash $customVersion/$customHash ($customExe)"
-                        $exePath = $customExe
-                        $exeHash = $customHash
-                        $forcingCustomHash = $true
-                        break
+        $exeVersion, $exeHash = $null, $null
+        if (test-path $exePath) {
+            $exeVersion, $exeHash = Get-UnityVersionFromExe -getHash $exePath
+            if ($exeVersion -ne $version) {
+                throw "Unity at $exePath has version $exeVersion, but was expecting $version"
+            }
+        }
+        else {
+            $exePath = $null
+        }
+    
+        if ($forceCustomBuild -and $skipCustomBuild) {
+            throw "Wat you cannot force and skip"
+        }
+    
+        $foundCustomBuilds = @()
+        if ($forceCustomBuild -or (!$skipCustomBuild -and $exeHash -ne $hash)) {
+            $built = 'c:', 'd:' | %{ dir "$_\work\unity*" -ea:silent } | ?{ $_ -match 'unity\d*$' } | %{ "$_\build\WindowsEditor" }
+            foreach ($base in $built + "$projectPath\..\Unity\Editor") {
+                $customExe = join-path $base 'Unity.exe'
+                if (test-path $customExe) {
+                    $customExe = resolve-path $customExe
+                    $customVersion, $customHash = Get-UnityVersionFromExe -getHash $customExe
+                    $foundCustomBuilds += "$customVersion.$customHash"
+                    if ($customVersion -eq $version) {
+                        if ($customHash -eq $hash) {
+                            write-warning "Substituting custom build found matching $customVersion/$customHash ($customExe)"
+                            $exePath = $customExe
+                            $exeHash = $customHash
+                            break
+                        }
+                        elseif ($forceCustomBuild) {
+                            write-warning "(forceCustomBuild=true) Substituting custom build found with same version but different hash $customVersion/$customHash ($customExe)"
+                            $exePath = $customExe
+                            $exeHash = $customHash
+                            $forcingCustomHash = $true
+                            break
+                        }
                     }
                 }
             }
         }
-    }
-
-    if (!$exePath) {
-        if ($skipCustomBuild) {
-            throw "Cannot find standard build for version $version.$hash"
-        }
-        elseif ($foundCustomBuilds) {
-            throw "Cannot find either standard or custom build for version $version.$hash (found custom builds: $foundCustomBuilds)"
-        }
-        else {
-            throw "Cannot find either standard or custom build for version $version.$hash"
+    
+        if (!$exePath) {
+            if ($skipCustomBuild) {
+                throw "Cannot find standard build for version $version.$hash"
+            }
+            elseif ($foundCustomBuilds) {
+                throw "Cannot find either standard or custom build for version $version.$hash (found custom builds: $foundCustomBuilds)"
+            }
+            else {
+                throw "Cannot find either standard or custom build for version $version.$hash"
+            }
         }
     }
 
@@ -170,7 +200,7 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     $exePath
 }
 
-function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [switch]$forceCustomBuild, [switch]$useGlobalLogPath, [switch]$upmlogs, [switch]$whatif) {
+function Run-UnityForProject($projectPath = $null, $customBuild = $null, [switch]$skipCustomBuild, [switch]$forceCustomBuild, [switch]$useGlobalLogPath, [switch]$upmlogs, [switch]$whatif) {
 
     if ($null -eq $projectPath)
     {
@@ -210,7 +240,7 @@ function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [sw
     # or abort if different with warnings.
 
     if ($whatif) {
-        echo "$(Get-UnityForProject $projectPath -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra"
+        echo "$(Get-UnityForProject -projectPath:$projectPath -customBuild:$customBuild -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra"
     }
     else {
         $oldMixed = $Env:UNITY_MIXED_CALLSTACK
@@ -218,7 +248,7 @@ function Run-UnityForProject($projectPath = $null, [switch]$skipCustomBuild, [sw
         try {
             $Env:UNITY_MIXED_CALLSTACK = 1
             $Env:UNITY_EXT_LOGGING = 1
-            & (Get-UnityForProject $projectPath -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra
+            & (Get-UnityForProject -projectPath:$projectPath -customBuild:$customBuild -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra
         }
         finally {
             $Env:UNITY_MIXED_CALLSTACK = $oldMixed
