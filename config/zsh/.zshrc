@@ -88,6 +88,7 @@ path=(
   ~/.local/bin
   $GOPATH/bin
   ~/extern/dasht/bin
+  ~/.poetry/bin
 )
 
 #####
