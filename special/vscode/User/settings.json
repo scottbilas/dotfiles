@@ -1,3 +1,6 @@
+// setup:
+//
+// mklinkd -link ~\scoop\persist\vscode-portable\data\user-data\User ~\dotfiles\special\vscode\User
 {
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
@@ -81,7 +84,7 @@
     "editor.cursorSurroundingLinesStyle": "all",
     "editor.dragAndDrop": true,
     "editor.foldingStrategy": "indentation",
-    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontFamily": "JetBrainsMono NF",
     "editor.fontLigatures": true,
     "editor.fontSize": 13,
     "editor.lineNumbers": "off",
@@ -266,6 +269,7 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
     },
+    "workbench.iconTheme": "vscode-icons",
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile"
