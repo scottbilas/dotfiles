@@ -1,18 +1,14 @@
 // setup:
-//   $l = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\profiles.json"
+//   $l = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 //   del $l
-//   mklinkf -link $l -file '~\.config\mswinterm\profiles.json'
+//   mklinkf -link $l -file '~\.config\mswinterm\settings.json'
 // docs: https://aka.ms/terminal-documentation
 // defaults: hold "alt" while clicking on the "Settings" button
 
 // note that terminal will not look through a symlink to detect changes, so any updates to this json will require restarting the app
 // workaround:
 /*
-    $l, $f = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\profiles.json", '~\.config\mswinterm\profiles.json'
-    del $l
-    copy $f $l
-
-    copy $l $f
+    $l, $f = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json", '~\.config\mswinterm\settings.json'
     del $l
     mklinkf -link $l -file $f
 */
@@ -26,6 +22,7 @@
     "profiles": {
         "defaults":
         {
+            "historySize": 100000,
             "fontFace": "FuraCode NF",
             "fontSize": 10,
             "colorScheme": "One Half Dark"
