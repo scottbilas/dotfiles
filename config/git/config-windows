@@ -30,7 +30,7 @@
     tool = bc
     prompt = false
 [mergetool "bc"]
-    path = ~/scoop/apps/beyondcompare/current/BComp.exe
+    path = c:/users/scott/scoop/apps/beyondcompare/current/BComp.exe
 [credential]
 	helper = manager
 
