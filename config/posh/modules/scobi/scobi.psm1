@@ -107,13 +107,14 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
         if (!(test-path $customBuild)) {
             throw "Cannot find custom build given '$customBuild'"
         }
-        if ((split-path -leaf $customBuild) -ne 'unity.exe') {
-            $customBuild = join-path $customBuild 'unity.exe'
-            if (!(test-path $customBuild)) {
-                $customBuild = join-path $customBuild 'build/windowseditor/unity.exe'
+        $customExePath = $customBuild
+        if ((split-path -leaf $customExePath) -ne 'unity.exe') {
+            $customExePath = join-path $customBuild 'unity.exe'
+            if (!(test-path $customExePath)) {
+                $customExePath = join-path $customBuild 'build/windowseditor/unity.exe'
             }
         }
-        $exePath = resolve-path $customBuild
+        $exePath = resolve-path $customExePath
         if (!(test-path $exePath)) {
             throw "Cannot find custom build given '$exePath'"
         }
