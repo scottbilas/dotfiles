@@ -24,7 +24,7 @@ style = ~/unity-meta/Configs/Mercurial/unity-color.hgstyle
 # ----------
 # EXTENSIONS
 
-%include ~/unity-meta/Configs/Mercurial/format.inc.ini
+#%include ~/unity-meta/Configs/Mercurial/format.inc.ini
 [hgunity]
 update-channel = .
 
