@@ -76,10 +76,10 @@ function Write-Theme {
             if (test-path $configpath) {
                 $gitconfig = parse-inifile $configpath
                 $originurl = $gitconfig.'remote "origin"'.url
-                if ($originurl | ss github) {
+                if ($originurl | select-string github) {
                     $prompt += write-segment " $([char]0xf113) " $sl.Colors.GitForegroundColor $themeInfo.BackgroundColor
                 }
-                elseif ($originurl | ss gitlab) {
+                elseif ($originurl | select-string gitlab) {
                     $prompt += write-segment " $([char]0xf296) " $sl.Colors.GitForegroundColor $themeInfo.BackgroundColor
                 }
             }
