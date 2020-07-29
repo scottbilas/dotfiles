@@ -28,6 +28,7 @@ set-alias m micro
 set-alias lg lazygit
 
 set-alias unity Run-UnityForProject
+set-alias unity-build C:\p4\_User\scobi\ShellScripts\unity-build.ps1
 
 function l {
     if ($ProfileVars.IsConsoleHost) {
