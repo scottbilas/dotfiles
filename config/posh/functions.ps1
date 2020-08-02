@@ -267,3 +267,15 @@ function P4-Kill-BOMs($path = '...') {
             }
         }
 }
+
+function Git-Kill-BOMs($pattern, [switch]$whatif) {
+    git ls-files $pattern | %{ resolve-path $_ } | %{
+        $bytes = [io.file]::ReadAllBytes($_)
+        if (!(compare $bytes[0..2] 0xEF,0xBB,0xBF)) {
+            write-host "BOM in $_"
+            if (!$whatif) {
+                [io.file]::WriteAllBytes($_, $bytes[3..$bytes.length])
+            }
+        }
+    }
+}
