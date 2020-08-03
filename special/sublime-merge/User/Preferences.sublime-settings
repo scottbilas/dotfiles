@@ -1,0 +1,11 @@
+{
+	"font_face": "FuraCode NF",
+	"font_size": 9,
+	"translate_tabs_to_spaces": true,
+	"theme": "Merge Dark.sublime-theme",
+	"diff_style": "auto",
+	"hardware_acceleration": "none",
+	"hide_menu": true,
+	"ignore_diff_white_space": true,
+	"side_bar_layout": "tabs",
+}
