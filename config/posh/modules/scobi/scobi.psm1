@@ -137,11 +137,11 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
         else {
             $exePath = $null
         }
-    
+
         if ($forceCustomBuild -and $skipCustomBuild) {
             throw "Wat you cannot force and skip"
         }
-    
+
         $foundCustomBuilds = @()
         if ($forceCustomBuild -or (!$skipCustomBuild -and $exeHash -ne $hash)) {
             $built = 'c:', 'd:' | %{ dir "$_\work\unity*" -ea:silent } | ?{ $_ -match 'unity\d*$' } | %{ "$_\build\WindowsEditor" }
@@ -169,7 +169,7 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
                 }
             }
         }
-    
+
         if (!$exePath) {
             if ($skipCustomBuild) {
                 throw "Cannot find standard build for version $version.$hash"
@@ -201,7 +201,15 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     $exePath
 }
 
-function Run-UnityForProject($projectPath = $null, $customBuild = $null, [switch]$skipCustomBuild, [switch]$forceCustomBuild, [switch]$useGlobalLogPath, [switch]$upmlogs, [switch]$whatif) {
+function Run-UnityForProject(
+    $projectPath = $null,
+    $customBuild = $null,
+    [switch]$skipCustomBuild,
+    [switch]$forceCustomBuild,
+    [switch]$useGlobalLogPath,
+    [switch]$attachDebugger,
+    [switch]$upmlogs,
+    [switch]$whatif) {
 
     if ($null -eq $projectPath)
     {
@@ -246,14 +254,19 @@ function Run-UnityForProject($projectPath = $null, $customBuild = $null, [switch
     else {
         $oldMixed = $Env:UNITY_MIXED_CALLSTACK
         $oldExtLog = $Env:UNITY_EXT_LOGGING
+        $oldAttach = $Env:UNITY_GIVE_CHANCE_TO_ATTACH_DEBUGGER
         try {
             $Env:UNITY_MIXED_CALLSTACK = 1
             $Env:UNITY_EXT_LOGGING = 1
+            if ($attachDebugger) {
+                $Env:UNITY_GIVE_CHANCE_TO_ATTACH_DEBUGGER = 1
+            }
             & (Get-UnityForProject -projectPath:$projectPath -customBuild:$customBuild -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra
         }
         finally {
             $Env:UNITY_MIXED_CALLSTACK = $oldMixed
             $Env:UNITY_EXT_LOGGING = $oldExtLog
+            $Env:UNITY_GIVE_CHANCE_TO_ATTACH_DEBUGGER = $oldAttach
         }
     }
 }
