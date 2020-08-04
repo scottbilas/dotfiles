@@ -41,6 +41,12 @@
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure"
+            },
+            {
+                "guid": "{6e9fa4d2-a4aa-562d-b1fa-0789dc1f83d7}",
+                "hidden": false,
+                "name": "Legacy",
+                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
