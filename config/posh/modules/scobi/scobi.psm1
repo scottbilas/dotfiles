@@ -55,7 +55,7 @@ function Install-Unity($version, [switch]$minimal, $intoRoot = $buildsEditorRoot
             unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor --wait
         }
         else {
-            unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-Mono -c StandaloneSupport-IL2CPP -c Symbols --wait
+            unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-IL2CPP -c Symbols --wait
         }
         # nuke the stripped symbols so vs doesn't use by accident
         del $intoRoot\$_\*.pdb
