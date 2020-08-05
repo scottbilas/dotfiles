@@ -254,14 +254,15 @@ function Get-PSParentProcesses {
 }
 
 function P4-Kill-BOMs($path = '...') {
-    $files = @(p4n files $path)
+    $files = @(p4n files -e $path)
     $files += @(p4n opened $path)
     $files |
-        ?{ $_.type -eq 'text' -and $_.action -ne 'delete' } |
-        %{ (p4n where $_.depotFile).path } |
+        ?{ $_.type -eq 'text' } |
+        %{ @(p4n where $_.depotFile | ?{ $_.unmap -ne 'true'})[-1].path } |
         %{
             $bytes = [io.file]::ReadAllBytes($_)
             if (!(compare $bytes[0..2] 0xEF,0xBB,0xBF)) {
+                write-host "Removing utf8 BOM in $_"
                 p4 edit $_
                 [io.file]::WriteAllBytes($_, $bytes[3..$bytes.length])
             }
@@ -272,7 +273,7 @@ function Git-Kill-BOMs($pattern, [switch]$whatif) {
     git ls-files $pattern | %{ resolve-path $_ } | %{
         $bytes = [io.file]::ReadAllBytes($_)
         if (!(compare $bytes[0..2] 0xEF,0xBB,0xBF)) {
-            write-host "BOM in $_"
+            write-host "Removing utf8 BOM in $_"
             if (!$whatif) {
                 [io.file]::WriteAllBytes($_, $bytes[3..$bytes.length])
             }
