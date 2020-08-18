@@ -201,15 +201,25 @@ function Get-UnityForProject($projectPath, [switch]$skipCustomBuild, [switch]$fo
     $exePath
 }
 
-function Run-UnityForProject(
-    $projectPath = $null,
-    $customBuild = $null,
-    [switch]$skipCustomBuild,
-    [switch]$forceCustomBuild,
-    [switch]$useGlobalLogPath,
-    [switch]$attachDebugger,
-    [switch]$upmlogs,
-    [switch]$whatif) {
+function Run-UnityForProject {
+
+    [CmdletBinding(SupportsShouldProcess)]
+    param (
+        $projectPath = $null,
+        $customBuild = $null,
+        [switch]$skipCustomBuild,
+        [switch]$forceCustomBuild,
+        [switch]$useGlobalLogPath,
+        [switch]$attachDebugger,
+        [switch]$upmlogs
+    )
+
+    Set-StrictMode -Version Latest
+    $ErrorActionPreference = 'stop'
+
+    $commonParams = @{}
+    $commonParams.Add('WhatIf', $WhatIfPreference)
+    $commonParams.Add('Confirm', 'confirm' -in $PSBoundParameters.Keys) # Confirm defaults to 'High', we want arg
 
     if ($null -eq $projectPath)
     {
@@ -229,12 +239,27 @@ function Run-UnityForProject(
     $extra = @()
     if (!$useGlobalLogPath) {
         $logPath = Join-Path $projectPath Logs
-        $logFilename = Join-Path $logPath "$(split-path -leaf $projectPath)-Editor.log"
+        $logProject = Split-Path -leaf $projectPath
+
+        $logFilename = Join-Path $logPath "$logProject-editor.log"
         $logFile = Get-ChildItem $logFilename -ea:silent
+
         if ($logFile) {
-            $target = Join-Path $logPath ("Editor_{0:yyyyMMdd_HHMMss}.log" -f $logFile.LastWriteTime)
+            $targetBase = Join-Path $logPath ("$logProject-editor_{0:yyyyMMdd_HHMMss}" -f $logFile.LastWriteTime)
+
+            $target = "$targetBase.log"
             Write-Verbose "Copying $logFile to $target"
-            Copy-Item $logFile $target
+            Copy-Item $logFile $target @commonParams
+
+            $unhappyFilename = [IO.Path]::ChangeExtension($logFilename, "unhappy.jsonl")
+            $unhappyFile = Get-ChildItem $unhappyFilename -ea:silent
+    
+            if ($unhappyFile) {
+                $target = "$targetBase.unhappy.jsonl"
+                Write-Verbose "Copying $unhappyFile to $target"
+                Copy-Item $unhappyFile $target @commonParams
+            }
+    
         }
 
         $extra += '-logFile', $logFilename
@@ -248,10 +273,8 @@ function Run-UnityForProject(
     # TODO: check to see if a unity already running for that path. either activate if identical to the one we want (and command line we want)
     # or abort if different with warnings.
 
-    if ($whatif) {
-        echo "$(Get-UnityForProject -projectPath:$projectPath -customBuild:$customBuild -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra"
-    }
-    else {
+    $unity = Get-UnityForProject -projectPath:$projectPath -customBuild:$customBuild -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild
+    if ($PSCmdlet.ShouldProcess("$unity -projectPath $projectPath $extra", "Running Unity")) {
         $oldMixed = $Env:UNITY_MIXED_CALLSTACK
         $oldExtLog = $Env:UNITY_EXT_LOGGING
         $oldAttach = $Env:UNITY_GIVE_CHANCE_TO_ATTACH_DEBUGGER
@@ -261,7 +284,7 @@ function Run-UnityForProject(
             if ($attachDebugger) {
                 $Env:UNITY_GIVE_CHANCE_TO_ATTACH_DEBUGGER = 1
             }
-            & (Get-UnityForProject -projectPath:$projectPath -customBuild:$customBuild -skipCustomBuild:$skipCustomBuild -forceCustomBuild:$forceCustomBuild) -projectPath $projectPath $extra
+            & $unity -projectPath $projectPath $extra
         }
         finally {
             $Env:UNITY_MIXED_CALLSTACK = $oldMixed
