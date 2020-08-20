@@ -28,8 +28,13 @@
     st = status
 
     p = pull --ff-only
+
+    # "pull head" - automates `git pull <tracking remote> <current branch name>` so can get current on latest branch without pulling a whole (or the wrong) remote
+    ph = "!f() { set -e; set -o pipefail; arr=($(git rev-parse --abbrev-ref @{u} | sed 's/\\//\\n/')); git pull ${arr[0]} ${arr[1]}; }; f"
+    # get current while migrating current work
     prs = pull --rebase --autostash
-    ppush = !git prs && git push
+    # pull before pushing
+    sync = !git prs && git push
 
     outgoing = !git fetch && git l FETCH_HEAD..
     incoming = !git fetch && git l ..FETCH_HEAD
