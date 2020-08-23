@@ -58,7 +58,8 @@ function cls {
     }
 }
 
-if ((which powerping)) {
+# TODO: make this a function
+which powerping 2>&1 | out-null; if (!$lastexitcode) {
     set-alias ping powerping
 }
 
