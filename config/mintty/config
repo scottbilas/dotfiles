@@ -1,6 +1,6 @@
 BoldAsFont=yes
 Transparency=off
-Font=DejaVuSansMonoForPowerline Nerd
+Font=JetBrainsMono NF
 FontHeight=10
 Columns=140
 Rows=50
