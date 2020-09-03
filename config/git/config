@@ -126,6 +126,9 @@
 [rebase]
     autosquash = true
 
+[rerere]
+    enabled = true
+
 [submodule]
     fetchJobs = 4
     # this is convenient, but causes way too many problems
