@@ -11,17 +11,27 @@ Gui, 99:Destroy
 return
 
 #IfWinExist, Capslock Is Down
+
 ; vimish
 h::Left
 j::Down
 k::Up
 l::Right
-; could try to be vimish on these, but can't really do $ with left pinky already on capslock
+; could try to be vimish on these, but can't really do $ ctrl-b etc. with left pinky already on capslock
 u::Home
 m::End
 i::PgUp
 ,::PgDn
 BackSpace::Del
+
+; multimedia
+q::Media_Prev
+w::Media_Play_Pause
+e::Media_Next
+1::Volume_Down
+2::Volume_Mute
+3::Volume_Up
+
 #IfWinExist
 
 ; work around accidental ctrl-shift-q in firefox
