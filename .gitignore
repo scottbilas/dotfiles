@@ -18,9 +18,10 @@ config/weechat/themes/_undo.theme
 config/zsh/.zcompdump*
 config/zsh/.zcompcache
 config/zsh/.zinit
+special/vscode/User/globalStorage/ms-python.python/nbsecret
+special/vscode/User/globalStorage/ms-vsliveshare.vsliveshare/
 special/vscode/User/vsicons/.settings/.json
 special/vscode/User/workspaceStorage/
-special/vscode/User/globalStorage/ms-vsliveshare.vsliveshare/
 
 private
 cache
