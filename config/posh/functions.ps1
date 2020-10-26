@@ -7,7 +7,6 @@ function reprofile {
 
     write-host 'Reloading aliases...'
     . "$($ProfileVars.ProfileRoot)\aliases.ps1"
-    . ~/.config/posh/aliases.ps1
 
     write-host 'Reloading functions...'
     . "$($ProfileVars.ProfileRoot)\functions.ps1"
