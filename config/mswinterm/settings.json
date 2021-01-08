@@ -1,6 +1,8 @@
 // setup:
 //   $l = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 //   del $l; mklinkf -link $l -file '~\.config\mswinterm\settings.json'
+//   $l = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
+//   del $l; mklinkf -link $l -file '~\.config\mswinterm\settings.json'
 // docs: https://aka.ms/terminal-documentation
 // defaults: hold "alt" while clicking on the "Settings" button
 
@@ -66,6 +68,7 @@
         { "command": { "action": "resizePane", "direction": "right" }, "keys": "ctrl+alt+shift+l" },
         { "command": { "action": "resizePane", "direction": "up" }, "keys": "ctrl+alt+shift+k" },
         { "command": { "action": "splitPane", "split": "horizontal"}, "keys": "ctrl+alt+-" },
-        { "command": { "action": "splitPane", "split": "vertical"}, "keys": "ctrl+alt+\\" }
+        { "command": { "action": "splitPane", "split": "vertical"}, "keys": "ctrl+alt+\\" },
+        { "command": { "action": "togglePaneZoom" }, "keys": "ctrl+alt+z" }
     ]
 }

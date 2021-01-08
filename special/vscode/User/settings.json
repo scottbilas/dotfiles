@@ -86,6 +86,7 @@
         "xplat"
     ],
     "diffEditor.renderSideBySide": true,
+    "editor.accessibilitySupport": "off", // without this, can't do word wrapping
     "editor.cursorBlinking": "phase",
     "editor.cursorSmoothCaretAnimation": true,
     "editor.cursorSurroundingLines": 5,
@@ -281,6 +282,12 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
     },
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.smoothScrolling": true,
     "workbench.panel.defaultLocation": "right",

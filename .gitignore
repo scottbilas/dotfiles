@@ -29,3 +29,4 @@ logs
 .hyper_plugins
 *.weechattmp
 special/lazygit/state.yml
+nbsecret
