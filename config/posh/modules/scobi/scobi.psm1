@@ -48,23 +48,24 @@ function Get-UnityVersionFromExe($exePath, [switch]$getHash) {
     $version
 }
 
-function Install-Unity($version, [switch]$minimal, $intoRoot = $buildsEditorRoot) {
-    "Installing Unity $version into $intoRoot..."
+function Install-Unity($version, [switch]$minimal, $intoRoot = $buildsEditorRoot, $folderName = $null) {
     $version | %{
+        $target = join-path $intoRoot (?? $folderName $_)
+        "Installing Unity $version into $target..."
         if ($minimal) {
-            unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor --wait
+            unity-downloader-cli -u $_ -p $target -c Editor --wait
         }
         else {
-            unity-downloader-cli -u $_ -p $intoRoot\$_ -c Editor -c StandaloneSupport-IL2CPP -c Symbols --wait
+            unity-downloader-cli -u $_ -p $target -c Editor -c StandaloneSupport-IL2CPP -c Symbols --wait
         }
         # nuke the stripped symbols so vs doesn't use by accident
-        del $intoRoot\$_\*.pdb
+        tdel $targe\*.pdb
     }
 }
 
 function Install-UnityForProject($projectPath, [switch]$minimal, $intoRoot = $buildsEditorRoot) {
-    $version = Get-UnityVersionFromProjectVersion $projectPath
-    Install-Unity -version $version -minimal:$minimal -intoroot $intoRoot
+    $version = Get-UnityVersionFromProjectVersion $projectPath -getHash
+    Install-Unity -version $version[1] -minimal:$minimal -intoroot $intoRoot -folderName $version[0]
 }
 
 function Get-UnityBuildConfig($exePath) {
@@ -211,7 +212,8 @@ function Run-UnityForProject {
         [switch]$forceCustomBuild,
         [switch]$useGlobalLogPath,
         [switch]$attachDebugger,
-        [switch]$upmlogs
+        [switch]$upmlogs,
+        [switch]$rider
     )
 
     Set-StrictMode -Version Latest
@@ -253,13 +255,13 @@ function Run-UnityForProject {
 
             $unhappyFilename = [IO.Path]::ChangeExtension($logFilename, "unhappy.jsonl")
             $unhappyFile = Get-ChildItem $unhappyFilename -ea:silent
-    
+
             if ($unhappyFile) {
                 $target = "$targetBase.unhappy.jsonl"
                 Write-Verbose "Copying $unhappyFile to $target"
                 Copy-Item $unhappyFile $target @commonParams
             }
-    
+
         }
 
         $extra += '-logFile', $logFilename
@@ -268,6 +270,10 @@ function Run-UnityForProject {
     if ($upmlogs) {
         write-warning "Turning on extra debug logging for UPM (%LOCALAPPDATA%\Unity\Editor\upm.log)"
         $extra += '-enablePackageManagerTraces'
+    }
+
+    if ($rider) {
+        $extra += '-executeMethod', 'Packages.Rider.Editor.RiderScriptEditor.SyncSolutionAndOpenExternalEditor'
     }
 
     # TODO: check to see if a unity already running for that path. either activate if identical to the one we want (and command line we want)
