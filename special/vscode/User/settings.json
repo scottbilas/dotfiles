@@ -101,6 +101,7 @@
     "editor.minimap.maxColumn": 40,
     "editor.mouseWheelScrollSensitivity": 1,
     "editor.mouseWheelZoom": true,
+    "editor.renameOnType": true,
     "editor.renderIndentGuides": false,
     "editor.roundedSelection": true,
     "editor.rulers": [
@@ -281,7 +282,9 @@
         "editorRuler.foreground": "#242424"
     },
     "workbench.iconTheme": "vscode-icons",
+    "workbench.list.smoothScrolling": true,
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
+    "update.mode": "manual",
 }

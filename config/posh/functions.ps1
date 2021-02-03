@@ -16,11 +16,6 @@ function reprofile {
     import-module -Force ~/.config/posh/modules/scobi/scobi.psm1 -wa:SilentlyContinue
 }
 
-function install-nerd-fonts {
-    scoop bucket add nerd-fonts
-    sudo scoop install (dir ~\scoop\buckets\nerd-fonts\*.json | %{ $_.name.replace('.json', '') })
-}
-
 # from https://stackoverflow.com/a/422529/14582
 Function Parse-IniFile ($file) {
     $ini = @{}
@@ -278,4 +273,14 @@ function Git-Kill-BOMs($pattern, [switch]$whatif) {
             }
         }
     }
+}
+
+function lightmode {
+    reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v AppsUseLightTheme /t REG_DWORD /d 1 /f
+    reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v SystemUsesLightTheme /t REG_DWORD /d 1 /f
+}
+
+function darkmode {
+    reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v AppsUseLightTheme /t REG_DWORD /d 0 /f
+    reg add HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize /v SystemUsesLightTheme /t REG_DWORD /d 0 /f
 }
