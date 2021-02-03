@@ -32,7 +32,7 @@
 [mergetool "bc"]
     path = c:/users/scott/scoop/apps/beyondcompare/current/BComp.exe
 [credential]
-	helper = manager
+	helper = manager-core
 
 [difftool "semantic"]
     cmd = ~/appdata/local/semanticmerge/semanticmergetool.exe -s \"$LOCAL\" -d \"$REMOTE\"
