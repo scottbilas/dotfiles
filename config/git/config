@@ -103,6 +103,9 @@
     options = --line-numbers --line-number-width=4 --strip-trailing-cr --numlines=3
     pager = less
 
+[init]
+	defaultBranch = dev
+
 [fetch]
     prune = true
 

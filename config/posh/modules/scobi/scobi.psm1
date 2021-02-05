@@ -59,7 +59,7 @@ function Install-Unity($version, [switch]$minimal, $intoRoot = $buildsEditorRoot
             unity-downloader-cli -u $_ -p $target -c Editor -c StandaloneSupport-IL2CPP -c Symbols --wait
         }
         # nuke the stripped symbols so vs doesn't use by accident
-        tdel $targe\*.pdb
+        del $target\*.pdb
     }
 }
 
@@ -74,7 +74,7 @@ function Get-UnityBuildConfig($exePath) {
 
     $filesize = (dir $exepath).length
 
-    if ($filesize -gt 100MB -and $filesize -lt 150MB) {
+    if ($filesize -gt 75MB -and $filesize -lt 150MB) {
         return 'release'
     }
     elseif ($filesize -gt 300MB -and $filesize -lt 400MB) {
@@ -213,7 +213,8 @@ function Run-UnityForProject {
         [switch]$useGlobalLogPath,
         [switch]$attachDebugger,
         [switch]$upmlogs,
-        [switch]$rider
+        [switch]$rider,
+        [switch]$noBurst
     )
 
     Set-StrictMode -Version Latest
@@ -274,6 +275,10 @@ function Run-UnityForProject {
 
     if ($rider) {
         $extra += '-executeMethod', 'Packages.Rider.Editor.RiderScriptEditor.SyncSolutionAndOpenExternalEditor'
+    }
+
+    if ($noBurst) {
+        $extra += "--burst-disable-compilation"
     }
 
     # TODO: check to see if a unity already running for that path. either activate if identical to the one we want (and command line we want)

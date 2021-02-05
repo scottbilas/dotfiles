@@ -174,7 +174,8 @@
         "*.txt": "plaintext",
         "*.unity": "yaml",
         "*.uxml": "xml",
-        "*.vssettings": "xml"
+        "*.vssettings": "xml",
+        "*.jsonl": "json"
     },
     "files.autoSave": "off",
     "files.exclude": {
@@ -282,12 +283,7 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
     },
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
+    "workbench.editorAssociations": [],
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.smoothScrolling": true,
     "workbench.panel.defaultLocation": "right",
