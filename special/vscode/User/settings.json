@@ -288,4 +288,21 @@
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
+    "zenMode.centerLayout": false,
+    "zenMode.restore": false,
+
+    // uncomment for screenshot mode
+    /*
+    "customizeUI.stylesheet": { ".title.show-file-icons": "display: none !important;", },
+    "editor.folding": false,
+    "editor.glyphMargin": false,
+    "editor.lineDecorationsWidth": 5,
+    "editor.lineNumbers": "off",
+    "editor.minimap.enabled": false,
+    "editor.rulers": [],
+    "editor.scrollbar.verticalScrollbarSize": 0,
+    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "Humane",
+    "workbench.statusBar.visible": false,
+    */
 }
