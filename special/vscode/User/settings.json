@@ -6,7 +6,10 @@
         "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[markdown]": {
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "gitlens.codeLens.scopes": [
+            "document"
+        ],
     },
     "[powershell]": {
         "editor.codeLens": false
@@ -24,6 +27,8 @@
     "bracket-pair-colorizer-2.excludedLanguages": [
         "t4",
     ],
+    "bracket-pair-colorizer-2.showBracketsInRuler": true,
+    "bracket-pair-colorizer-2.showBracketsInGutter": true,
     "breadcrumbs.enabled": true,
     "C_Cpp.default.compilerPath": "clang",
     "cSpell.allowCompoundWords": true,
@@ -97,12 +102,12 @@
     "editor.fontLigatures": true,
     "editor.fontSize": 13,
     "editor.lineNumbers": "off",
+    "editor.linkedEditing": true,
     "editor.matchBrackets": "never", // want rafamel.subtle-brackets to handle matching brackets instead
     "editor.minimap.enabled": true,
     "editor.minimap.maxColumn": 40,
     "editor.mouseWheelScrollSensitivity": 1,
     "editor.mouseWheelZoom": true,
-    "editor.renameOnType": true,
     "editor.renderIndentGuides": false,
     "editor.roundedSelection": true,
     "editor.rulers": [
@@ -175,7 +180,8 @@
         "*.unity": "yaml",
         "*.uxml": "xml",
         "*.vssettings": "xml",
-        "*.jsonl": "json"
+        "*.jsonl": "json",
+        "*.buildconfiguration": "json"
     },
     "files.autoSave": "off",
     "files.exclude": {
@@ -206,13 +212,6 @@
         "**/__pycache__": true
     },
     "github.username": "scottbilas",
-    "gitlens.advanced.messages": {
-        "suppressResultsExplorerNotice": true,
-        "suppressShowKeyBindingsNotice": true,
-        "suppressUpdateNotice": true,
-        "suppressWelcomeNotice": false
-    },
-    "gitlens.keymap": "chorded",
     "gitProjectManager.baseProjectsFolders": [
         "c:/work",
         "c:/proj",
@@ -289,5 +288,4 @@
     "workbench.panel.defaultLocation": "right",
     "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
-    "update.mode": "manual",
 }
