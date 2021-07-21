@@ -1,6 +1,6 @@
-// setup:
+// setup (run from home dir):
 //
-// mklinkd -link ~\scoop\persist\vscode-portable\data\user-data\User ~\dotfiles\special\vscode\User
+// cmd /c mklink /d scoop\persist\vscode-portable\data\user-data\User dotfiles\special\vscode\User
 {
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
@@ -255,6 +255,7 @@
     "scm.defaultViewMode": "tree",
     "shellcheck.customArgs": [ "-x" ],
     "shellformat.flag": "-i 4 -s",
+    "telemetry.enableTelemetry": false,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 12,
@@ -282,7 +283,6 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#242424"
     },
-    "workbench.editorAssociations": [],
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.smoothScrolling": true,
     "workbench.panel.defaultLocation": "right",
