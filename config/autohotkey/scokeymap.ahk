@@ -1,3 +1,9 @@
+; add to startup:
+;
+; <ctrl-c> on .ahk
+; <win-r> shell:startup
+; right-click in startup folder, "paste shortcut"
+
 ; emulate term
 ^[::Send {Esc}
 

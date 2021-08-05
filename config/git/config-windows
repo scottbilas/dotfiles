@@ -1,3 +1,8 @@
+# install:
+#
+# <copy or symlink private/git to ~/dotfiles/private/git>
+# mklink C:\Users\scott\.gitconfig C:\Users\scott\.config\git\config-windows
+
 [include]
     path = ~/.config/git/config
 
