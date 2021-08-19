@@ -21,6 +21,7 @@ config/zsh/.zcompcache
 config/zsh/.zinit
 special/vscode/User/globalStorage/ms-python.python/nbsecret
 special/vscode/User/globalStorage/ms-vsliveshare.vsliveshare/
+special/vscode/User/globalStorage/tamasfe.even-better-toml/schema_index.json
 special/vscode/User/vsicons/.settings/.json
 special/vscode/User/workspaceStorage/
 
