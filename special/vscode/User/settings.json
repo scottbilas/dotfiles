@@ -159,7 +159,6 @@
         ]
     },
     "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
     "files.associations": {
         "config-*": "ini",
         "config": "ini",
@@ -181,9 +180,12 @@
         "*.uxml": "xml",
         "*.vssettings": "xml",
         "*.jsonl": "json",
-        "*.buildconfiguration": "json"
+        "*.buildconfiguration": "json",
+        "*.json.tmpl": "jsonc",
+        "*.yaml.tmpl": "yaml",
     },
     "files.autoSave": "off",
+    "files.eol": "\n",
     "files.exclude": {
         // root folders
         ".hglf": true,
@@ -270,7 +272,7 @@
             "overviewRulerColor": "yellow"
         }
     ],
-    "ttProcessor.TTPath": "C:\\Users\\scott\\.dotnet\\tools\\t4.exe",
+    "ttProcessor.TTPath": "C:\\Users\\scott\\.dotnet\\tools\\t4.exe", // dotnet tool install -g dotnet-t4
     "update.mode": "manual",
     "vsicons.dontShowNewVersionMessage": true,
     "window.autoDetectColorScheme": true,
@@ -287,10 +289,13 @@
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.smoothScrolling": true,
     "workbench.panel.defaultLocation": "right",
-    "workbench.sideBar.location": "left",
     "workbench.startupEditor": "newUntitledFile",
     "zenMode.centerLayout": false,
     "zenMode.restore": false,
+    "powershell.promptToUpdatePowerShell": false,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
 
     // uncomment for screenshot mode
     /*

@@ -1,58 +1,135 @@
 # This is a pre-setup script for a new user environment that works for both bash
 # and powershell. See README.md for installation.
 #
-# (mega kudos to @chrisfcarroll: https://gist.github.com/chrisfcarroll/636458b42793cd453a68b529ff53b469)
+# kudos:
+#
+#   @chrisfcarroll for ps1+sh trick: https://gist.github.com/chrisfcarroll/636458b42793cd453a68b529ff53b469)
+#   Jimit Dholakia on vanity git.io: https://towardsdatascience.com/github-url-shortener-f1e0aeaf83b6
 
 echo @'
 ' > /dev/null
-#vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+#  _               _
+# | |             | |
+# | |__   __ _ ___| |__
+# | '_ \ / _` / __| '_ \
+# | |_) | (_| \__ \ | | |
+# |_.__/ \__,_|___/_| |_|
 
 set -Eeuo pipefail
 
-if [[ ! -e ~/dotfiles ]]; then
-    if [[ ! $(type -p git) ]]; then
-        sudo apt install git
-    fi
-
-    git clone -b master --recursive https://github.com/scottbilas/dotfiles ~/dotfiles
+if [[ ! $(type -p git) ]]; then
+    sudo apt install git
 fi
 
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+if [[ ! -e ~/dotfiles ]]; then
+    git clone --recursive https://github.com/scottbilas/dotfiles ~/dotfiles
+fi
+
+# TODO: https://github.com/TsekNet/dotfiles/blob/main/install.sh
+
+# -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-
 echo > /dev/null <<"out-null" ###
 '@ | out-null
 
-#vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+#                                   _          _ _
+#                                  | |        | | |
+#  _ __   _____      _____ _ __ ___| |__   ___| | |
+# | '_ \ / _ \ \ /\ / / _ \ '__/ __| '_ \ / _ \ | |
+# | |_) | (_) \ V  V /  __/ |  \__ \ | | |  __/ | |
+# | .__/ \___/ \_/\_/ \___|_|  |___/_| |_|\___|_|_|
+# | |
+# |_|
 
-#requires -v 3
+# to test locally: `iex (cat -raw install.ps1sh)`
 
-$erroractionpreference = 'stop'
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
 
-if (!(test-path ~/dotfiles)) {
+# CHECK POWERSHELL
 
-    if ((get-executionpolicy) -gt 'remotesigned') {
-        set-executionpolicy remotesigned process -force
-    }
+Write-Host "Checking PowerShell releases on Github..."
+$currentVersion = Invoke-WebRequest -UseBasicParsing https://api.github.com/repos/PowerShell/PowerShell/git/matching-refs/tags/v |
+    ConvertFrom-Json |
+    ForEach-Object { $_.ref -replace 'refs/tags/v', '' } |
+    Where-Object { $_ -notmatch 'preview|rc|alpha|beta' } |
+    ForEach-Object { [Version]::Parse($_) } | # [SemanticVersion] is new in v7
+    Sort-Object -Descending | Select-Object -First 1
 
-    if (!(get-command scoop -ea si)) {
-        iwr https://get.scoop.sh -useb | iex
-    }
-
-    scoop install git
-
-    git clone -b master --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(resolve-path ~)/dotfiles"
+if ($PSVersionTable.PSVersion.Major -lt $currentVersion.Major) {
+    throw "`nPowershell is way out of date! (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)`nGo get a new one at https://aka.ms/powershell-release?tag=stable"
+    # TODO: offer to a) download msi b) install it c) restart this script
+}
+elseif ($PSVersionTable.PSVersion -ne $currentVersion) { # [SemanticVersion] is back-compat with [Version]
+    Write-Warning "Powershell out of date (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)"
+}
+else {
+    Write-Host "PowerShell is up to date with latest! ($currentVersion)"
 }
 
-# further:
-#  * any crucial symlinks, especially ssh-related and `private`
-#  * fix git remotes
-#  * updot
-#  * scoop bucket extras, sudo, etc.
-#
-# consider putting ^ into a finishing py script
-#  ...python seems a tolerable dependency, though i want 3.6 and it can be a hassle to ensure this is installed on trusty etc.
-#  ...also want ssh option for containers that doesn't involve uploading private key, but typing in password instead
-#  ...possible separation of "private" (crown jewels like ssh key) from "non-public" (personal email addrs and hosts, unity-isms)
-#     where private accessed via password, everything else fine to copy in, just not via public GH repo
+# CHECK EXECUTION POLICY
 
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+if ((Get-ExecutionPolicy) -gt 'RemoteSigned') {
+    Write-Host "Fixing PowerShell execution policy..."
+    Set-ExecutionPolicy RemoteSigned Process -Force
+}
+else {
+    Write-Host "PowerShell execution policy ok"
+}
+
+# INSTALL SCOOP
+
+if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Host "Installing scoop..."
+    Invoke-WebRequest -UseBasicParsing https://get.scoop.sh | Invoke-Expression
+} else {
+    Write-Host "Scoop ok"
+}
+
+function Invoke-Exe($command) {
+    Invoke-Expression "& $command"
+    if ($LASTEXITCODE) { throw "'$command' returned error $LASTEXITCODE" }
+}
+
+$showUpdateLog = Invoke-Exe "scoop config show_update_log"
+if ($showUpdateLog -ne $false) {
+    Invoke-Exe "scoop config show_update_log false"
+}
+
+# INSTALL CORE APPS
+
+function Install-ScoopCommand($command, $bucketAlias, $bucketUrl) {
+    if (!(Get-Command $command -ErrorAction SilentlyContinue)) {
+        if ($bucketAlias) {
+            $buckets = Invoke-Exe "scoop bucket list"
+            if ($buckets -notcontains $bucketAlias) {
+                Write-Host "Adding bucket $bucketAlias..."
+                Invoke-Exe "scoop bucket add $bucketAlias $bucketUrl"
+            }
+        }
+        Write-Host "Installing $command..."
+        Invoke-Exe "scoop install $command"
+    } else {
+        Write-Host "$command ok"
+    }
+}
+
+Install-ScoopCommand git
+Install-ScoopCommand sudo
+Install-ScoopCommand ghq
+Install-ScoopCommand chezmoi twpayne https://github.com/twpayne/scoop-bucket
+
+# TODO: replace with chezmoi
+if (!(Test-Path ~/dotfiles)) {
+    Write-Host "Cloning dotfiles..."
+    git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(Resolve-Path ~)/dotfiles"
+    # TODO: check errors
+} else {
+    Write-Host "Dotfiles ok"
+    # TODO: fetch, test if out of date
+}
+
+# TODO: call setup.ps1
+
+# -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-
 out-null

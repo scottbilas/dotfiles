@@ -1,11 +1,9 @@
 # Scott Bilas's dotfiles
 
-## Barebones setup
-
 ```bash
 # unix
-curl https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.sh | bash
+curl -fsSL https://git.io/scottbilas-dotfiles | bash
 
 # windows
-iwr https://raw.githubusercontent.com/scottbilas/dotfiles/master/install/install.ps1 -useb | iex
+iwr https://git.io/scottbilas-dotfiles | iex
 ```

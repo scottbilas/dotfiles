@@ -1,3 +1,4 @@
+config/chezmoi/
 config/configstore/
 config/gh/config.yml
 config/gh/state.yml
