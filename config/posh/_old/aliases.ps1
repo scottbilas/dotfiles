@@ -40,7 +40,6 @@ function l {
 }
 
 function ll { dir -fo $args }
-function ~ { cd ~ }
 
 # https://stackoverflow.com/a/1663623/14582
 
@@ -74,12 +73,9 @@ function gk($repo = $null) {
     & $env:localappdata\gitkraken\update.exe --processStart gitkraken.exe --process-start-args="-p $repo"
 }
 
-function up { cd .. }
 function upp { cd ../.. }
 function uppp { cd ../../.. }
 function upppp { cd ../../../.. }
-function ov($what) { cd ../$what }
-
 
 # disable for now.. what we want is the pager to show lines live as they come through, and when more than a full page is received,
 # go into full screen less mode (and continue grepping in background)
