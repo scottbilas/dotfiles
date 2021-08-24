@@ -48,7 +48,7 @@ $ErrorActionPreference = 'Stop'
 
 # CHECK POWERSHELL
 
-Write-Host "Checking PowerShell releases on Github..."
+Write-Output "Checking PowerShell releases on Github..."
 $currentVersion = Invoke-WebRequest -UseBasicParsing https://api.github.com/repos/PowerShell/PowerShell/git/matching-refs/tags/v |
     ConvertFrom-Json |
     ForEach-Object { $_.ref -replace 'refs/tags/v', '' } |
@@ -64,26 +64,26 @@ elseif ($PSVersionTable.PSVersion -ne $currentVersion) { # [SemanticVersion] is 
     Write-Warning "Powershell out of date (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)"
 }
 else {
-    Write-Host "PowerShell is up to date with latest! ($currentVersion)"
+    Write-Output "PowerShell is up to date with latest! ($currentVersion)"
 }
 
 # CHECK EXECUTION POLICY
 
 if ((Get-ExecutionPolicy) -gt 'RemoteSigned') {
-    Write-Host "Fixing PowerShell execution policy..."
+    Write-Output "Fixing PowerShell execution policy..."
     Set-ExecutionPolicy RemoteSigned Process -Force
 }
 else {
-    Write-Host "PowerShell execution policy ok"
+    Write-Output "PowerShell execution policy ok"
 }
 
 # INSTALL SCOOP
 
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
-    Write-Host "Installing scoop..."
+    Write-Output "Installing scoop..."
     Invoke-WebRequest -UseBasicParsing https://get.scoop.sh | Invoke-Expression
 } else {
-    Write-Host "Scoop ok"
+    Write-Output "Scoop ok"
 }
 
 function Invoke-Exe($command) {
@@ -103,14 +103,14 @@ function Install-ScoopCommand($command, $bucketAlias, $bucketUrl) {
         if ($bucketAlias) {
             $buckets = Invoke-Exe "scoop bucket list"
             if ($buckets -notcontains $bucketAlias) {
-                Write-Host "Adding bucket $bucketAlias..."
+                Write-Output "Adding bucket $bucketAlias..."
                 Invoke-Exe "scoop bucket add $bucketAlias $bucketUrl"
             }
         }
-        Write-Host "Installing $command..."
+        Write-Output "Installing $command..."
         Invoke-Exe "scoop install $command"
     } else {
-        Write-Host "$command ok"
+        Write-Output "$command ok"
     }
 }
 
@@ -121,11 +121,11 @@ Install-ScoopCommand chezmoi twpayne https://github.com/twpayne/scoop-bucket
 
 # TODO: replace with chezmoi
 if (!(Test-Path ~/dotfiles)) {
-    Write-Host "Cloning dotfiles..."
+    Write-Output "Cloning dotfiles..."
     git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(Resolve-Path ~)/dotfiles"
     # TODO: check errors
 } else {
-    Write-Host "Dotfiles ok"
+    Write-Output "Dotfiles ok"
     # TODO: fetch, test if out of date
 }
 
