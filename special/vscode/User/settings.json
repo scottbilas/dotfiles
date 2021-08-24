@@ -244,6 +244,10 @@
             "background": "#3b0000",
         }
     ],
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
     "perforce.addOnFileCreate": true,
     "perforce.deleteOnFileDelete": true,
     "perforce.editOnFileModified": true,
@@ -251,6 +255,7 @@
     //"powershell.developer.featureFlags": [ "PSReadLine" ],
     // ^ cannot enable currently, breaks debugging for some reason (need to investigate)
     "powershell.integratedConsole.showOnStartup": false,
+    "powershell.promptToUpdatePowerShell": false,
     "problems.decorations.enabled": true,
     "rewrap.wrappingColumn": 120,
     "search.smartCase": true,
@@ -286,16 +291,15 @@
         "editorRuler.foreground": "#242424"
     },
     "workbench.editor.untitled.hint": "hidden",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
     "workbench.iconTheme": "vscode-icons",
     "workbench.list.smoothScrolling": true,
     "workbench.panel.defaultLocation": "right",
     "workbench.startupEditor": "newUntitledFile",
     "zenMode.centerLayout": false,
     "zenMode.restore": false,
-    "powershell.promptToUpdatePowerShell": false,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
-    },
 
     // uncomment for screenshot mode
     /*
