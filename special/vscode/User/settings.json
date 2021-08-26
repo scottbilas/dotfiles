@@ -158,6 +158,7 @@
             }
         ]
     },
+    "explorer.autoReveal": false,
     "explorer.confirmDelete": false,
     "files.associations": {
         "config-*": "ini",
@@ -215,12 +216,6 @@
         "**/__pycache__": true
     },
     "github.username": "scottbilas",
-    "gitProjectManager.baseProjectsFolders": [
-        "c:/work",
-        "c:/proj",
-        "d:/work",
-        "d:/proj"
-    ],
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
     "indentRainbow.excludedLanguages": [
@@ -245,6 +240,7 @@
             "background": "#3b0000",
         }
     ],
+    "markdown.preview.fontSize": 16,
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
@@ -260,6 +256,7 @@
     "problems.decorations.enabled": true,
     "rewrap.wrappingColumn": 120,
     "search.smartCase": true,
+    "search.useGlobalIgnoreFiles": true,
     "scm.defaultViewMode": "tree",
     "shellcheck.customArgs": [ "-x" ],
     "shellformat.flag": "-i 4 -s",
@@ -268,7 +265,6 @@
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.lineHeight": 0,
-    "terminal.integrated.rendererType": "dom",
     "terminal.integrated.scrollback": 10000,
     "todohighlight.keywords": [
         {
@@ -280,7 +276,6 @@
     ],
     "ttProcessor.TTPath": "C:\\Users\\scott\\.dotnet\\tools\\t4.exe", // dotnet tool install -g dotnet-t4
     "update.mode": "manual",
-    "vsicons.dontShowNewVersionMessage": true,
     "window.autoDetectColorScheme": true,
     "window.menuBarVisibility": "toggle",
     "window.newWindowDimensions": "inherit",

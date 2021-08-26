@@ -52,11 +52,7 @@
     patch = !git --no-pager diff --no-color
     root = rev-parse --show-toplevel
 
-    curbranch = rev-parse --abbrev-ref HEAD
-    testbranch = rev-parse --verify
-
     trash = !git add -A && git commit -m 'TRASH' && git reset --hard HEAD^
-    stp = stash push -u
 
     # easily get into git environment for testing
     sh = !sh
@@ -76,9 +72,6 @@
 
     # TODO: `--pattern` is problematic, gives errors when pattern not found (like when no diffs in output), and either way prevents exit on non-filled-screen.
     #pager = perl ~/dotfiles/scripts/diff-so-fancy/diff-so-fancy | less --pattern '^(Date|added|deleted|modified):'
-
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
 
 [credential]
     modalprompt = false
@@ -164,6 +157,7 @@
     # https://patchwork.kernel.org/patch/10765697/
     worktreeConfig = true
 
+#   TODO: move this stuff to ~/.config/tig/config
 [tig]
     horizontal-scroll = 10
     ignore-case = smart-case
@@ -176,8 +170,6 @@
 
 #   diff-highlight = true  -- not currently avail w termux
 
-#   TODO: move this stuff to ~/.config/tig/config
-
 [filter "lfs"]
     required = true
     clean = git-lfs clean -- %f
@@ -185,7 +177,6 @@
     process = git-lfs filter-process
 
 [user]
-    name = Scott Bilas
     # https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/
     useConfigOnly = true
 

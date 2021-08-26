@@ -64,7 +64,7 @@ which powerping 2>&1 | out-null; if (!$lastexitcode) {
 
 function theme {
     $theme = (split-path -leaf $ThemeSettings.CurrentThemeLocation).replace('.psm1', '')
-    write-host "Reloading $theme..."
+    write-output "Reloading $theme..."
     set-theme $theme
 }
 
