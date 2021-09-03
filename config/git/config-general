@@ -37,7 +37,7 @@
     incoming = !git fetch && git l ..FETCH_HEAD
     icdiff = "!f() { PATH=$PATH:~/dotfiles/scripts/icdiff; git icdiff; }; f"
     # `npm ci` from gitree folder
-    gitree = !node $HOME/.config/git/gitree/index.js
+    gitree = !node $HOME/dotfiles/repos/gitree
 
     dd = difftool --dir-diff
     sui = submodule update --init

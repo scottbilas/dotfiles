@@ -48,84 +48,75 @@ $ErrorActionPreference = 'Stop'
 
 # CHECK POWERSHELL
 
-Write-Output "Checking PowerShell releases on Github..."
-$currentVersion = Invoke-WebRequest -UseBasicParsing https://api.github.com/repos/PowerShell/PowerShell/git/matching-refs/tags/v |
-    ConvertFrom-Json |
-    ForEach-Object { $_.ref -replace 'refs/tags/v', '' } |
-    Where-Object { $_ -notmatch 'preview|rc|alpha|beta' } |
-    ForEach-Object { [Version]::Parse($_) } | # [SemanticVersion] is new in v7
-    Sort-Object -Descending | Select-Object -First 1
-
-if ($PSVersionTable.PSVersion.Major -lt $currentVersion.Major) {
-    throw "`nPowershell is way out of date! (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)`nGo get a new one at https://aka.ms/powershell-release?tag=stable"
-    # TODO: offer to a) download msi b) install it c) restart this script
-}
-elseif ($PSVersionTable.PSVersion -ne $currentVersion) { # [SemanticVersion] is back-compat with [Version]
-    Write-Warning "Powershell out of date (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)"
-}
-else {
-    Write-Output "PowerShell is up to date with latest! ($currentVersion)"
+if ($PSVersionTable.PSVersion.Major -lt 7) {
+    throw "`nPowershell is way out of date! (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)`nGo get a new one at https://aka.ms/powershell-release?tag=stable or from the Windows Store (https://www.microsoft.com/en-us/p/powershell/9mz1snwt0n5d)"
 }
 
 # CHECK EXECUTION POLICY
 
 if ((Get-ExecutionPolicy) -gt 'RemoteSigned') {
-    Write-Output "Fixing PowerShell execution policy..."
+    Write-Output 'Fixing PowerShell execution policy...'
     Set-ExecutionPolicy RemoteSigned Process -Force
 }
 else {
-    Write-Output "PowerShell execution policy ok"
+    Write-Output 'PowerShell execution policy ok'
 }
 
-# INSTALL SCOOP
-
-if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
-    Write-Output "Installing scoop..."
-    Invoke-WebRequest -UseBasicParsing https://get.scoop.sh | Invoke-Expression
-} else {
-    Write-Output "Scoop ok"
-}
+# FUNCTIONS
 
 function Invoke-Exe($command) {
     Invoke-Expression "& $command"
     if ($LASTEXITCODE) { throw "'$command' returned error $LASTEXITCODE" }
 }
 
-$showUpdateLog = Invoke-Exe "scoop config show_update_log"
-if ($showUpdateLog -ne $false) {
-    Invoke-Exe "scoop config show_update_log false"
-}
+function Install-ScoopPackage($Command, $Package, $BucketAlias, $BucketUrl) {
+    if (!$Package) {
+        $Package = $Command
+    }
 
-# INSTALL CORE APPS
-
-function Install-ScoopCommand($command, $bucketAlias, $bucketUrl) {
-    if (!(Get-Command $command -ErrorAction SilentlyContinue)) {
-        if ($bucketAlias) {
-            $buckets = Invoke-Exe "scoop bucket list"
-            if ($buckets -notcontains $bucketAlias) {
-                Write-Output "Adding bucket $bucketAlias..."
-                Invoke-Exe "scoop bucket add $bucketAlias $bucketUrl"
+    if (!(Get-Command $Command -ErrorAction SilentlyContinue)) {
+        if ($BucketAlias) {
+            $buckets = Invoke-Exe 'scoop bucket list'
+            if ($buckets -notcontains $BucketAlias) {
+                Write-Output "Adding bucket $BucketAlias..."
+                Invoke-Exe "scoop bucket add $BucketAlias $BucketUrl"
             }
         }
-        Write-Output "Installing $command..."
-        Invoke-Exe "scoop install $command"
+        Write-Output "Installing $Package..."
+        Invoke-Exe "scoop install $Package"
     } else {
-        Write-Output "$command ok"
+        Write-Output "$Package ok"
     }
 }
 
-Install-ScoopCommand git
-Install-ScoopCommand sudo
-Install-ScoopCommand ghq
-Install-ScoopCommand chezmoi twpayne https://github.com/twpayne/scoop-bucket
+# INSTALL SCOOP
 
-# TODO: replace with chezmoi
+if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Output 'Installing scoop...'
+    # this new script may eventually migrate to get.scoop.sh
+    Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/scoopinstaller/install/master/install.ps1 | Invoke-Expression
+} else {
+    Write-Output 'Scoop ok'
+}
+
+Invoke-Exe 'scoop config show_update_log false'
+
+# INSTALL CORE APPS
+
+Install-ScoopPackage git
+
+# DOTFILES
+
+Install-ScoopPackage chezmoi -BucketAlias twpayne -BucketUrl https://github.com/twpayne/scoop-bucket
+
 if (!(Test-Path ~/dotfiles)) {
-    Write-Output "Cloning dotfiles..."
-    git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(Resolve-Path ~)/dotfiles"
+    Write-Output 'Cloning dotfiles...'
+    # temporarily disable recursion..want to get rid of all the submodules, worst idea ever to use that
+    #git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(Resolve-Path ~)/dotfiles"
+    git clone https://github.com/scottbilas/dotfiles "$(Resolve-Path ~)/dotfiles"
     # TODO: check errors
 } else {
-    Write-Output "Dotfiles ok"
+    Write-Output 'Dotfiles ok'
     # TODO: fetch, test if out of date
 }
 
