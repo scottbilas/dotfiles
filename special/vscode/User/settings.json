@@ -108,6 +108,7 @@
     "editor.minimap.maxColumn": 40,
     "editor.mouseWheelScrollSensitivity": 1,
     "editor.mouseWheelZoom": true,
+    "editor.quickSuggestionsDelay": 250,
     "editor.renderIndentGuides": false,
     "editor.roundedSelection": true,
     "editor.rulers": [
@@ -251,6 +252,9 @@
     "perforce.hideNonWorkspaceFiles": "hide changelists",
     //"powershell.developer.featureFlags": [ "PSReadLine" ],
     // ^ cannot enable currently, breaks debugging for some reason (need to investigate)
+    "powershell.codeFormatting.useConstantStrings": true,
+    "powershell.codeFormatting.useCorrectCasing": true,
+    "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
     "powershell.integratedConsole.showOnStartup": false,
     "powershell.promptToUpdatePowerShell": false,
     "problems.decorations.enabled": true,
