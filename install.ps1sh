@@ -99,8 +99,6 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
     Write-Output 'Scoop ok'
 }
 
-Invoke-Exe 'scoop config show_update_log false'
-
 # INSTALL CORE APPS
 
 Install-ScoopPackage git
