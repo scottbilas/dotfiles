@@ -1,4 +1,0 @@
-[include]
-    path = ~/.config/git/config-general
-    path = ~/.config/git/config-windows
-    path = ~/dotfiles/private/git/config
