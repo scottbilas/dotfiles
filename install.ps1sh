@@ -101,22 +101,15 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 
 # INSTALL CORE APPS
 
-Install-ScoopPackage git
+#Install-ScoopPackage git
 
-# DOTFILES
+# CHEZMOI
 
 Install-ScoopPackage chezmoi -BucketAlias twpayne -BucketUrl https://github.com/twpayne/scoop-bucket
 
-if (!(Test-Path ~/dotfiles)) {
-    Write-Output 'Cloning dotfiles...'
-    # temporarily disable recursion..want to get rid of all the submodules, worst idea ever to use that
-    #git clone --recursive --jobs 3 https://github.com/scottbilas/dotfiles "$(Resolve-Path ~)/dotfiles"
-    git clone https://github.com/scottbilas/dotfiles "$(Resolve-Path ~)/dotfiles"
-    # TODO: check errors
-} else {
-    Write-Output 'Dotfiles ok'
-    # TODO: fetch, test if out of date
-}
+Invoke-Exe 'chezmoi init scottbilas/chezmoi'
+
+# SETUP
 
 # TODO: call setup.ps1
 
