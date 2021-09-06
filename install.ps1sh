@@ -52,15 +52,13 @@ if ($PSVersionTable.PSVersion.Major -lt 7) {
     throw "`nPowershell is way out of date! (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)`nGo get a new one at https://aka.ms/powershell-release?tag=stable or from the Windows Store (https://www.microsoft.com/en-us/p/powershell/9mz1snwt0n5d)"
 }
 
-# CHECK EXECUTION POLICY
+Write-Host @"
+   ___  ___  _______
+  / _ \/ _ \/ __/ _ \
+ / ___/ , _/ _// ___/
+/_/  /_/|_/___/_/
 
-if ((Get-ExecutionPolicy) -gt 'RemoteSigned') {
-    Write-Output 'Fixing PowerShell execution policy...'
-    Set-ExecutionPolicy RemoteSigned Process -Force
-}
-else {
-    Write-Output 'PowerShell execution policy ok'
-}
+"@
 
 # FUNCTIONS
 
@@ -103,11 +101,24 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
 
 Install-ScoopPackage gsudo
 
-if (!(Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock).AllowDevelopmentWithoutDevLicense) {
-    Write-Output 'Setting Developer Mode! (UAC dialog incoming)'
-    Write-Host -NoNewline 'press ENTER to confirm: '
+# need dev mode for (at least) not requiring sudo on symlinks
+$devMode = $false
+try { $devMode = (Get-WindowsDeveloperLicense).IsValid } catch {}
+if (!$devMode) {
+    Write-Host
+    Write-Host '>>> == Setting Developer Mode! =='
+    Write-Host '>>>'
+    Write-Host '>>> 1. Allow the UAC that comes up'
+    Write-Host '>>> 2. Developer Settings will come up next'
+    Write-Host '>>> 3. Apply everything except "Change settings to show empty drives"'
+    Write-Host -NoNewline '>>> Press ENTER to start doing ^ this: '
     [Console]::ReadKey() | Out-Null
-    sudo Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock AllowDevelopmentWithoutDevLicense 1
+    sudo pwsh -Command (
+        'Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock AllowDevelopmentWithoutDevLicense 1;'+
+        'Show-WindowsDeveloperLicenseRegistration')
+    Write-Host
+} else {
+    Write-Output 'Developer mode ok'
 }
 
 # INSTALL CHEZMOI
@@ -117,11 +128,21 @@ Install-ScoopPackage chezmoi -BucketAlias twpayne -BucketUrl https://github.com/
 
 # APPLY DOTFILES
 
-Invoke-Exe 'chezmoi init scottbilas/chezmoi --apply'
+if (!(Test-Path ~/.local/share/chezmoi)) {
+    Invoke-Exe 'chezmoi init scottbilas/chezmoi --apply'
+}
 
 # SETUP
 
-# TODO: call setup.ps1
+Write-Output @"
+   ________________  _____
+  / __/ __/_  __/ / / / _ \
+ _\ \/ _/  / / / /_/ / ___/
+/___/___/ /_/  \____/_/
+
+"@
+
+~/Documents/PowerShell/setup.ps1
 
 # -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-
 out-null
