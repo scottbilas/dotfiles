@@ -99,15 +99,25 @@ if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
     Write-Output 'Scoop ok'
 }
 
-# INSTALL CORE APPS
+# ENABLE DEVELOPER MODE
 
-#Install-ScoopPackage git
+Install-ScoopPackage gsudo
 
-# CHEZMOI
+if (!(Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock).AllowDevelopmentWithoutDevLicense) {
+    Write-Output 'Setting Developer Mode! (UAC dialog incoming)'
+    Write-Host -NoNewline 'press ENTER to confirm: '
+    [Console]::ReadKey() | Out-Null
+    sudo Set-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock AllowDevelopmentWithoutDevLicense 1
+}
 
+# INSTALL CHEZMOI
+
+Install-ScoopPackage git
 Install-ScoopPackage chezmoi -BucketAlias twpayne -BucketUrl https://github.com/twpayne/scoop-bucket
 
-Invoke-Exe 'chezmoi init scottbilas/chezmoi'
+# APPLY DOTFILES
+
+Invoke-Exe 'chezmoi init scottbilas/chezmoi --apply'
 
 # SETUP
 
