@@ -216,6 +216,7 @@
         "**/.vs": true,
         "**/__pycache__": true
     },
+    "git.confirmSync": false,
     "github.username": "scottbilas",
     "go.formatTool": "goimports",
     "go.useLanguageServer": true,
