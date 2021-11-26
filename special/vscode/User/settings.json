@@ -6,10 +6,7 @@
         "editor.defaultFormatter": "vscode.html-language-features"
     },
     "[markdown]": {
-        "editor.tabSize": 2,
-        "gitlens.codeLens.scopes": [
-            "document"
-        ],
+        "editor.tabSize": 2
     },
     "[powershell]": {
         "editor.codeLens": false
@@ -17,7 +14,6 @@
     "[plaintext]": {
         "editor.quickSuggestions": false // often annoying in a txt file - picks random stuff to be helpful, is too aggressive
     },
-    "bashIde.explainshellEndpoint": "http://10.99.98.3:5000",
     "bracket-pair-colorizer-2.colors": [ // roughly matching indentRainbow.colors
         "#A4A456",
         "#72A472",
@@ -159,8 +155,15 @@
             }
         ]
     },
-    "explorer.autoReveal": false,
+    "emojisense.languages": {
+        "csharp": true,
+        "git-commit": true,
+        "markdown": true,
+        "powershell": true,
+        "scminput": true
+    },
     "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
     "files.associations": {
         "config-*": "ini",
         "config": "ini",
@@ -219,6 +222,7 @@
     "git.confirmSync": false,
     "github.username": "scottbilas",
     "go.formatTool": "goimports",
+    "go.toolsManagement.autoUpdate": true,
     "go.useLanguageServer": true,
     "indentRainbow.excludedLanguages": [
         "t4",
@@ -259,18 +263,20 @@
     "powershell.integratedConsole.showOnStartup": false,
     "powershell.promptToUpdatePowerShell": false,
     "problems.decorations.enabled": true,
+    "redhat.telemetry.enabled": false,
     "rewrap.wrappingColumn": 120,
     "search.smartCase": true,
     "search.useGlobalIgnoreFiles": true,
     "scm.defaultViewMode": "tree",
     "shellcheck.customArgs": [ "-x" ],
     "shellformat.flag": "-i 4 -s",
-    "telemetry.enableTelemetry": false,
+    "telemetry.telemetryLevel": "crash",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.lineHeight": 0,
     "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.tabs.enabled": false,
     "todohighlight.keywords": [
         {
             "text": "TODO:",
