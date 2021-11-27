@@ -1,6 +1,0 @@
-# usage: symlink this into .p4ignore at p4 root to emulate "global" ignores
-#
-# mklinkf ~/.config/p4/ignore <path/to/p4/root>/.p4ignore
-
-.git
-.history
