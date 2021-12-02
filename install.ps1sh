@@ -129,7 +129,7 @@ Install-ScoopPackage chezmoi -BucketAlias twpayne -BucketUrl https://github.com/
 # APPLY DOTFILES
 
 if (!(Test-Path ~/.local/share/chezmoi)) {
-    Invoke-Exe 'chezmoi init scottbilas/chezmoi --apply --keep-going'
+    Invoke-Exe 'chezmoi init --config-format yaml --apply --keep-going scottbilas/chezmoi'
 }
 
 # SETUP
