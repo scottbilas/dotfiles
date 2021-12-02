@@ -49,7 +49,7 @@ $ErrorActionPreference = 'Stop'
 # CHECK POWERSHELL
 
 if ($PSVersionTable.PSVersion.Major -lt 7) {
-    throw "`nPowershell is way out of date! (latest=$currentVersion; yours=$($PSVersionTable.PSVersion)`nGo get a new one at https://aka.ms/powershell-release?tag=stable or from the Windows Store (https://www.microsoft.com/en-us/p/powershell/9mz1snwt0n5d)"
+    throw "`nPowershell is way out of date! (yours=$($PSVersionTable.PSVersion)`nGo get a new one at https://aka.ms/powershell-release?tag=stable"
 }
 
 Write-Host @"
