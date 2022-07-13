@@ -74,7 +74,7 @@ function Install-ScoopPackage($Command, $Package, $BucketAlias, $BucketUrl) {
 
     if (!(Get-Command $Command -ErrorAction SilentlyContinue)) {
         if ($BucketAlias) {
-            $buckets = Invoke-Exe 'scoop bucket list'
+            $buckets = Invoke-Exe 'scoop bucket list | % name'
             if ($buckets -notcontains $BucketAlias) {
                 Write-Output "Adding bucket $BucketAlias..."
                 Invoke-Exe "scoop bucket add $BucketAlias $BucketUrl"
@@ -142,7 +142,7 @@ Write-Output @"
 
 "@
 
-~/Documents/PowerShell/setup.ps1
+~/Documents/PowerShell/setup.ps1 -Upgrade
 
 # -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-  -==-
 out-null
