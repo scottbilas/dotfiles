@@ -1,5 +1,7 @@
 # Scott Bilas's dotfiles
 
+OLDE - see https://github.com/scottbilas/chezmoi for current dotfiles
+
 ## Barebones setup
 
 ```bash
